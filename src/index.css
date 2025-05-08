@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+:root {
+  /* Light theme colors */
+  --color-primary: #0056b3;
+  --color-primary-dark: #003d82;
+  --color-background: #ffffff;
+  --color-text-primary: #333333;
+  --color-text-secondary: #555555;
+  --color-text-light: #ffffff;
+  --color-border: #dddddd;
+  --color-input-bg: #ffffff;
+  --color-disabled: #cccccc;
+  --color-error: #ff0000;
+  --color-error-light: #ffebeb;
+
+  /* Dark theme colors */
+  --color-primary-dark-mode: #001c55;
+  --color-primary-dark-dark-mode: #001339;
+  --color-background-dark-mode: #050517;
+  --color-background-light-dark-mode: #12121e;
+  --color-text-primary-dark-mode: #e0e0e0;
+  --color-text-secondary-dark-mode: #a0a0a0;
+  --color-text-light-dark-mode: #fcfffc;
+  --color-border-dark-mode: #333333;
+  --color-input-bg-dark-mode: #1e1e1e;
+  --color-disabled-dark-mode: #555555;
+  --color-error-dark-mode: #ff5252;
+  --color-error-light-dark-mode: #380000;
+  --color-link-dark-mode: #1e90ff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Theme toggle styles */
+.theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text-light);
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  background-color: var(--color-primary-dark);
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: var(--color-background-dark-mode);
+  color: var(--color-text-primary-dark-mode);
+}
+
+.dark-mode .theme-toggle {
+  background-color: var(--color-primary-dark-mode);
+}
+
+.dark-mode .theme-toggle:hover {
+  background-color: var(--color-primary-dark-dark-mode);
+}
+
+a {
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-primary); /* Add this line */
+  transition: width 0.3s ease;
+}
+
+
+a:hover::after {
+  width: 100%;
+}
