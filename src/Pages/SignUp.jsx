@@ -6,6 +6,7 @@ import './PageStyles/SignUp.css';
 const SignUp = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
+        fullName: '',
         username: '',
         email: '',
         password: '',
@@ -38,6 +39,7 @@ const SignUp = () => {
             
             // Send data to backend
             const response = await axios.post('http://localhost:5000/api/auth/signup', {
+                fullName: formData.fullName,
                 username: formData.username,
                 email: formData.email,
                 password: formData.password,
@@ -63,6 +65,18 @@ const SignUp = () => {
             {error && <div className="error-message">{error}</div>}
             
             <form onSubmit={handleSubmit} className="signup-form">
+                <div className="form-group">
+                    <label htmlFor="fullName">Full Name</label>
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
                     <input
