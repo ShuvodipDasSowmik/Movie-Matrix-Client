@@ -1,0 +1,57 @@
+/* DataTable Light Mode Styles */
+.data-table-container {
+    background-color: var(--color-background);
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.table {
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+    border-color: var(--color-border);
+}
+
+.table-header {
+    background-color: var(--color-primary) !important;
+    color: var(--color-text-light) !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.dark-mode .data-table-container {
+    background-color: var(--color-background-light-dark-mode);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .table {
+    color: var(--color-text-primary-dark-mode);
+    background-color: var(--color-background-light-dark-mode);
+    border-color: var(--color-border-dark-mode);
+}
+
+.dark-mode .table-header {
+    background-color: var(--color-primary-dark-mode) !important;
+    color: var(--color-text-light-dark-mode) !important;
+}
+
+.dark-mode .table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .table-hover > tbody > tr:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark-mode .table-bordered,
+.dark-mode .table-bordered td,
+.dark-mode .table-bordered th {
+    border-color: var(--color-border-dark-mode);
+}

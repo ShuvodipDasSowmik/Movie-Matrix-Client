@@ -26,33 +26,39 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         // Validation
         if (formData.password !== formData.confirmPassword) {
             setError('Passwords do not match');
             return;
         }
-        
+
         try {
             setLoading(true);
             setError('');
-            
+
+            console.log('Form data before sending:', formData);
+
             // Send data to backend
-            const response = await axios.post('http://localhost:5000/api/auth/signup', {
+            const response = await axios.post('http://localhost:3000/signup', {
                 fullName: formData.fullName,
-                username: formData.username,
+                userName: formData.username,
                 email: formData.email,
                 password: formData.password,
-                dob: formData.dob
+                dob: formData.dob,
+                role: 'USER'
             });
-            
+
             console.log('Signup successful:', response.data);
-            
-            // Redirect to sign in page
-            navigate('/signin');
+
+            // Redirect to User Profile
+            navigate(`/profile/${formData.username}`);
+
         } catch (err) {
+            
             setError(err.response?.data?.message || 'Something went wrong. Please try again.');
             console.error('Signup error:', err);
+
         } finally {
             setLoading(false);
         }
@@ -61,9 +67,9 @@ const SignUp = () => {
     return (
         <div className="signup-container">
             <h1>Create Your Account</h1>
-            
+
             {error && <div className="error-message">{error}</div>}
-            
+
             <form onSubmit={handleSubmit} className="signup-form">
                 <div className="form-group">
                     <label htmlFor="fullName">Full Name</label>
@@ -76,7 +82,7 @@ const SignUp = () => {
                         required
                     />
                 </div>
-                
+
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
                     <input
@@ -88,7 +94,7 @@ const SignUp = () => {
                         required
                     />
                 </div>
-                
+
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input
@@ -100,7 +106,7 @@ const SignUp = () => {
                         required
                     />
                 </div>
-                
+
                 <div className="form-group">
                     <label htmlFor="dob">Date of Birth</label>
                     <input
@@ -112,7 +118,7 @@ const SignUp = () => {
                         required
                     />
                 </div>
-                
+
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
                     <input
@@ -125,7 +131,7 @@ const SignUp = () => {
                         required
                     />
                 </div>
-                
+
                 <div className="form-group">
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <input
@@ -138,15 +144,15 @@ const SignUp = () => {
                         required
                     />
                 </div>
-                
-                <button 
-                    type="submit" 
+
+                <button
+                    type="submit"
                     className="signup-button"
                     disabled={loading}
                 >
                     {loading ? 'Signing up...' : 'Sign Up'}
                 </button>
-                
+
                 <div className="signin-link">
                     Already have an account? <a href="/signin">Sign in</a>
                 </div>

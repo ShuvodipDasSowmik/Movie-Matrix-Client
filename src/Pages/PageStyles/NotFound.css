@@ -1,0 +1,197 @@
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Changed from min-height to fixed height */
+  max-height: 100vh; /* Explicitly set maximum height */
+  position: relative;
+  overflow: auto; /* Changed from hidden to auto to allow scrolling if needed */
+  padding: 2rem;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  box-sizing: border-box; /* Added to include padding in height calculation */
+}
+
+.film-reel-top,
+.film-reel-bottom {
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent 30px,
+    var(--color-border) 30px,
+    var(--color-border) 60px
+  );
+  opacity: 0.8;
+  z-index: 5;
+}
+
+.film-reel-top {
+  top: 0;
+}
+
+.film-reel-bottom {
+  bottom: 0;
+}
+
+.not-found-content {
+  background-color: var(--color-background);
+  border-radius: 16px;
+  padding: 2.5rem;
+  text-align: center;
+  max-width: 600px;
+  max-height: 80vh; /* Added to ensure content doesn't exceed viewport */
+  overflow-y: auto; /* Added to allow scrolling if content is too tall */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border);
+}
+
+.error-code {
+  font-size: 6rem;
+  margin: 0;
+  background: linear-gradient(45deg, #ff4b2b, #ff416c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(255, 75, 43, 0.5);
+}
+
+.film-reel {
+  display: inline-block;
+  font-size: 4rem;
+}
+
+.error-title {
+  font-size: 2.5rem;
+  margin: 0.5rem 0 1.5rem;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.error-message {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.home-button {
+  display: inline-block;
+  padding: 12px 28px;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 50px;
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.home-button:hover {
+  transform: translateY(-3px);
+  background-color: var(--color-primary-dark);
+}
+
+.home-button:after{
+    content: none;
+}
+
+
+/* Dark mode specific styles */
+.dark-mode .not-found-container {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background-color: var(--color-background-light-dark-mode);
+}
+
+.dark-mode .film-reel-top,
+.dark-mode .film-reel-bottom {
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent 30px,
+    var(--color-border-dark-mode) 30px,
+    var(--color-border-dark-mode) 60px
+  );
+}
+
+.dark-mode .not-found-content {
+  background-color: var(--color-background-light-dark-mode);
+  border: 1px solid var(--color-border-dark-mode);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .error-title {
+  color: var(--color-text-primary-dark-mode);
+}
+
+.dark-mode .error-message {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+.dark-mode .home-button {
+  background-color: var(--color-primary-dark-mode);
+  color: var(--color-text-light-dark-mode);
+}
+
+.dark-mode .home-button:hover {
+  background-color: var(--color-primary-dark-dark-mode);
+}
+
+.dark-mode .spotlight {
+  background: radial-gradient(
+    circle,
+    rgba(255, 126, 95, 0.15) 0%,
+    transparent 70%
+  );
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spotlight {
+  0% {
+    opacity: 0.5;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateX(-48%) scale(1.2);
+  }
+  100% {
+    opacity: 0.5;
+    transform: translateX(-52%) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .error-code {
+    font-size: 4rem;
+  }
+
+  .error-title {
+    font-size: 1.8rem;
+  }
+
+  .not-found-content {
+    padding: 1.5rem;
+    max-height: 85vh; /* Slightly larger on small screens to use available space */
+  }
+  
+  .film-reel {
+    font-size: 3rem;
+  }
+}
