@@ -3,19 +3,32 @@
     background-color: var(--color-background);
     border-radius: 6px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
     margin-bottom: 20px;
+    overflow: auto;
+    max-height: 70vh;
 }
 
 .table {
     color: var(--color-text-primary);
     background-color: var(--color-background);
     border-color: var(--color-border);
+    width: 100%;
+    min-width: 600px; /* Ensures table doesn't collapse too much */
 }
 
 .table-header {
     background-color: var(--color-primary) !important;
     color: var(--color-text-light) !important;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.table-header th {
+    font-weight: 600;
+    padding: 12px 15px;
+    text-align: left;
+    white-space: nowrap;
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) {
@@ -24,8 +37,24 @@
 
 .table-hover > tbody > tr:hover {
     background-color: rgba(0, 0, 0, 0.04);
+    cursor: pointer;
 }
 
+.table tbody td {
+    padding: 10px 15px;
+    vertical-align: middle;
+    border-top: 1px solid var(--color-border);
+}
+
+/* Truncate long text in cells */
+.table td {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Dark Mode */
 .dark-mode .data-table-container {
     background-color: var(--color-background-light-dark-mode);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -54,4 +83,81 @@
 .dark-mode .table-bordered td,
 .dark-mode .table-bordered th {
     border-color: var(--color-border-dark-mode);
+}
+
+.dark-mode tbody td {
+    border-top: 1px solid var(--color-border-dark-mode);
+}
+
+/* Pagination styles */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    padding: 0.5rem;
+}
+
+.pagination-button {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    color: var(--color-primary);
+    padding: 6px 12px;
+    margin: 0 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.pagination-button:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.pagination-button.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.dark-mode .pagination-button {
+    background-color: var(--color-background-light-dark-mode);
+    border: 1px solid var(--color-border-dark-mode);
+    color: var(--color-link-dark-mode);
+}
+
+.dark-mode .pagination-button:hover {
+    background-color: var(--color-primary-dark-mode);
+    color: white;
+}
+
+.dark-mode .pagination-button.active {
+    background-color: var(--color-primary-dark-mode);
+    color: white;
+    border-color: var(--color-primary-dark-mode);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .data-table-container {
+        max-height: 50vh;
+    }
+    
+    .table-header th {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+    
+    .table tbody td {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+        max-width: 150px;
+    }
+}
+
+/* Loading indicator */
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
 }

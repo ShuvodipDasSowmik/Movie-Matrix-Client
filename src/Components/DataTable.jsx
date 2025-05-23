@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './DataTable.css'; // We'll create this CSS file
+import './DataTable.css';
 
 const DataTable = ({ data }) => {
     if (!data || data.length === 0) {

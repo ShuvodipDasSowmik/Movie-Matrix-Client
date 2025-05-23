@@ -14,15 +14,33 @@ export const ThemeProvider = ({ children }) => {
     }
   });
 
-  // Apply theme changes to document when darkMode changes
+  // Handle initial render and theme changes
   useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-    }
-    // Store the user's preference
-    localStorage.setItem('darkMode', darkMode);
+    const applyTheme = () => {
+      // Apply theme to both html and body elements
+      if (darkMode) {
+        document.documentElement.classList.add('dark-theme');
+        document.body.classList.add('dark-mode');
+      } else {
+        document.documentElement.classList.remove('dark-theme');
+        document.body.classList.remove('dark-mode');
+      }
+      
+      // Store the user's preference
+      localStorage.setItem('darkMode', darkMode);
+    };
+    
+    applyTheme();
+    
+    // Enable transitions after initial render to prevent flickering
+    setTimeout(() => {
+      document.body.classList.add('theme-transitions-enabled');
+    }, 100);
+    
+    return () => {
+      // Clean up when component unmounts
+      document.body.classList.remove('theme-transitions-enabled');
+    };
   }, [darkMode]);
 
   // Function to toggle between light and dark mode
