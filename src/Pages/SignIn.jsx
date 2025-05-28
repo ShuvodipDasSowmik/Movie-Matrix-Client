@@ -36,17 +36,19 @@ const SignIn = () => {
                 password: formData.password
             });
 
-            // console.log('SignIn successful:', response.data);
-
-            localStorage.setItem('authToken', response.data.token)
-
-            // Redirect to User Profile
+            // Store authentication data in localStorage
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('username', formData.username);
+            
+            console.log('Authentication data stored in localStorage');
+            
+            // Redirect to User Profile after storage is complete
             navigate(`/profile/${formData.username}`);
 
         } catch (err) {
             
             setError(err.response?.data?.message || 'Something went wrong. Please try again.');
-            console.error('Signup error:', err);
+            console.error('Signin error:', err);
 
         } finally {
             setLoading(false);

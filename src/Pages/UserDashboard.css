@@ -1,0 +1,304 @@
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dark-mode .dashboard-header {
+  border-bottom: 1px solid var(--color-border-dark-mode);
+}
+
+.dashboard-header h1 {
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.dark-mode .dashboard-header h1 {
+  color: var(--color-text-light-dark-mode);
+}
+
+.logout-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #d32f2f;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: var(--color-text-secondary);
+}
+
+.dark-mode .loading {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+/* User Profile Section */
+.user-profile-section {
+  background-color: var(--color-background);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.dark-mode .user-profile-section {
+  background-color: var(--color-background-light-dark-mode);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.dark-mode .profile-avatar {
+  background-color: var(--color-primary-dark-mode);
+  color: var(--color-text-light-dark-mode);
+}
+
+.profile-info {
+  flex-grow: 1;
+  position: relative;
+}
+
+.profile-info h2 {
+  font-size: 1.8rem;
+  margin: 0 0 0.5rem 0;
+  display: inline-block;
+  color: var(--color-text-primary);
+}
+
+.dark-mode .profile-info h2 {
+  color: var(--color-text-primary-dark-mode);
+}
+
+.edit-btn {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-left: 1rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.edit-btn:hover {
+  background-color: rgba(0, 86, 179, 0.1);
+}
+
+.dark-mode .edit-btn {
+  color: var(--color-link-dark-mode);
+}
+
+.dark-mode .edit-btn:hover {
+  background-color: rgba(30, 144, 255, 0.1);
+}
+
+.username, .user-email, .user-age {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  margin: 0.25rem 0;
+}
+
+.dark-mode .username, 
+.dark-mode .user-email, 
+.dark-mode .user-age {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+/* Edit form */
+.edit-name-form {
+  margin-bottom: 1rem;
+}
+
+.edit-name-form input {
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 300px;
+  max-width: 100%;
+  margin-bottom: 0.5rem;
+  background-color: var(--color-input-bg);
+  color: var(--color-text-primary);
+}
+
+.dark-mode .edit-name-form input {
+  border: 1px solid var(--color-border-dark-mode);
+  background-color: var(--color-input-bg-dark-mode);
+  color: var(--color-text-primary-dark-mode);
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.save-btn, .cancel-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.save-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #388e3c;
+}
+
+.cancel-btn {
+  background-color: #9e9e9e;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #757575;
+}
+
+/* Watchlists Section */
+.watchlists-section {
+  background-color: var(--color-background);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+}
+
+.dark-mode .watchlists-section {
+  background-color: var(--color-background-light-dark-mode);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.watchlists-section h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--color-primary);
+}
+
+.dark-mode .watchlists-section h2 {
+  color: var(--color-text-light-dark-mode);
+}
+
+.watchlists-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.watchlist-placeholder {
+  border: 2px dashed var(--color-border);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.dark-mode .watchlist-placeholder {
+  border: 2px dashed var(--color-border-dark-mode);
+}
+
+.watchlist-placeholder p {
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+}
+
+.dark-mode .watchlist-placeholder p {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+.create-watchlist-btn {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.create-watchlist-btn:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.dark-mode .create-watchlist-btn {
+  background-color: var(--color-primary-dark-mode);
+  color: var(--color-text-light-dark-mode);
+}
+
+.dark-mode .create-watchlist-btn:hover {
+  background-color: var(--color-primary-dark-dark-mode);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .edit-btn {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  
+  .watchlists-container {
+    grid-template-columns: 1fr;
+  }
+}

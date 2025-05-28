@@ -207,6 +207,44 @@
     margin-top: 10px;
 }
 
+.data-type-selection, .data-type-requirements{
+    margin-bottom: 20px;
+}
+
+.data-type-requirements h3{
+    margin-bottom: 10px;
+}
+
+.data-type-dropdown {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    margin-top: 10px;
+}
+
+.dark-mode .data-type-dropdown {
+    background-color: var(--color-background-light-dark-mode);
+    border-color: #555;
+    color: var(--color-text-light-dark-mode);
+}
+
+.required-columns-list {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.required-columns-list li {
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.dark-mode .required-columns-list li {
+    color: var(--color-text-secondary-dark-mode);
+}
+
 /* Responsive adjustments */
 @media (min-width: 768px) {
     .admin-content {

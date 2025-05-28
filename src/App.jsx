@@ -10,6 +10,7 @@ import Home from './Pages/Home'
 import NotFound from './Pages/404'
 import Admin from './Pages/Admin'
 import Header from './Components/Header'
+import ProtectedRoute from './Components/ProtectedRoute'
 
 
 function App() {
@@ -21,9 +22,9 @@ function App() {
           <Routes>
             <Route path='/' element={<> <Header /> <Home/> </>} />
             <Route path='/admin' element={<><Header /><Admin /></>} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/profile/:username" element={<UserDashboard />} />
+            <Route path="/signin" element={<ProtectedRoute element={<SignIn />} />} />
+            <Route path="/signup" element={<ProtectedRoute element={<SignUp />} />} />
+            <Route path="/profile/:username" element={<ProtectedRoute element={<><Header /><UserDashboard /></>} authRequired={true} />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <ThemeToggle />

@@ -2,29 +2,77 @@ import React, { useState, useEffect } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { IoClose } from 'react-icons/io5';
+import { FaUserCircle } from 'react-icons/fa';
 import SearchBar from './SearchBar';
 import './Header.css';
 
 const navigationItems = [
+  {
+    label: 'Home',
+    navigationLink: '/'
+  },
   { 
     label: 'Movies', 
-    subItems: ['Popular', 'Top Rated', 'Upcoming', 'Now Playing'] 
+    navigationLink: '/movies',
+    subItems: [
+      { label: 'Popular', navigationLink: '/movies/popular' },
+      { label: 'Top Rated', navigationLink: '/movies/top-rated' },
+      { label: 'Upcoming', navigationLink: '/movies/upcoming' },
+      { label: 'Now Playing', navigationLink: '/movies/now-playing' }
+    ]
   },
   { 
     label: 'TV Shows', 
-    subItems: ['Popular', 'Top Rated', 'On The Air', 'Airing Today'] 
+    navigationLink: '/tv-shows',
+    subItems: [
+      { label: 'Popular', navigationLink: '/tv-shows/popular' },
+      { label: 'Top Rated', navigationLink: '/tv-shows/top-rated' },
+      { label: 'On The Air', navigationLink: '/tv-shows/on-the-air' },
+      { label: 'Airing Today', navigationLink: '/tv-shows/airing-today' }
+    ]
   },
   { 
     label: 'People', 
-    subItems: ['Popular People'] 
+    navigationLink: '/people',
+    subItems: [
+      { label: 'Popular People', navigationLink: '/people/popular' }
+    ]
   },
 ];
 
 const Header = () => {
+  // Check auth status before initial render to prevent flickering
+  const checkAuthStatus = () => {
+    const token = localStorage.getItem('token');
+    const storedUsername = localStorage.getItem('username');
+    return { 
+      isAuthenticated: Boolean(token && storedUsername), 
+      username: storedUsername || ''
+    };
+  };
+
+  const initialAuth = checkAuthStatus();
+  
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [expandedItems, setExpandedItems] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(initialAuth.isAuthenticated);
+  const [username, setUsername] = useState(initialAuth.username);
+  const [isAuthLoaded, setIsAuthLoaded] = useState(true);
+
+  // Re-check auth status if localStorage changes
+  useEffect(() => {
+    // Listen for storage changes (if user logs in/out in another tab)
+    const handleStorageChange = () => {
+      const authStatus = checkAuthStatus();
+      setIsLoggedIn(authStatus.isAuthenticated);
+      setUsername(authStatus.username);
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   // Check if viewport is mobile size
   useEffect(() => {
@@ -90,24 +138,30 @@ const Header = () => {
           <ul className="nav-menu">
             {navigationItems.map((item, index) => (
               <li key={index} className="nav-item">
-                <button 
-                  className="nav-link dropdown-toggle"
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent event bubbling
-                    handleDropdownToggle(index);
-                  }}
-                >
-                  {item.label} <IoMdArrowDropdown />
-                </button>
-                {activeDropdown === index && (
+                {item.subItems ? (
+                  <button 
+                    className="nav-link dropdown-toggle"
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent event bubbling
+                      handleDropdownToggle(index);
+                    }}
+                  >
+                    {item.label} <IoMdArrowDropdown />
+                  </button>
+                ) : (
+                  <a href={item.navigationLink} className="nav-link">
+                    {item.label}
+                  </a>
+                )}
+                {activeDropdown === index && item.subItems && (
                   <ul className="dropdown-menu">
                     {item.subItems.map((subItem, subIndex) => (
                       <li key={subIndex}>
                         <a 
-                          href={`/${item.label.toLowerCase().replace(/\s+/g, '-')}/${subItem.toLowerCase().replace(/\s+/g, '-')}`}
-                          onClick={() => handleMenuItemClick(`/${item.label}/${subItem}`)}
+                          href={subItem.navigationLink}
+                          onClick={() => handleMenuItemClick(subItem.navigationLink)}
                         >
-                          {subItem}
+                          {subItem.label}
                         </a>
                       </li>
                     ))}
@@ -119,7 +173,13 @@ const Header = () => {
               <SearchBar />
             </li>
             <li className="nav-item">
-              <a href="/login" className="nav-link login-btn">Login</a>
+              {isLoggedIn ? (
+                <a href={`/profile/${username}`} className="nav-link profile-icon">
+                  <FaUserCircle size={24} title="My Profile" />
+                </a>
+              ) : (
+                <a href="/signin" className="nav-link login-btn">Login</a>
+              )}
             </li>
           </ul>
         </nav>
@@ -156,22 +216,29 @@ const Header = () => {
             <ul className="drawer-menu">
               {navigationItems.map((item, index) => (
                 <li key={index} className="drawer-item">
-                  <div 
-                    className="drawer-dropdown"
-                    onClick={() => handleMobileExpand(index)}
-                  >
-                    <span>{item.label}</span>
-                    <IoMdArrowDropdown className={expandedItems[index] ? 'rotated' : ''} />
-                  </div>
-                  {expandedItems[index] && (
+                  {item.subItems ? (
+                    <div 
+                      className="drawer-dropdown"
+                      onClick={() => handleMobileExpand(index)}
+                    >
+                      <span>{item.label}</span>
+                      <IoMdArrowDropdown className={expandedItems[index] ? 'rotated' : ''} />
+                    </div>
+                  ) : (
+                    <a href={item.navigationLink} className="drawer-link">
+                      {item.label}
+                    </a>
+                  )}
+                  
+                  {expandedItems[index] && item.subItems && (
                     <ul className="drawer-submenu">
                       {item.subItems.map((subItem, subIndex) => (
                         <li key={subIndex}>
                           <a 
-                            href={`/${item.label.toLowerCase().replace(/\s+/g, '-')}/${subItem.toLowerCase().replace(/\s+/g, '-')}`}
-                            onClick={() => handleMenuItemClick(`/${item.label}/${subItem}`)}
+                            href={subItem.navigationLink}
+                            onClick={() => handleMenuItemClick(subItem.navigationLink)}
                           >
-                            {subItem}
+                            {subItem.label}
                           </a>
                         </li>
                       ))}
@@ -179,8 +246,15 @@ const Header = () => {
                   )}
                 </li>
               ))}
+              
               <li className="drawer-item">
-                <a href="/login" className="drawer-login-btn">Login</a>
+                {isLoggedIn ? (
+                  <a href={`/profile/${username}`} className="drawer-profile-btn">
+                    <FaUserCircle size={20} /> My Profile
+                  </a>
+                ) : (
+                  <a href="/signin" className="drawer-login-btn">Login</a>
+                )}
               </li>
             </ul>
           </nav>

@@ -4,12 +4,37 @@ import useFileUpload from "../Hooks/useFileUpload";
 import "./Admin.css";
 
 const Admin = () => {
-    const { file, data, error, handleFileChange, clearFile } = useFileUpload();
+    const { file, data, error, dataType, handleFileChange, clearFile, updateDataType, clearAll } = useFileUpload();
     const [submissionStatus, setSubmissionStatus] = useState({
         loading: false,
         success: false,
         error: null
     });
+    
+    const dataTypeRequirements = {
+        genre: ['genrename'],
+        studio: ['studioname', 'foundingyear', 'location'],
+        director: ['directorname', 'biography', 'nationality', 'dob'],
+        actor: ['actorname', 'biography', 'nationality', 'dob']
+    };
+    
+    const validateData = () => {
+        if (!dataType || !data || data.length === 0) return false;
+        
+        const requiredColumns = dataTypeRequirements[dataType];
+        if (!requiredColumns) return false;
+        
+        // Check if headers (first row keys) match required columns
+        const headers = Object.keys(data[0]).map(header => header.toLowerCase());
+        return requiredColumns.every(col => headers.includes(col.toLowerCase()));
+    };
+    
+    const handleDataTypeChange = (e) => {
+        const newType = e.target.value;
+        updateDataType(newType);
+        // Clear any existing data and errors when changing type
+        if (file) clearFile();
+    };
     
     const handleDatabaseEntry = async () => {
         if (!data || data.length === 0) {
@@ -21,6 +46,24 @@ const Admin = () => {
             return;
         }
         
+        if (!dataType) {
+            setSubmissionStatus({
+                loading: false,
+                success: false,
+                error: "Please select a data type before submitting."
+            });
+            return;
+        }
+        
+        if (!validateData()) {
+            setSubmissionStatus({
+                loading: false,
+                success: false,
+                error: `CSV file does not match the required columns for ${dataType} data.`
+            });
+            return;
+        }
+        
         setSubmissionStatus({
             loading: true,
             success: false,
@@ -28,20 +71,33 @@ const Admin = () => {
         });
         
         try {
-            // Replace with your actual API endpoint
-            const response = await fetch('http://localhost:3000/adminEntry', {
+            const response = await fetch('http://localhost:3000/admin', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ movies: data }),
+                body: JSON.stringify({ 
+                    data: data,
+                    dataType: dataType 
+                }),
             });
 
             console.log(response);
             
-            
-            if (!response.ok) {
-                throw new Error('Failed to submit data to database');
+            if(response.status === 207) {
+                const errorData = await response.json();
+                const success = errorData.success;
+                const failure = errorData.failure;
+                throw new Error(errorData.message || 'Failed to submit data');
+            }
+            else if( response.status === 500) {
+                const message = await response.json().message;
+
+                throw new Error('Internal server error. Please try again later.');
+            }
+            else if (response.status === 200) {
+                const result = await response.json();
+                const message = result.message || 'Data submitted successfully';
             }
             
             setSubmissionStatus({
@@ -83,6 +139,33 @@ const Admin = () => {
             <div className="admin-content">
                 <div className="file-upload-section">
                     <h2>Upload CSV File</h2>
+                    
+                    <div className="data-type-selection">
+                        <h3>Select Data Type</h3>
+                        <select 
+                            value={dataType} 
+                            onChange={handleDataTypeChange}
+                            className="data-type-dropdown"
+                        >
+                            <option value="">-- Select Data Type --</option>
+                            <option value="genre">Genre</option>
+                            <option value="studio">Studio</option>
+                            <option value="director">Director</option>
+                            <option value="actor">Actor</option>
+                        </select>
+                    </div>
+                    
+                    {dataType && (
+                        <div className="data-type-requirements">
+                            <h3>Required Columns</h3>
+                            <ul className="required-columns-list">
+                                {dataTypeRequirements[dataType].map(column => (
+                                    <li key={column}>{column}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                    
                     <div className="file-input-container">
                         <label className="file-input-label">
                             Choose File
@@ -91,6 +174,7 @@ const Admin = () => {
                                 accept=".csv"
                                 onChange={handleFileChange}
                                 className="file-input"
+                                disabled={!dataType}
                             />
                         </label>
 
@@ -116,19 +200,24 @@ const Admin = () => {
                             <button 
                                 className="database-entry-button"
                                 onClick={handleDatabaseEntry}
-                                disabled={submissionStatus.loading || !data.length}
+                                disabled={submissionStatus.loading || !data.length || !dataType || !validateData()}
                             >
                                 {submissionStatus.loading ? 'Processing...' : 'Entry to Database'}
                             </button>
                         )}
                     </div>
                     
-                    {submissionStatus.success && (
-                        <p className="success-message">Data successfully submitted to database!</p>
-                    )}
-                    {submissionStatus.error && (
-                        <p className="error-message">{submissionStatus.error}</p>
-                    )}
+                    <div className="submission-status-container">
+                        {submissionStatus.success && (
+                            <p className="success-message">Data successfully submitted to database!</p>
+                        )}
+                        {submissionStatus.error && (
+                            <p className="error-message">{submissionStatus.error}</p>
+                        )}
+                        {submissionStatus.loading && (
+                            <p className="loading-message">Processing your request...</p>
+                        )}
+                    </div>
                     
                     {data && data.length > 0 ? (
                         <DataTable data={data} />
