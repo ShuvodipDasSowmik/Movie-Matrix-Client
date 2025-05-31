@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "../Components/DataTable";
 import useFileUpload from "../Hooks/useFileUpload";
-import "./Admin.css";
+import "./PageStyles/Admin.css";
 
 const Admin = () => {
     const { file, data, error, dataType, handleFileChange, clearFile, updateDataType, clearAll } = useFileUpload();
@@ -15,7 +15,9 @@ const Admin = () => {
         genre: ['genrename'],
         studio: ['studioname', 'foundingyear', 'location'],
         director: ['directorname', 'biography', 'nationality', 'dob'],
-        actor: ['actorname', 'biography', 'nationality', 'dob']
+        actor: ['actorname', 'biography', 'nationality', 'dob'],
+        media: ['title', 'releaseyear', 'description', 'language', 'pgrating', 'trailerlink', 'mediatype', 'duration', 'isongoing'],
+        mediaactor: ['media', 'actor']
     };
     
     const validateData = () => {
@@ -26,12 +28,17 @@ const Admin = () => {
         
         // Check if headers (first row keys) match required columns
         const headers = Object.keys(data[0]).map(header => header.toLowerCase());
+        console.log(headers);
+        
         return requiredColumns.every(col => headers.includes(col.toLowerCase()));
     };
     
     const handleDataTypeChange = (e) => {
         const newType = e.target.value;
         updateDataType(newType);
+
+        console.log(newType);
+        
         // Clear any existing data and errors when changing type
         if (file) clearFile();
     };
@@ -129,6 +136,15 @@ const Admin = () => {
         return () => clearTimeout(timer);
     }, [submissionStatus.success]);
 
+    // Add this new function to determine why button is disabled
+    const getButtonDisabledReason = () => {
+        if (submissionStatus.loading) return "Processing your request...";
+        if (!data || data.length === 0) return "No data available. Please upload a CSV file first.";
+        if (!dataType) return "Please select a data type before submitting.";
+        if (!validateData()) return `CSV file does not match the required columns for ${dataType} data.`;
+        return null;
+    };
+
     return (
         <div className="admin-container">
             <div className="admin-header">
@@ -152,6 +168,8 @@ const Admin = () => {
                             <option value="studio">Studio</option>
                             <option value="director">Director</option>
                             <option value="actor">Actor</option>
+                            <option value="media">Media</option>
+                            <option value="mediaactor">Media Actor Mapping</option>
                         </select>
                     </div>
                     
@@ -216,6 +234,11 @@ const Admin = () => {
                         )}
                         {submissionStatus.loading && (
                             <p className="loading-message">Processing your request...</p>
+                        )}
+                        {/* Add disabled button reason */}
+                        {!submissionStatus.loading && !submissionStatus.success && !submissionStatus.error && 
+                         getButtonDisabledReason() && (
+                            <p className="disabled-button-message">{getButtonDisabledReason()}</p>
                         )}
                     </div>
                     

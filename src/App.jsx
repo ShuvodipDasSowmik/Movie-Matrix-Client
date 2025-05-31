@@ -11,6 +11,7 @@ import NotFound from './Pages/404'
 import Admin from './Pages/Admin'
 import Header from './Components/Header'
 import ProtectedRoute from './Components/ProtectedRoute'
+import Actor from './Pages/Actor'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<> <Header /> <Home/> </>} />
+            <Route path='/actor/:actorname' element={<> <Header /> <Actor/> </>} />
             <Route path='/admin' element={<><Header /><Admin /></>} />
             <Route path="/signin" element={<ProtectedRoute element={<SignIn />} />} />
             <Route path="/signup" element={<ProtectedRoute element={<SignUp />} />} />
