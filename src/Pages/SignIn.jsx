@@ -28,8 +28,6 @@ const SignIn = () => {
             setLoading(true);
             setError('');
 
-            // console.log('Form data before sending:', formData);
-
             // Send data to backend
             const response = await axios.post('http://localhost:3000/signin', {
                 userName: formData.username,
@@ -38,18 +36,16 @@ const SignIn = () => {
 
             // Store authentication data in localStorage
             localStorage.setItem('token', response.data.token);
-            localStorage.setItem('username', formData.username);
+            localStorage.setItem('username', response.data.user.username);
             
             console.log('Authentication data stored in localStorage');
             
             // Redirect to User Profile after storage is complete
-            navigate(`/profile/${formData.username}`);
+            navigate(`/profile/${response.data.user.username}`);
 
         } catch (err) {
-            
-            setError(err.response?.data?.message || 'Something went wrong. Please try again.');
+            setError(err.response?.data || 'Invalid username or password');
             console.error('Signin error:', err);
-
         } finally {
             setLoading(false);
         }
@@ -58,7 +54,7 @@ const SignIn = () => {
 
     return (
         <div className="signup-container">
-            <h1>Create Your Account</h1>
+            <h1>Sign In to Your Account</h1>
 
             {error && <div className="error-message">{error}</div>}
 

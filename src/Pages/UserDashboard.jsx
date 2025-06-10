@@ -15,7 +15,7 @@ const UserDashboard = () => {
     useEffect(() => {
         const checkAuth = async () => {
             const authToken = localStorage.getItem('token');
-
+            
             if (!authToken) {
                 // No token found, redirect to login
                 setIsLoading(false);
@@ -25,14 +25,22 @@ const UserDashboard = () => {
 
             try {
                 // Call the API to validate the token and get user info
-                const response = await fetch('http://localhost:3000/validate-token', {
+                // Pass the requested username as a query parameter
+                const response = await fetch(`http://localhost:3000/validate-token?requestedUsername=${username}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${authToken}`,
-                        'Content-Type': 'application/json',
-                        'username': username
+                        'Content-Type': 'application/json'
                     }
                 });
+
+                if (response.status === 403) {
+                    // User is authenticated but not authorized to view this profile
+                    const data = await response.json();
+                    // Redirect to the user's authorized profile
+                    navigate(`/profile/${data.authorizedUsername}`);
+                    return;
+                }
 
                 if (!response.ok) {
                     throw new Error('Token validation failed');
@@ -51,6 +59,7 @@ const UserDashboard = () => {
                 console.error('Authentication error:', error);
                 // Token is invalid or expired
                 localStorage.removeItem('token');
+                localStorage.removeItem('username');
                 navigate('/signin');
             } finally {
                 setIsLoading(false);
@@ -94,7 +103,8 @@ const UserDashboard = () => {
             });
 
             if (response.ok) {
-                setUser({...user, fullName: editedFullName});
+                const data = await response.json();
+                setUser({...user, fullName: data.user.fullName});
                 setIsEditing(false);
             } else {
                 console.error('Failed to update full name');

@@ -12,6 +12,7 @@ import Admin from './Pages/Admin'
 import Header from './Components/Header'
 import ProtectedRoute from './Components/ProtectedRoute'
 import Actor from './Pages/Actor'
+import Footer from './Components/Footer';
 
 
 function App() {
@@ -21,12 +22,12 @@ function App() {
       <ThemeProvider>
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<> <Header /> <Home/> </>} />
-            <Route path='/actor/:actorname' element={<> <Header /> <Actor/> </>} />
-            <Route path='/admin' element={<><Header /><Admin /></>} />
+            <Route path='/' element={<> <Header /> <Home/> <Footer /> </>} />
+            <Route path='/actor/:actorname' element={<> <Header /> <Actor/> <Footer /></>} />
+            <Route path='/admin' element={<><Header /><Admin /> <Footer /></>} />
             <Route path="/signin" element={<ProtectedRoute element={<SignIn />} />} />
             <Route path="/signup" element={<ProtectedRoute element={<SignUp />} />} />
-            <Route path="/profile/:username" element={<ProtectedRoute element={<><Header /><UserDashboard /></>} authRequired={true} />} />
+            <Route path="/profile/:username" element={<ProtectedRoute element={<><Header /><UserDashboard /> <Footer /></>} authRequired={true} />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <ThemeToggle />

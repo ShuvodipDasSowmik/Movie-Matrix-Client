@@ -1,0 +1,143 @@
+.footer {
+  background-color: #f8f9fa; /* Changed: lighter background for light mode */
+  color: var(--color-text-primary, #333333);
+  padding: 2rem 0;
+  margin-top: 2rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.footer-logo h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-primary, #0056b3);
+}
+
+.footer-logo p {
+  color: var(--color-text-secondary, #555555);
+  font-size: 0.9rem;
+}
+
+.contributors-section {
+  margin-top: 1rem;
+}
+
+.contributors-section h4 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.contributors-section h4:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 2px;
+  background-color: var(--color-primary, #0056b3);
+}
+
+.contributors-list {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.contributor-card {
+  background-color: var(--color-background, #ffffff);
+  padding: 1rem;
+  border-radius: 5px;
+  min-width: 200px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contributor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.contributor-card h5 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icon {
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.social-links a {
+  color: var(--color-text-secondary, #555555);
+}
+
+.social-links a:hover {
+  color: var(--color-primary, #0056b3);
+}
+
+.social-links a::after {
+  display: none;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border, #dddddd);
+  font-size: 0.8rem;
+  color: var(--color-text-secondary, #777);
+}
+
+/* Dark mode specific styles */
+body.dark-mode .footer {
+  background-color: var(--color-background-light-dark-mode, #12121e);
+  color: var(--color-text-primary-dark-mode, #e0e0e0);
+}
+
+body.dark-mode .footer-logo h3 {
+  color: var(--color-primary-dark-mode, #001c55);
+}
+
+body.dark-mode .contributor-card {
+  background-color: var(--color-background-dark-mode, #050517);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .social-links a {
+  color: var(--color-text-secondary-dark-mode, #a0a0a0);
+}
+
+body.dark-mode .social-links a:hover {
+  color: var(--color-link-dark-mode, #1e90ff);
+}
+
+body.dark-mode .footer-bottom {
+  border-top: 1px solid var(--color-border-dark-mode, #333333);
+  color: var(--color-text-secondary-dark-mode, #a0a0a0);
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+  }
+  
+  .contributors-list {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

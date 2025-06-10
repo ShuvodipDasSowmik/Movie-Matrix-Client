@@ -17,7 +17,9 @@ const Admin = () => {
         director: ['directorname', 'biography', 'nationality', 'dob'],
         actor: ['actorname', 'biography', 'nationality', 'dob'],
         media: ['title', 'releaseyear', 'description', 'language', 'pgrating', 'trailerlink', 'mediatype', 'duration', 'isongoing'],
-        mediaactor: ['media', 'actor']
+        mediaactor: ['media', 'actor'],
+        mediadirector: ['media', 'director'],
+        mediastudio: ['media', 'studio']
     };
     
     const validateData = () => {
@@ -170,6 +172,8 @@ const Admin = () => {
                             <option value="actor">Actor</option>
                             <option value="media">Media</option>
                             <option value="mediaactor">Media Actor Mapping</option>
+                            <option value ='mediadirector'>Media Director Mapping</option>
+                            <option value ='mediastudio'>Media Studio Mapping</option>
                         </select>
                     </div>
                     

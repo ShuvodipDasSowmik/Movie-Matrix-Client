@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { csvParser } from '../Utils/csvParser';
+import { excelParser } from '../Utils/excelParser';
 
 const STORAGE_KEY = 'movieMatrixCsvData';
 const TYPE_STORAGE_KEY = 'movieMatrixDataType';
@@ -51,26 +52,30 @@ const useFileUpload = (initialDataType = '') => {
     };
 
     const handleFileChange = (event) => {
-
         const selectedFile = event.target.files[0];     // Retrieve file from user input
+        
+        if (!selectedFile) {
+            return;
+        }
+        
+        const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
 
-
-        if (selectedFile && selectedFile.type === 'text/csv') {
-
+        if (fileExtension === 'csv') {
             setFile(selectedFile);
             setError('');
-            parseFile(selectedFile);
-
+            parseCSVFile(selectedFile);
+        } else if (['xlsx', 'xls'].includes(fileExtension)) {
+            setFile(selectedFile);
+            setError('');
+            parseExcelFile(selectedFile);
         } else {
-
             setFile(null);
             setData([]);
-            setError('Please upload a valid CSV file.');
-
+            setError('Please upload a valid CSV or Excel file.');
         }
     };
 
-    const parseFile = (file) => {
+    const parseCSVFile = (file) => {
         const reader = new FileReader();    // Browser API to read files as text
 
         // onload() method executes the following functions after FileReader finishes reading a file
@@ -113,6 +118,55 @@ const useFileUpload = (initialDataType = '') => {
         };
 
         reader.readAsText(file);
+    };
+    
+    const parseExcelFile = (file) => {
+        const reader = new FileReader();
+        
+        reader.onload = (event) => {
+            try {
+                const arrayBuffer = event.target.result;
+                excelParser(arrayBuffer)
+                    .then(parsedData => {
+                        // Filter out empty rows
+                        const filteredData = parsedData.filter(row => !isRowEmpty(row));
+                        
+                        // If after filtering we have no data, set an error
+                        if (filteredData.length === 0) {
+                            setError('No valid data found in the Excel file');
+                            setData([]);
+                            return;
+                        }
+                        
+                        setData(filteredData);
+
+                        // Save to localStorage
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(filteredData));
+                        localStorage.setItem(`${STORAGE_KEY}_filename`, file.name);
+                        
+                        // If we have a dataType, save it too
+                        if (dataType) {
+                            localStorage.setItem(TYPE_STORAGE_KEY, dataType);
+                        }
+                    })
+                    .catch(err => {
+                        setError('Error parsing Excel file: ' + err.message);
+                        setData([]);
+                    });
+            } catch (err) {
+                setError('Error parsing Excel file: ' + err.message);
+                setData([]);
+                localStorage.removeItem(STORAGE_KEY);
+                localStorage.removeItem(`${STORAGE_KEY}_filename`);
+            }
+        };
+
+        reader.onerror = () => {
+            setError('Error reading file');
+            setData([]);
+        };
+
+        reader.readAsArrayBuffer(file);
     };
 
     const clearFile = () => {

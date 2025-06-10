@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { IoClose } from 'react-icons/io5';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
 import SearchBar from './SearchBar';
 import './Header.css';
 
@@ -120,6 +120,19 @@ const Header = () => {
     });
   };
 
+  const handleLogout = () => {
+    // Remove authentication data from localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    
+    // Update state to reflect logged out status
+    setIsLoggedIn(false);
+    setUsername('');
+    
+    // Navigate to home page (client-side navigation without full page reload)
+    window.location.href = '/';
+  };
+
   const handleMenuItemClick = (path) => {
     // Handle navigation here
     setActiveDropdown(null);
@@ -172,11 +185,16 @@ const Header = () => {
             <li className="nav-item">
               <SearchBar />
             </li>
-            <li className="nav-item">
+            <li className="nav-item user-actions">
               {isLoggedIn ? (
-                <a href={`/profile/${username}`} className="nav-link profile-icon">
-                  <FaUserCircle size={24} title="My Profile" />
-                </a>
+                <>
+                  <a href={`/profile/${username}`} className="nav-link profile-icon">
+                    <FaUserCircle size={24} title="My Profile" />
+                  </a>
+                  <button onClick={handleLogout} className="nav-link logout-btn" title="Logout">
+                    <FaSignOutAlt size={20} />
+                  </button>
+                </>
               ) : (
                 <a href="/signin" className="nav-link login-btn">Login</a>
               )}
@@ -249,9 +267,14 @@ const Header = () => {
               
               <li className="drawer-item">
                 {isLoggedIn ? (
-                  <a href={`/profile/${username}`} className="drawer-profile-btn">
-                    <FaUserCircle size={20} /> My Profile
-                  </a>
+                  <>
+                    <a href={`/profile/${username}`} className="drawer-profile-btn">
+                      <FaUserCircle size={20} /> My Profile
+                    </a>
+                    <button onClick={handleLogout} className="drawer-logout-btn">
+                      <FaSignOutAlt size={20} /> Logout
+                    </button>
+                  </>
                 ) : (
                   <a href="/signin" className="drawer-login-btn">Login</a>
                 )}
