@@ -13,6 +13,7 @@ import Header from './Components/Header'
 import ProtectedRoute from './Components/ProtectedRoute'
 import Actor from './Pages/Actor'
 import Footer from './Components/Footer';
+import Actors from './Pages/Actors';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <Route path='/admin' element={<><Header /><Admin /> <Footer /></>} />
             <Route path="/signin" element={<ProtectedRoute element={<SignIn />} />} />
             <Route path="/signup" element={<ProtectedRoute element={<SignUp />} />} />
+            <Route path="/actors" element={<><Header /><Actors /> <Footer /></>} />
             <Route path="/profile/:username" element={<ProtectedRoute element={<><Header /><UserDashboard /> <Footer /></>} authRequired={true} />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

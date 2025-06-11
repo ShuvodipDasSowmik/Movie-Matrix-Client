@@ -1,0 +1,216 @@
+/* Main container */
+.actors-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Page title */
+.actors-title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--color-primary);
+}
+
+body.dark-mode .actors-title {
+  color: var(--color-link-dark-mode);
+}
+
+/* Actors grid layout */
+.actors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+  gap: 2rem;
+}
+
+/* Actor card styling */
+.actors-list-card {
+  background-color: var(--color-background);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.actors-list-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+.actors-list-card::after {
+  display: none; /* Remove underline effect on cards */
+}
+
+.actors-list-card-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Actor image styling */
+.actors-list-image-container {
+  width: 100%;  /* Ensure container takes full width of card */
+  height: 350px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+.actors-list-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.5s ease;
+}
+
+.actors-list-card:hover .actors-list-image {
+  transform: scale(1.05);
+}
+
+body.dark-mode .actors-list-image-container {
+  background-color: #191925;
+}
+
+/* Actor info section */
+.actors-list-info {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.actors-list-name {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.actors-list-nationality {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Loading state */
+.actors-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid var(--color-primary);
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+body.dark-mode .spinner {
+  border-top: 4px solid var(--color-link-dark-mode);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error state */
+.actors-error {
+  text-align: center;
+  padding: 3rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.actors-error h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-error);
+}
+
+.actors-error button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+}
+
+.actors-error button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* Empty state */
+.no-actors {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: var(--color-text-secondary);
+}
+
+/* Dark mode specific styles */
+body.dark-mode .actors-list-card {
+  background-color: var(--color-background-light-dark-mode);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .actors-list-name {
+  color: var(--color-text-primary-dark-mode);
+}
+
+body.dark-mode .actors-list-nationality {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+body.dark-mode .actors-error button {
+  background-color: var(--color-primary-dark-mode);
+}
+
+body.dark-mode .actors-error button:hover {
+  background-color: var(--color-primary-dark-dark-mode);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .actors-container {
+    padding: 1rem;
+  }
+  
+  .actors-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .actors-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+  
+  .actors-list-image-container {
+    height: 300px;
+  }
+  
+  .actors-list-info {
+    padding: 1rem;
+  }
+  
+  .actors-list-name {
+    font-size: 1rem;
+  }
+}

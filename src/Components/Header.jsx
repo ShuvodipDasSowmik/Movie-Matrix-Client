@@ -32,11 +32,8 @@ const navigationItems = [
     ]
   },
   { 
-    label: 'People', 
-    navigationLink: '/people',
-    subItems: [
-      { label: 'Popular People', navigationLink: '/people/popular' }
-    ]
+    label: 'Actors', 
+    navigationLink: '/actors',
   },
 ];
 
