@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './PageStyles/Actor.css';
 
 const Actor = () => {
-    const { actorname } = useParams();
+    const { actorid } = useParams();
     const navigate = useNavigate();
     const [actor, setActor] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -14,21 +14,21 @@ const Actor = () => {
 
     useEffect(() => {
         // Reset the loading state when actor changes
-        if (previousActorRef.current !== actorname) {
+        if (previousActorRef.current !== actorid) {
             setLoading(true);
             setActor(null);
             setError(null);
-            previousActorRef.current = actorname;
+            previousActorRef.current = actorid;
         }
 
-        console.log(`Attempting to fetch data for actor: ${actorname}`);
+        console.log(`Attempting to fetch data for actor: ${actorid}`);
 
         const fetchActorData = async () => {
-            if (!actorname) return;
+            if (!actorid) return;
 
             try {
-                console.log(`Starting fetch request for actor: ${actorname}`);
-                const response = await fetch(`http://localhost:3000/actors/${actorname}`);
+                console.log(`Starting fetch request for actor: ${actorid}`);
+                const response = await fetch(`http://localhost:3000/actors/${actorid}`);
 
                 console.log('Full response object:', response);
                 console.log('Response status:', response.status);
@@ -57,17 +57,17 @@ const Actor = () => {
 
         fetchActorData();
 
-    }, [actorname]); // Only depend on the actor name
+    }, [actorid]); // Only depend on the actor name
 
     // Debug logging for component state changes
     useEffect(() => {
         console.log('Component state updated:', {
-            actorname,
+            actorid,
             loading,
             error,
             'actor data': actor ? 'present' : 'null'
         });
-    }, [actor, loading, error, actorname]);
+    }, [actor, loading, error, actorid]);
 
     const formatDate = (dateString) => {
         if (!dateString) return 'Unknown';
@@ -80,7 +80,7 @@ const Actor = () => {
     };
 
     if (loading) {
-        return <div className="actor-loading">Loading information for {actorname}...</div>;
+        return <div className="actor-loading">Loading information for requested actor...</div>;
     }
 
     if (error) {
@@ -88,7 +88,7 @@ const Actor = () => {
     }
 
     if (!actor) {
-        return <div className="actor-not-found">Actor data not found for {actorname}</div>;
+        return <div className="actor-not-found">Actor data not found for requested actor</div>;
     }
 
     // Debug render - dump the actor object to console

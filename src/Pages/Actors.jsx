@@ -63,7 +63,7 @@ const Actors = () => {
         <div className="actors-grid">
           {actors.map((actor) => (
             <Link 
-              to={`/actor/${actor.actorname}`} 
+              to={`/actors/${actor.actorid}`} 
               className="actors-list-card" 
               key={actor.actorname}
             >

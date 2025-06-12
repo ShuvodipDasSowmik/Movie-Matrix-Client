@@ -12,24 +12,8 @@ const navigationItems = [
     navigationLink: '/'
   },
   { 
-    label: 'Movies', 
-    navigationLink: '/movies',
-    subItems: [
-      { label: 'Popular', navigationLink: '/movies/popular' },
-      { label: 'Top Rated', navigationLink: '/movies/top-rated' },
-      { label: 'Upcoming', navigationLink: '/movies/upcoming' },
-      { label: 'Now Playing', navigationLink: '/movies/now-playing' }
-    ]
-  },
-  { 
     label: 'TV Shows', 
-    navigationLink: '/tv-shows',
-    subItems: [
-      { label: 'Popular', navigationLink: '/tv-shows/popular' },
-      { label: 'Top Rated', navigationLink: '/tv-shows/top-rated' },
-      { label: 'On The Air', navigationLink: '/tv-shows/on-the-air' },
-      { label: 'Airing Today', navigationLink: '/tv-shows/airing-today' }
-    ]
+    navigationLink: '/tv-shows'
   },
   { 
     label: 'Actors', 
