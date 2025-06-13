@@ -15,6 +15,7 @@ import Actor from './Pages/Actor'
 import Footer from './Components/Footer';
 import Actors from './Pages/Actors';
 import Movies from './Pages/Movies';
+import Movie from './Pages/Movie';
 
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<> <Header /> <Home/> <Footer /> </>} />
-            <Route path='/actors/:actorid' element={<> <Header /> <Actor/> <Footer /></>} />
+            <Route path='/actor/:actorid' element={<> <Header /> <Actor/> <Footer /></>} />
+            <Route path='/movie/:mediaid' element={<> <Header /> <Movie/> <Footer /></>} />
             <Route path='/admin' element={<><Header /><Admin /> <Footer /></>} />
             <Route path="/signin" element={<ProtectedRoute element={<SignIn />} />} />
             <Route path="/signup" element={<ProtectedRoute element={<SignUp />} />} />

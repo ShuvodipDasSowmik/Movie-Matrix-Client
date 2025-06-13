@@ -1,0 +1,314 @@
+.movie-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  color: var(--color-text-primary);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* YouTube-style layout */
+.youtube-style .content-container {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.youtube-style .primary-content {
+  flex: 1;
+  width: 68%;
+}
+
+.youtube-style .secondary-content {
+  width: 30%;
+}
+
+/* Trailer section */
+.youtube-style .trailer-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+  background-color: #000;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.youtube-style .trailer-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+/* Poster fallback if no trailer */
+.youtube-style .poster-container {
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.youtube-style .poster-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Movie info section (below trailer) */
+.youtube-style .movie-info {
+  margin-bottom: 30px;
+}
+
+.youtube-style .movie-title {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: var(--color-text-primary);
+}
+
+.dark-mode .youtube-style .movie-title {
+  color: var(--color-text-primary-dark-mode);
+}
+
+.youtube-style .movie-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.dark-mode .youtube-style .movie-description {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+/* Secondary content section */
+.youtube-style .movie-metadata {
+  background-color: var(--color-background);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .youtube-style .movie-metadata {
+  background-color: var(--color-background-light-dark-mode);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.youtube-style .poster-small {
+  width: 80px;
+  height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.youtube-style .poster-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.youtube-style .meta-details {
+  flex: 1;
+}
+
+.youtube-style .rating-container {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.youtube-style .rating-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ff9800;
+}
+
+.youtube-style .rating-max {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin-left: 4px;
+}
+
+.dark-mode .youtube-style .rating-max {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+.youtube-style .movie-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.youtube-style .meta-item {
+  display: flex;
+  font-size: 0.9rem;
+}
+
+.youtube-style .meta-label {
+  font-weight: 500;
+  margin-right: 8px;
+  color: var(--color-text-secondary);
+}
+
+.dark-mode .youtube-style .meta-label {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+.youtube-style .meta-value {
+  color: var(--color-text-primary);
+}
+
+.dark-mode .youtube-style .meta-value {
+  color: var(--color-text-primary-dark-mode);
+}
+
+/* Cast section */
+.youtube-style .cast-section {
+  background-color: var(--color-background);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .youtube-style .cast-section {
+  background-color: var(--color-background-light-dark-mode);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.youtube-style .cast-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  color: var(--color-text-primary);
+}
+
+.dark-mode .youtube-style .cast-section h2 {
+  color: var(--color-text-primary-dark-mode);
+}
+
+/* Updated cast section with clickable items */
+.youtube-style .cast-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.youtube-style .cast-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  color: inherit;
+}
+
+.youtube-style .cast-item:hover {
+  background-color: var(--color-border);
+  cursor: pointer;
+}
+
+.dark-mode .youtube-style .cast-item:hover {
+  background-color: var(--color-border-dark-mode);
+}
+
+.youtube-style .cast-item::after {
+  display: none; /* Remove underline effect from links */
+}
+
+.youtube-style .actor-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 12px;
+}
+
+.youtube-style .actor-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.youtube-style .actor-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.dark-mode .youtube-style .actor-name {
+  color: var(--color-text-primary-dark-mode);
+}
+
+/* Add right arrow icon to indicate it's clickable */
+.youtube-style .cast-item {
+  position: relative;
+}
+
+.youtube-style .cast-item::before {
+  content: '›';
+  position: absolute;
+  right: 10px;
+  font-size: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.youtube-style .cast-item:hover::before {
+  opacity: 1;
+}
+
+/* Loading and error states */
+.loading, .error, .no-movie {
+  text-align: center;
+  padding: 50px 0;
+  font-size: 1.5rem;
+  color: var(--color-text-secondary);
+}
+
+.dark-mode .loading, 
+.dark-mode .no-movie {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+.error {
+  color: var(--color-error);
+}
+
+.dark-mode .error {
+  color: var(--color-error-dark-mode);
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .youtube-style .content-container {
+    flex-direction: column;
+  }
+  
+  .youtube-style .primary-content,
+  .youtube-style .secondary-content {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .youtube-style .movie-title {
+    font-size: 1.5rem;
+  }
+  
+  .youtube-style .movie-metadata {
+    flex-direction: column;
+  }
+  
+  .youtube-style .poster-small {
+    width: 100px;
+    height: 150px;
+    margin: 0 auto 16px;
+  }
+}

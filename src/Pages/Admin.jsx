@@ -19,7 +19,8 @@ const Admin = () => {
         media: ['title', 'releaseyear', 'description', 'language', 'pgrating', 'trailerlink', 'mediatype', 'duration', 'isongoing'],
         mediaactor: ['media', 'actor'],
         mediadirector: ['media', 'director'],
-        mediastudio: ['media', 'studio']
+        mediastudio: ['media', 'studio'],
+        mediagenre: ['media', 'genre']
     };
     
     const validateData = () => {
@@ -156,7 +157,7 @@ const Admin = () => {
 
             <div className="admin-content">
                 <div className="file-upload-section">
-                    <h2>Upload CSV File</h2>
+                    <h2>Upload CSV/XLSX File</h2>
                     
                     <div className="data-type-selection">
                         <h3>Select Data Type</h3>
@@ -174,6 +175,7 @@ const Admin = () => {
                             <option value="mediaactor">Media Actor Mapping</option>
                             <option value ='mediadirector'>Media Director Mapping</option>
                             <option value ='mediastudio'>Media Studio Mapping</option>
+                            <option value ='mediagenre'>Media Genre Mapping</option>
                         </select>
                     </div>
                     
