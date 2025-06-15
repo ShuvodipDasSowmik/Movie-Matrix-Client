@@ -90,7 +90,7 @@
   margin-bottom: 20px;
   display: flex;
   gap: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .dark-mode .youtube-style .movie-metadata {
@@ -172,7 +172,8 @@
   background-color: var(--color-background);
   border-radius: 12px;
   padding: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .dark-mode .youtube-style .cast-section {
@@ -262,6 +263,130 @@
 
 .youtube-style .cast-item:hover::before {
   opacity: 1;
+}
+
+/* Shared info section styles */
+.youtube-style .info-section {
+  background-color: var(--color-background);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .youtube-style .info-section {
+  background-color: var(--color-background-light-dark-mode);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.youtube-style .info-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  color: var(--color-text-primary);
+}
+
+.dark-mode .youtube-style .info-section h2 {
+  color: var(--color-text-primary-dark-mode);
+}
+
+/* Genre styles */
+.youtube-style .genre-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.youtube-style .genre-tag {
+  background-color: var(--color-border);
+  color: var(--color-text-primary);
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+}
+
+.dark-mode .youtube-style .genre-tag {
+  background-color: var(--color-border-dark-mode);
+  color: var(--color-text-primary-dark-mode);
+}
+
+/* Directors styles */
+.youtube-style .person-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.youtube-style .person-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+}
+
+.youtube-style .person-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.youtube-style .person-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.youtube-style .person-name {
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.dark-mode .youtube-style .person-name {
+  color: var(--color-text-primary-dark-mode);
+}
+
+/* Studios styles */
+.youtube-style .studio-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.youtube-style .studio-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+}
+
+.youtube-style .studio-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.youtube-style .studio-logo img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+.youtube-style .studio-name {
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.dark-mode .youtube-style .studio-name {
+  color: var(--color-text-primary-dark-mode);
 }
 
 /* Loading and error states */

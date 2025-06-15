@@ -112,6 +112,21 @@ const Movie = () => {
             </div>
           </div>
           
+          {/* Genres Section */}
+          {movie.genre && movie.genre.length > 0 && (
+            <div className="info-section genre-section">
+              <h2>Genres</h2>
+              <div className="genre-list">
+                {movie.genre.map((genre, index) => (
+                  <span key={index} className="genre-tag">
+                    {genre.genrename}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Cast Section - Moved under Genres */}
           <div className="cast-section">
             <h2>Cast</h2>
             <div className="cast-list">
@@ -129,6 +144,40 @@ const Movie = () => {
               ))}
             </div>
           </div>
+          
+          {/* Directors Section */}
+          {movie.director && movie.director.length > 0 && (
+            <div className="info-section director-section">
+              <h2>Directors</h2>
+              <div className="person-list">
+                {movie.director.map((director, index) => (
+                  <div key={index} className="person-item">
+                    <div className="person-image">
+                      <img src={director.picture} alt={director.directorname} />
+                    </div>
+                    <div className="person-name">{director.directorname}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Studios Section */}
+          {movie.studio && movie.studio.length > 0 && (
+            <div className="info-section studio-section">
+              <h2>Studios</h2>
+              <div className="studio-list">
+                {movie.studio.map((studio, index) => (
+                  <div key={index} className="studio-item">
+                    <div className="studio-logo">
+                      <img src={studio.picture} alt={studio.studioname} />
+                    </div>
+                    <div className="studio-name">{studio.studioname}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
