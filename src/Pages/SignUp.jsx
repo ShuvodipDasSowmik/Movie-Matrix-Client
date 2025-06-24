@@ -65,7 +65,7 @@ const SignUp = () => {
             localStorage.setItem('username', formData.username);
             
             // Update auth context with token and user data
-            signup(response.data.accessToken, response.data.user);
+            signup(response.data.accessToken, response.data.refreshToken, response.data.user);
 
             // Redirect to User Profile
             navigate(`/profile/${formData.username}`);

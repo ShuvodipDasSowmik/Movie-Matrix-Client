@@ -51,7 +51,7 @@ const SignIn = () => {
             localStorage.setItem('username', data.user.username);
 
             try {
-                signin(data.accessToken, data.user);
+                signin(data.accessToken, data.refreshToken, data.user);
                 navigate(`/profile/${data.user.username}`);
             }
             

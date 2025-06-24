@@ -1,94 +1,114 @@
 import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { AxiosInterceptor } from '../Utils/axiosInterceptor';
 
 const AuthContext = createContext();
 
-const useAuth = () => {
+export const useAuth = () => {
     const context = useContext(AuthContext);
-
-    if (!context)
-        throw new Error("useAuth must be in an authProvider");
-
+    if (!context) throw new Error("useAuth must be in an AuthProvider");
     return context;
-}
+};
 
-const AuthProvider = ({ children }) => {
+// Utility to check if JWT access token is expired
+const isTokenExpired = (token) => {
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        return payload.exp * 1000 < Date.now(); // exp is in seconds
+    } catch {
+        return true;
+    }
+};
+
+export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    // Set Authorization header globally when token changes
     useEffect(() => {
         if (token) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        }
-        else {
+        } else {
             delete axios.defaults.headers.common['Authorization'];
         }
     }, [token]);
-    
+
+    // Attach interceptor once
+    useEffect(() => {
+        AxiosInterceptor(setToken, setUser);
+    }, []);
+
+    // Check auth and refresh if needed on app load
     useEffect(() => {
         const checkAuth = async () => {
             setLoading(true);
-            const storedToken = localStorage.getItem('accessToken');
+
+            const storedAccessToken = localStorage.getItem('accessToken');
+            const storedRefreshToken = localStorage.getItem('refreshToken');
             const storedUser = localStorage.getItem('user');
 
-            if (storedToken && storedUser) {
+            if (storedRefreshToken && (!storedAccessToken || isTokenExpired(storedAccessToken))) {
                 try {
-                    setToken(storedToken);
-                    setUser(JSON.parse(storedUser));
-                } catch (error) {
-                    console.error('Error parsing stored user data:', error);
-                    // Clear invalid data
-                    localStorage.removeItem('accessToken');
-                    localStorage.removeItem('refreshToken');
-                    localStorage.removeItem('user');
-                    localStorage.removeItem('username');
+                    const response = await axios.post('http://localhost:3000/refresh', {
+                        refreshToken: storedRefreshToken
+                    });
+
+                    const newAccessToken = response.data.accessToken;
+                    const newUser = response.data.user;
+
+                    setToken(newAccessToken);
+                    setUser(newUser);
+                    localStorage.setItem('accessToken', newAccessToken);
+                    localStorage.setItem('user', JSON.stringify(newUser));
+                    localStorage.setItem('username', newUser.username);
+
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+                } catch (err) {
+                    console.error("Auto-refresh failed:", err);
+                    localStorage.clear();
+                    setToken(null);
+                    setUser(null);
                 }
+            } else if (storedAccessToken && storedUser) {
+                setToken(storedAccessToken);
+                setUser(JSON.parse(storedUser));
+                axios.defaults.headers.common['Authorization'] = `Bearer ${storedAccessToken}`;
             }
+
             setLoading(false);
-        }
+        };
 
         checkAuth();
     }, []);
 
-    const signin = (accessToken, user) => {
+    const signin = (accessToken, refreshToken, user) => {
         setToken(accessToken);
         setUser(user);
 
         localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
         localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('username', user.username);
     };
 
-    const signup = (accessToken, user) => {
-        setToken(accessToken);
-        setUser(user);
-
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('user', JSON.stringify(user));
-    };
+    const signup = signin;
 
     const logout = async () => {
         try {
             await axios.post('http://localhost:3000/logout', {
-                username: user.username
-            })
-        }
-
-        catch (error) {
-            console.error("Logout error: ", error);
-        }
-        
-        finally {
+                username: user?.username
+            });
+        } catch (error) {
+            console.error("Logout error:", error);
+        } finally {
             setToken(null);
             setUser(null);
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
-            localStorage.removeItem('user');
-            localStorage.removeItem('username');
+            localStorage.clear();
             delete axios.defaults.headers.common['Authorization'];
         }
     };
-    
+
     const value = {
         user,
         currentUser: user,
@@ -107,8 +127,6 @@ const AuthProvider = ({ children }) => {
             {children}
         </AuthContext.Provider>
     );
-}
+};
 
-
-export { AuthProvider, useAuth };
 export default AuthContext;

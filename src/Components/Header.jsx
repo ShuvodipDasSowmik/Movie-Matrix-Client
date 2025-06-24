@@ -5,55 +5,30 @@ import { IoClose } from 'react-icons/io5';
 import { FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
 import SearchBar from './SearchBar';
 import './ComponentStyles/Header.css';
+import { useAuth } from '../context/AuthContext';
 
 const navigationItems = [
   {
     label: 'Home',
     navigationLink: '/'
   },
-  { 
-    label: 'TV Shows', 
+  {
+    label: 'TV Shows',
     navigationLink: '/tv-shows'
   },
-  { 
-    label: 'Actors', 
+  {
+    label: 'Actors',
     navigationLink: '/actors',
   },
 ];
 
 const Header = () => {
-  // Check auth status before initial render to prevent flickering
-  const checkAuthStatus = () => {
-    const token = localStorage.getItem('token');
-    const storedUsername = localStorage.getItem('username');
-    return { 
-      isAuthenticated: Boolean(token && storedUsername), 
-      username: storedUsername || ''
-    };
-  };
+  const { user, isLoggedIn, logout } = useAuth();
 
-  const initialAuth = checkAuthStatus();
-  
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [expandedItems, setExpandedItems] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(initialAuth.isAuthenticated);
-  const [username, setUsername] = useState(initialAuth.username);
-  const [isAuthLoaded, setIsAuthLoaded] = useState(true);
-
-  // Re-check auth status if localStorage changes
-  useEffect(() => {
-    // Listen for storage changes (if user logs in/out in another tab)
-    const handleStorageChange = () => {
-      const authStatus = checkAuthStatus();
-      setIsLoggedIn(authStatus.isAuthenticated);
-      setUsername(authStatus.username);
-    };
-    
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
 
   // Check if viewport is mobile size
   useEffect(() => {
@@ -63,10 +38,10 @@ const Header = () => {
         setDrawerOpen(false);
       }
     };
-    
+
     handleResize();
     window.addEventListener('resize', handleResize);
-    
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -87,7 +62,7 @@ const Header = () => {
         setActiveDropdown(null);
       }
     };
-    
+
     document.addEventListener('click', handleClickOutside);
     return () => {
       document.removeEventListener('click', handleClickOutside);
@@ -100,16 +75,10 @@ const Header = () => {
       [index]: !expandedItems[index]
     });
   };
-
   const handleLogout = () => {
-    // Remove authentication data from localStorage
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    
-    // Update state to reflect logged out status
-    setIsLoggedIn(false);
-    setUsername('');
-    
+    // Use AuthContext's logout function
+    logout();
+
     // Navigate to home page (client-side navigation without full page reload)
     window.location.href = '/';
   };
@@ -133,7 +102,7 @@ const Header = () => {
             {navigationItems.map((item, index) => (
               <li key={index} className="nav-item">
                 {item.subItems ? (
-                  <button 
+                  <button
                     className="nav-link dropdown-toggle"
                     onClick={(e) => {
                       e.stopPropagation(); // Prevent event bubbling
@@ -151,7 +120,7 @@ const Header = () => {
                   <ul className="dropdown-menu">
                     {item.subItems.map((subItem, subIndex) => (
                       <li key={subIndex}>
-                        <a 
+                        <a
                           href={subItem.navigationLink}
                           onClick={() => handleMenuItemClick(subItem.navigationLink)}
                         >
@@ -169,7 +138,7 @@ const Header = () => {
             <li className="nav-item user-actions">
               {isLoggedIn ? (
                 <>
-                  <a href={`/profile/${username}`} className="nav-link profile-icon">
+                  <a href={`/profile/${user?.username}`} className="nav-link profile-icon">
                     <FaUserCircle size={24} title="My Profile" />
                   </a>
                   <button onClick={handleLogout} className="nav-link logout-btn" title="Logout">
@@ -182,7 +151,7 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-        
+
         {/* Mobile actions group: search + toggle button */}
         <div className="mobile-actions">
           {/* Mobile Search Bar */}
@@ -191,8 +160,8 @@ const Header = () => {
           </div>
 
           {/* Mobile Navigation Button */}
-          <button 
-            className={`mobile-nav-toggle ${isMobile ? '' : 'hidden'}`} 
+          <button
+            className={`mobile-nav-toggle ${isMobile ? '' : 'hidden'}`}
             onClick={toggleDrawer}
             aria-label="Toggle navigation menu"
           >
@@ -203,8 +172,8 @@ const Header = () => {
         {/* Mobile Drawer */}
         <div className={`mobile-drawer ${drawerOpen ? 'open' : ''}`}>
           <div className="drawer-header">
-            <button 
-              className="close-drawer" 
+            <button
+              className="close-drawer"
               onClick={toggleDrawer}
               aria-label="Close navigation menu"
             >
@@ -216,7 +185,7 @@ const Header = () => {
               {navigationItems.map((item, index) => (
                 <li key={index} className="drawer-item">
                   {item.subItems ? (
-                    <div 
+                    <div
                       className="drawer-dropdown"
                       onClick={() => handleMobileExpand(index)}
                     >
@@ -228,12 +197,12 @@ const Header = () => {
                       {item.label}
                     </a>
                   )}
-                  
+
                   {expandedItems[index] && item.subItems && (
                     <ul className="drawer-submenu">
                       {item.subItems.map((subItem, subIndex) => (
                         <li key={subIndex}>
-                          <a 
+                          <a
                             href={subItem.navigationLink}
                             onClick={() => handleMenuItemClick(subItem.navigationLink)}
                           >
@@ -245,13 +214,12 @@ const Header = () => {
                   )}
                 </li>
               ))}
-              
+
               <li className="drawer-item">
                 {isLoggedIn ? (
-                  <>
-                    <a href={`/profile/${username}`} className="drawer-profile-btn">
-                      <FaUserCircle size={20} /> My Profile
-                    </a>
+                  <>                    <a href={`/profile/${user?.username}`} className="drawer-profile-btn">
+                    <FaUserCircle size={20} /> My Profile
+                  </a>
                     <button onClick={handleLogout} className="drawer-logout-btn">
                       <FaSignOutAlt size={20} /> Logout
                     </button>
@@ -263,7 +231,7 @@ const Header = () => {
             </ul>
           </nav>
         </div>
-        
+
         {drawerOpen && <div className="drawer-backdrop" onClick={toggleDrawer}></div>}
       </div>
     </header>
