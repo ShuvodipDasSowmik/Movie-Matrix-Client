@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './PageStyles/SignUp.css';
+import { useAuth } from '../context/AuthContext';
 
 const SignUp = () => {
     const navigate = useNavigate();
+    const { signup, isLoggedIn } = useAuth();
     const [formData, setFormData] = useState({
         fullName: '',
         username: '',
@@ -15,6 +17,14 @@ const SignUp = () => {
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        // Redirect to profile if user is already logged in
+        if (isLoggedIn) {
+            const username = localStorage.getItem('username');
+            navigate(`/profile/${username}`);
+        }
+    }, [isLoggedIn, navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -47,9 +57,15 @@ const SignUp = () => {
                 password: formData.password,
                 dob: formData.dob,
                 role: 'USER'
-            });
-
-            console.log('Signup successful:', response.data);
+            });            console.log('Signup successful:', response.data);
+            
+            // Store tokens in localStorage
+            localStorage.setItem('accessToken', response.data.accessToken);
+            localStorage.setItem('refreshToken', response.data.refreshToken);
+            localStorage.setItem('username', formData.username);
+            
+            // Update auth context with token and user data
+            signup(response.data.accessToken, response.data.user);
 
             // Redirect to User Profile
             navigate(`/profile/${formData.username}`);

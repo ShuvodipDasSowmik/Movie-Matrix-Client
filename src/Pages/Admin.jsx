@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "../Components/DataTable";
+import DatabaseOverview from "../Components/AdminPage/DatabaseOverview";
 import useFileUpload from "../Hooks/useFileUpload";
 import "./PageStyles/Admin.css";
 
@@ -154,6 +155,8 @@ const Admin = () => {
                 <h1>Admin Dashboard</h1>
                 <p>Upload and manage your movie data</p>
             </div>
+
+            <DatabaseOverview />
 
             <div className="admin-content">
                 <div className="file-upload-section">

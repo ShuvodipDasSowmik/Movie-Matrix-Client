@@ -43,7 +43,7 @@ html.dark-theme {
 
 /* Apply body transitions only after initial load */
 body {
-  background-color: var(--color-background);
+  background: linear-gradient(135deg, #f0f0f0 0%, #ffffff 100%);
   color: var(--color-text-primary);
   font-size: 16px;
   line-height: 1.5;
@@ -81,7 +81,7 @@ body {
 
 /* Dark mode styles */
 body.dark-mode {
-  background-color: var(--color-background-dark-mode);
+  background: linear-gradient(135deg, #2d0036 0%, #050517 100%);
   color: var(--color-text-primary-dark-mode);
 }
 

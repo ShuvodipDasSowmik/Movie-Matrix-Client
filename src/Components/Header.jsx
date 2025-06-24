@@ -4,7 +4,7 @@ import { IoMdArrowDropdown } from 'react-icons/io';
 import { IoClose } from 'react-icons/io5';
 import { FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
 import SearchBar from './SearchBar';
-import './Header.css';
+import './ComponentStyles/Header.css';
 
 const navigationItems = [
   {

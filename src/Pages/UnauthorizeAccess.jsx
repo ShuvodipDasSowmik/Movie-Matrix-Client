@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PageStyles/UnAuthorizeAccess.css';
 
-const NotFound = () => {
+const UnauthorizeAccess = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,13 +19,13 @@ const NotFound = () => {
         <div className="unauthorized-container">
             <div className="unauthorized-content">
                 <div className="lock-icon">
-                    <i className="fas fa-exclamation"></i>
+                    <i className="fas fa-lock"></i>
                 </div>
-                <h1 className="glitch" data-text="404">404</h1>
-                <h2 className="message">PAGE NOT FOUND</h2>
+                <h1 className="glitch" data-text="401">401</h1>
+                <h2 className="message">ACCESS DENIED</h2>
                 <p className="description">
-                    The page you are looking for does not exist or has been moved.
-                    Please check the URL or return to your profile.
+                    You don't have permission to access this page.
+                    This incident will be reported.
                 </p>
                 <button className="return-button" onClick={handleReturn}>
                     <span className="button-text">Return to Profile</span>
@@ -38,4 +38,4 @@ const NotFound = () => {
     );
 };
 
-export default NotFound;
+export default UnauthorizeAccess;

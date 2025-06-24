@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { IoMdClose } from 'react-icons/io';
-import './SearchBar.css';
+import './ComponentStyles/SearchBar.css';
 
 const SearchBar = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,0 +1,125 @@
+.db-edit-component {
+  background: var(--color-background);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.db-edit-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.db-edit-title {
+  margin-left: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-primary);
+}
+
+.db-edit-plus {
+  cursor: pointer;
+  color: var(--color-primary);
+  font-size: 22px;
+  transition: transform 0.2s;
+}
+.db-edit-plus:hover {
+  transform: scale(1.15);
+  color: var(--color-primary-dark);
+}
+
+.db-edit-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-background);
+  margin-bottom: 12px;
+}
+.db-edit-table th, .db-edit-table td {
+  border-bottom: 1px solid var(--color-border);
+  padding: 10px 8px;
+  text-align: left;
+}
+.db-edit-table th {
+  background: #f7f7f7;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+.db-edit-table tr:last-child td {
+  border-bottom: none;
+}
+
+.db-edit-trash {
+  color: #e74c3c;
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.2s;
+}
+.db-edit-trash:hover {
+  color: #c0392b;
+}
+
+.db-edit-check {
+  color: #27ae60;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.2s;
+}
+.db-edit-check:hover {
+  color: #219150;
+}
+
+.db-edit-input {
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-input-bg);
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  width: 90%;
+  outline: none;
+  transition: border 0.2s;
+}
+.db-edit-input:focus {
+  border: 1.5px solid var(--color-primary);
+}
+
+.db-edit-pagination {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.db-edit-pagination button {
+  background: var(--color-primary);
+  color: var(--color-text-light);
+  border: none;
+  border-radius: 4px;
+  padding: 6px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.db-edit-pagination button:disabled {
+  background: var(--color-disabled);
+  color: #fff;
+  cursor: not-allowed;
+}
+.db-edit-pagination button:not(:disabled):hover {
+  background: var(--color-primary-dark);
+}
+
+@media (max-width: 600px) {
+  .db-edit-component {
+    padding: 10px;
+  }
+  .db-edit-table th, .db-edit-table td {
+    padding: 6px 2px;
+    font-size: 0.95rem;
+  }
+  .db-edit-title {
+    font-size: 1rem;
+  }
+}

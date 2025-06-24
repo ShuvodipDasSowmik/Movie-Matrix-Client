@@ -2,6 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
 }
 
 /* Hero Section */
@@ -170,6 +171,10 @@
 }
 
 /* Dark Mode Styles */
+body.dark-mode .home-container {
+  background: linear-gradient(135deg, #3a0066 0%, #2d0036 100%);
+}
+
 body.dark-mode .features-section {
   background-color: var(--color-background-dark-mode);
 }

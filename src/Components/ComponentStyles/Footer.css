@@ -1,5 +1,5 @@
 .footer {
-  background-color: #f8f9fa; /* Changed: lighter background for light mode */
+  background: linear-gradient(135deg, #e5e7eb 0%, #ffffff 100%);
   color: var(--color-text-primary, #333333);
   padding: 2rem 0;
   margin-top: 2rem;
@@ -105,12 +105,12 @@
 
 /* Dark mode specific styles */
 body.dark-mode .footer {
-  background-color: var(--color-background-light-dark-mode, #12121e);
+  background: linear-gradient(135deg, #2d0036 0%, #050517 100%);
   color: var(--color-text-primary-dark-mode, #e0e0e0);
 }
 
 body.dark-mode .footer-logo h3 {
-  color: var(--color-primary-dark-mode, #001c55);
+  color: var(--color-text-primary-dark-mode);
 }
 
 body.dark-mode .contributor-card {

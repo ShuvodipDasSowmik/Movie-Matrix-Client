@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 const SignIn = () => {
 
     const navigate = useNavigate();
+    const { signin, isLoggedIn } = useAuth();
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -20,28 +22,43 @@ const SignIn = () => {
         });
     };
 
+    useEffect(() => {
+        if (isLoggedIn) {
+            console.log('User is already logged in, redirecting to profile');
+
+            const username = localStorage.getItem('username');
+            navigate(`/profile/${username}`);
+        }
+    }, [navigate, isLoggedIn]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setError('');
 
         try {
-            setLoading(true);
-            setError('');
-
             // Send data to backend
             const response = await axios.post('http://localhost:3000/signin', {
-                userName: formData.username,
+                username: formData.username,
                 password: formData.password
             });
 
-            // Store authentication data in localStorage
-            localStorage.setItem('token', response.data.token);
-            localStorage.setItem('username', response.data.user.username);
+            const data = response.data;
+
+            // Store both tokens
+            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('refreshToken', data.refreshToken);
+            localStorage.setItem('username', data.user.username);
+
+            try {
+                signin(data.accessToken, data.user);
+                navigate(`/profile/${data.user.username}`);
+            }
             
-            console.log('Authentication data stored in localStorage');
-            
-            // Redirect to User Profile after storage is complete
-            navigate(`/profile/${response.data.user.username}`);
+            catch (error) {
+                console.error('Error during signin or navigation:', error);
+                setError('An unexpected error occurred.');
+            }
 
         } catch (err) {
             setError(err.response?.data || 'Invalid username or password');
