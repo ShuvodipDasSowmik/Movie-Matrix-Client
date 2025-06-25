@@ -128,10 +128,12 @@ const Actor = () => {
                             <div className="actor-movies-grid">
                                 {actor.medias.map(media => (
                                     <div
-                                        key={media.id}
+                                        key={media.mediaid}
                                         className="movie-card"
-                                        onClick={() => navigate(`/media/${media.id}`)}
-                                    >
+                                        onClick={() => {
+                                            navigate(`/${media.mediatype}/${media.mediaid}`)
+                                        }}
+                                    >   
                                         {media.poster ? (
                                             <img src={media.poster} alt={media.title} className="movie-poster" />
                                         ) : (
