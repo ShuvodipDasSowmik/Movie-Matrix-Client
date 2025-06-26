@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
 import './PageStyles/Home.css';
+import SearchBar from '../Components//SearchBar';
 
 const Home = () => {
     return (
         <div className="home-container">
             <section className="hero-section">
                 <div className="hero-content">
+                    {/* <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+                        <SearchBar />
+                    </div> */}
                     <h1>Discover Your Next Favorite Movie</h1>
                     <p>Explore thousands of movies, create watchlists, and get personalized recommendations.</p>
                     <div className="hero-buttons">
