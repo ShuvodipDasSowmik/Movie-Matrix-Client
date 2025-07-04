@@ -20,6 +20,10 @@ const navigationItems = [
     label: 'Actors',
     navigationLink: '/actors',
   },
+  {
+    label: 'Posts',
+    navigationLink: '/posts'
+  }
 ];
 
 const Header = () => {

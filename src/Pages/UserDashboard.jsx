@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './UserDashboard.css';
 import { useAuth } from '../context/AuthContext';
+import PostPopUp from '../Components/PostPopUp';
+import UserPost from '../Components/UserPost';
 
 const UserDashboard = () => {
     const navigate = useNavigate();
@@ -14,6 +16,7 @@ const UserDashboard = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedFullName, setEditedFullName] = useState('');
     const [error, setError] = useState('');
+    const [showPostPopup, setShowPostPopup] = useState(false);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -169,6 +172,18 @@ const UserDashboard = () => {
                                 <p className="user-age">Age: {calculateAge(user.dateofbirth)}</p>
                             </div>
                         </div>
+
+                        <div className="create-post-section">
+                            <div 
+                                className="create-post-input"
+                                onClick={() => setShowPostPopup(true)}
+                            >
+                                <div className="post-input-placeholder">
+                                    <span>What's on your mind about movies, {user.fullname || user.username}?</span>
+                                </div>
+                                <button className="post-btn-preview">Post</button>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="watchlists-section">
@@ -180,7 +195,16 @@ const UserDashboard = () => {
                             </div>
                         </div>
                     </div>
+
+                    <UserPost username={user.username} />
                 </>
+            )}
+
+            {showPostPopup && (
+                <PostPopUp 
+                    onClose={() => setShowPostPopup(false)}
+                    userInfo={user}
+                />
             )}
         </div>
     );
