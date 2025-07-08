@@ -5,6 +5,7 @@ import SignUp from './Pages/SignUp'
 import SignIn from './Pages/SignIn'
 import { ThemeProvider } from './context/ThemeContext'
 import { AuthProvider } from './context/AuthContext';
+import { NotificationProvider } from './context/NotificationContext';
 import ThemeToggle from './Components/ThemeToggle'
 import UserDashboard from './Pages/UserDashboard'
 import Home from './Pages/Home'
@@ -19,7 +20,9 @@ import Movie from './Pages/Movie';
 import Series from './Pages/Series';
 import UnauthorizeAccess from "./Pages/UnauthorizeAccess";
 import DBEditPage from "./Components/AdminPage/DBEditPage";
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './Components/ProtectedRoute';
+import NotificationContainer from './Components/Notification';
+import Blogs from './Pages/Blogs';
 
 function App() {
 
@@ -27,8 +30,9 @@ function App() {
     <>
       <ThemeProvider>
         <AuthProvider>
-          <BrowserRouter>
-            <Routes>
+          <NotificationProvider>
+            <BrowserRouter>
+              <Routes>
               <Route path='/' element={<> <Header /> <Home/> <Footer /> </>} />
               <Route path='/actor/:actorid' element={<> <Header /> <Actor/> <Footer /></>} />
               <Route path='/series1/:mediaid' element={<> <Header /> <Series/> <Footer /></>} />
@@ -47,6 +51,7 @@ function App() {
               <Route path = '/unauthorized-path' element={<UnauthorizeAccess />} />
               <Route path="/actors" element={<><Header /><Actors /> <Footer /></>} />
               <Route path="/tv-shows" element={<><Header /><Movies /> <Footer /></>} />
+              <Route path="/posts" element={<><Header /><Blogs /> <Footer /></>} />
               <Route path="/profile/:username" element={
                 <ProtectedRoute>
                   <><Header /><UserDashboard /> <Footer /></>
@@ -56,9 +61,11 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
             <ThemeToggle />
+            <NotificationContainer />
           </BrowserRouter>
-        </AuthProvider>
-      </ThemeProvider>
+        </NotificationProvider>
+      </AuthProvider>
+    </ThemeProvider>
     </>
   )
 }
