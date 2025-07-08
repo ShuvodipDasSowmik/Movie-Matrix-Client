@@ -16,6 +16,7 @@ import Footer from './Components/Footer';
 import Actors from './Pages/Actors';
 import Movies from './Pages/Movies';
 import Movie from './Pages/Movie';
+import Series from './Pages/Series';
 import UnauthorizeAccess from "./Pages/UnauthorizeAccess";
 import DBEditPage from "./Components/AdminPage/DBEditPage";
 import ProtectedRoute from './components/ProtectedRoute';
@@ -30,6 +31,7 @@ function App() {
             <Routes>
               <Route path='/' element={<> <Header /> <Home/> <Footer /> </>} />
               <Route path='/actor/:actorid' element={<> <Header /> <Actor/> <Footer /></>} />
+              <Route path='/series1/:mediaid' element={<> <Header /> <Series/> <Footer /></>} />
               <Route path='/movie/:mediaid' element={<> <Header /> <Movie/> <Footer /></>} />              <Route path='/admin' element={
                 <ProtectedRoute requiredRole="ADMIN">
                   <><Header /><Admin /> <Footer /></>
