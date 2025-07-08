@@ -6,6 +6,8 @@ import { useAuth } from '../context/AuthContext';
 import PostPopUp from '../Components/PostPopUp';
 import UserPost from '../Components/UserPost';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const UserDashboard = () => {
     const navigate = useNavigate();
     const { username } = useParams();
@@ -40,7 +42,7 @@ const UserDashboard = () => {
                     return;
                 }
 
-                const response = await axios.get(`http://localhost:3000/user/${username}`);
+                const response = await axios.get(`${API_URL}/user/${username}`);
 
                 if (response.status === 200) {
                     setUser(response.data);
@@ -91,7 +93,7 @@ const UserDashboard = () => {
 
     const handleSaveFullName = async () => {
         try {
-            const response = await axios.put('http://localhost:3000/update-user', {
+            const response = await axios.put(`${API_URL}/update-user`, {
                 fullname: editedFullName,
             });
 

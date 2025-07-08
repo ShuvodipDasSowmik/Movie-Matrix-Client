@@ -4,6 +4,8 @@ import DatabaseOverview from "../Components/AdminPage/DatabaseOverview";
 import useFileUpload from "../Hooks/useFileUpload";
 import "./PageStyles/Admin.css";
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const Admin = () => {
     const { file, data, error, dataType, handleFileChange, clearFile, updateDataType, clearAll } = useFileUpload();
     const [submissionStatus, setSubmissionStatus] = useState({
@@ -82,7 +84,7 @@ const Admin = () => {
         });
         
         try {
-            const response = await fetch('http://localhost:3000/admin', {
+            const response = await fetch(`${API_URL}/admin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

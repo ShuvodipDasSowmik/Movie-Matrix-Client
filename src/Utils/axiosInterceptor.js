@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 export const AxiosInterceptor = (setToken, setUser) => {
     axios.interceptors.response.use(
         res => res,
@@ -16,7 +18,7 @@ export const AxiosInterceptor = (setToken, setUser) => {
                 }
 
                 try {
-                    const response = await axios.post('http://localhost:3000/refresh', { refreshToken });
+                    const response = await axios.post(`${API_URL}/refresh`, { refreshToken });
 
                     const newAccessToken = response.data.accessToken;
                     const newUser = response.data.user;

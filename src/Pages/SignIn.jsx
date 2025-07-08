@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const SignIn = () => {
 
     const navigate = useNavigate();
@@ -38,7 +40,7 @@ const SignIn = () => {
 
         try {
             // Send data to backend
-            const response = await axios.post('http://localhost:3000/signin', {
+            const response = await axios.post(`${API_URL}/signin`, {
                 username: formData.username,
                 password: formData.password
             });

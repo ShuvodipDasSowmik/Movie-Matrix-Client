@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './PageStyles/Movie.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const Movie = () => {
   const { mediaid } = useParams();
   const [movie, setMovie] = useState(null);
@@ -13,7 +15,7 @@ const Movie = () => {
       try {
         setLoading(true);
         // Replace with your actual backend URL
-        const response = await fetch(`http://localhost:3000/movie/${mediaid}`);
+        const response = await fetch(`${API_URL}/movie/${mediaid}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch movie data');

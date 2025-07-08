@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './PageStyles/Actors.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const Actors = () => {
   const [actors, setActors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +13,7 @@ const Actors = () => {
     const fetchActors = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:3000/actors');
+        const response = await fetch(`${API_URL}/actors`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

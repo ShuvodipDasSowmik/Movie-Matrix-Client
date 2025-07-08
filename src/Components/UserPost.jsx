@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { useNotification } from '../context/NotificationContext';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const UserPost = ({ username }) => {
     const { user: authUser } = useAuth();
     const { addNotification, removeNotification } = useNotification();
@@ -29,7 +31,7 @@ const UserPost = ({ username }) => {
             setError('');
 
             try {
-                const response = await axios.get(`http://localhost:3000/posts/${username}`);
+                const response = await axios.get(`${API_URL}/posts/${username}`);
                 
                 if (response.status === 200) {
                     const userPosts = response.data.userBlogData || response.data;
@@ -129,7 +131,7 @@ const UserPost = ({ username }) => {
             
             if (isRemovingReaction) {
                 // Remove the reaction
-                response = await axios.delete(`http://localhost:3000/remove-reaction`, {
+                response = await axios.delete(`${API_URL}/remove-reaction`, {
                     data: {
                         blogid: postId,
                         username: authUser.username
@@ -137,7 +139,7 @@ const UserPost = ({ username }) => {
                 });
             } else {
                 // Add new reaction (backend will handle replacing existing reaction)
-                response = await axios.post(`http://localhost:3000/add-reaction`, {
+                response = await axios.post(`${API_URL}/add-reaction`, {
                     blogid: postId,
                     username: authUser.username,
                     reaction: reactionType
@@ -193,7 +195,7 @@ const UserPost = ({ username }) => {
         });
 
         try {
-            const response = await axios.post(`http://localhost:3000/add-comment`, {
+            const response = await axios.post(`${API_URL}/add-comment`, {
                 commenttext: commentText,
                 blogid: postId,
                 username: authUser.username,
@@ -286,7 +288,7 @@ const UserPost = ({ username }) => {
             };
 
             // Send the updated post directly
-            const response = await axios.put(`http://localhost:3000/update/${postId}`, updatedPost);
+            const response = await axios.put(`${API_URL}/update/${postId}`, updatedPost);
 
             if (response.status === 200) {
                 // Remove loading notification
@@ -339,7 +341,7 @@ const UserPost = ({ username }) => {
 
             try {
                 // Send delete request to server first
-                const response = await axios.delete(`http://localhost:3000/delete/${postId}`);
+                const response = await axios.delete(`${API_URL}/delete/${postId}`);
 
                 if (response.status === 200) {
                     // Remove loading notification
@@ -383,7 +385,7 @@ const UserPost = ({ username }) => {
         });
 
         try {
-            const response = await axios.put(`http://localhost:3000/update-comment/${commentId}`, {
+            const response = await axios.put(`${API_URL}/update-comment/${commentId}`, {
                 commenttext: editCommentContent
             });
 
@@ -436,7 +438,7 @@ const UserPost = ({ username }) => {
             });
 
             try {
-                const response = await axios.delete(`http://localhost:3000/delete-comment/${commentId}`);
+                const response = await axios.delete(`${API_URL}/delete-comment/${commentId}`);
 
                 if (response.status === 200) {
                     // Remove loading notification

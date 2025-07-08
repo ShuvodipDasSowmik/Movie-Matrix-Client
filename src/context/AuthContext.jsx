@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { AxiosInterceptor } from '../Utils/axiosInterceptor';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -50,7 +52,7 @@ export const AuthProvider = ({ children }) => {
 
             if (storedRefreshToken && (!storedAccessToken || isTokenExpired(storedAccessToken))) {
                 try {
-                    const response = await axios.post('http://localhost:3000/refresh', {
+                    const response = await axios.post(`${API_URL}/refresh`, {
                         refreshToken: storedRefreshToken
                     });
 
@@ -96,7 +98,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            await axios.post('http://localhost:3000/logout', {
+            await axios.post(`${API_URL}/logout`, {
                 username: user?.username
             });
         } catch (error) {

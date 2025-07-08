@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './PageStyles/Actor.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const Actor = () => {
     const { actorid } = useParams();
     const navigate = useNavigate();
@@ -28,7 +30,7 @@ const Actor = () => {
 
             try {
                 console.log(`Starting fetch request for actor: ${actorid}`);
-                const response = await fetch(`http://localhost:3000/actors/${actorid}`);
+                const response = await fetch(`${API_URL}/actors/${actorid}`);
 
                 console.log('Full response object:', response);
                 console.log('Response status:', response.status);

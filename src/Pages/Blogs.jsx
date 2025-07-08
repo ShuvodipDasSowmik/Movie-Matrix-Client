@@ -3,6 +3,8 @@ import axios from 'axios';
 import './PageStyles/Blogs.css';
 import { useAuth } from '../context/AuthContext';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const Blogs = () => {
     const { user: authUser } = useAuth();
     const [posts, setPosts] = useState([]);
@@ -26,7 +28,7 @@ const Blogs = () => {
             setError('');
 
             try {
-                const response = await axios.get('http://localhost:3000/posts');
+                const response = await axios.get(`${API_URL}/posts`);
                 
                 if (response.status === 200) {
                     const postsData = response.data.postsData || response.data;
@@ -124,7 +126,7 @@ const Blogs = () => {
             
             if (isRemovingReaction) {
                 // Remove the reaction
-                response = await axios.delete(`http://localhost:3000/remove-reaction`, {
+                response = await axios.delete(`${API_URL}/remove-reaction`, {
                     data: {
                         blogid: postId,
                         username: authUser.username
@@ -132,7 +134,7 @@ const Blogs = () => {
                 });
             } else {
                 // Add new reaction (backend will handle replacing existing reaction)
-                response = await axios.post(`http://localhost:3000/add-reaction`, {
+                response = await axios.post(`${API_URL}/add-reaction`, {
                     blogid: postId,
                     username: authUser.username,
                     reaction: reactionType
@@ -181,7 +183,7 @@ const Blogs = () => {
         if (!commentText) return;
 
         try {
-            const response = await axios.post(`http://localhost:3000/add-comment`, {
+            const response = await axios.post(`${API_URL}/add-comment`, {
                 commenttext: commentText,
                 blogid: postId,
                 username: authUser.username,
@@ -249,7 +251,7 @@ const Blogs = () => {
             };
 
             // Send the updated post directly
-            const response = await axios.put(`http://localhost:3000/update/${postId}`, updatedPost);
+            const response = await axios.put(`${API_URL}/update/${postId}`, updatedPost);
 
             if (response.status === 200) {
                 setPosts(prev => prev.map(post => 
@@ -276,7 +278,7 @@ const Blogs = () => {
         if (window.confirm('Are you sure you want to delete this post?')) {
             try {
                 // Fix the delete endpoint path
-                const response = await axios.delete(`http://localhost:3000/delete/${postId}`);
+                const response = await axios.delete(`${API_URL}/delete/${postId}`);
 
                 if (response.status === 200) {
                     setPosts(prev => prev.filter(post => post.blogid !== postId));
@@ -294,7 +296,7 @@ const Blogs = () => {
 
     const handleUpdateComment = async (commentId) => {
         try {
-            const response = await axios.put(`http://localhost:3000/update-comment/${commentId}`, {
+            const response = await axios.put(`${API_URL}/update-comment/${commentId}`, {
                 commenttext: editCommentContent
             });
 
@@ -321,7 +323,7 @@ const Blogs = () => {
     const handleDeleteComment = async (commentId) => {
         if (window.confirm('Are you sure you want to delete this comment?')) {
             try {
-                const response = await axios.delete(`http://localhost:3000/delete-comment/${commentId}`);
+                const response = await axios.delete(`${API_URL}/delete-comment/${commentId}`);
 
                 if (response.status === 200) {
                     setPostComments(prev => {

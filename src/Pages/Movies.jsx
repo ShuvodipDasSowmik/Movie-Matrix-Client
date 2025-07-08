@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './PageStyles/Movies.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const Movies = () => {
   const [content, setContent] = useState([]);
   const [contentType, setContentType] = useState('movies'); // Default to movies
@@ -18,7 +20,7 @@ const Movies = () => {
       setError(null);
       
       const endpoint = type === 'movies' ? 'movies' : 'series';
-      const response = await fetch(`http://localhost:3000/${endpoint}`);
+      const response = await fetch(`${API_URL}/${endpoint}`);
       
       if (!response.ok) {
         console.log(response);

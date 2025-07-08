@@ -4,6 +4,8 @@ import { IoMdClose } from 'react-icons/io';
 import './ComponentStyles/SearchBar.css';
 import { Link } from 'react-router-dom';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const SearchBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -36,7 +38,7 @@ const SearchBar = () => {
     
     try {
       console.log(`Starting fetch request for search keyword: ${query}`);
-      const response = await fetch(`http://localhost:3000/search/${encodeURIComponent(query)}`); //sends command to backend
+      const response = await fetch(`${API_URL}/search/${encodeURIComponent(query)}`); //sends command to backend
   
       console.log('Full response object:', response);
       console.log('Response status:', response.status);
