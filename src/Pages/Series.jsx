@@ -96,10 +96,10 @@ const Series = () => {
                   <span className="meta-value">{series.releaseyear || 'N/A'}</span>
                 </div>
 
-                <div className="meta-item">
+                {/* <div className="meta-item">
                   <span className="meta-label">Seasons:</span>
                   <span className="meta-value">{series.seasons || 'N/A'}</span>
-                </div>
+                </div> */}
 
                 <div className="meta-item">
                   <span className="meta-label">Ongoing:</span>
