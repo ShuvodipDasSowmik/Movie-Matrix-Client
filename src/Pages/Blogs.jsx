@@ -249,7 +249,7 @@ const Blogs = () => {
             };
 
             // Send the updated post directly
-            const response = await axios.put(`http://localhost:3000/posts/update/${postId}`, updatedPost);
+            const response = await axios.put(`http://localhost:3000/update/${postId}`, updatedPost);
 
             if (response.status === 200) {
                 setPosts(prev => prev.map(post => 

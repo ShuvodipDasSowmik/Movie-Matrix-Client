@@ -19,9 +19,9 @@ import Movies from './Pages/Movies';
 import Movie from './Pages/Movie';
 import UnauthorizeAccess from "./Pages/UnauthorizeAccess";
 import DBEditPage from "./Components/AdminPage/DBEditPage";
-import ProtectedRoute from './Components/ProtectedRoute';
 import NotificationContainer from './Components/Notification';
 import Blogs from './Pages/Blogs';
+import ProtectedRoute from './Components/ProtectedRoute';
 
 function App() {
 
