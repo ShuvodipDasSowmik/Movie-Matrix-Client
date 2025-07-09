@@ -218,7 +218,7 @@ const SearchBar = () => {
                 <div className="search-results-grid">
                   {searchResults.media.map((media) => (
                     <Link 
-                      to={`/movie/${media.mediaid}`} //movie path because series page yet not set up
+                      to={media.mediatype === 'series' ? `/series1/${media.mediaid}` : `/movie/${media.mediaid}`}
                       className="search-result-card media-result" 
                       key={`media-${media.mediaid}`}
                       onClick={() => setIsOpen(false)}
