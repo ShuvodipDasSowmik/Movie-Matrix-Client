@@ -1,0 +1,363 @@
+/* Watchlist Component Styles */
+
+.watchlists-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .watchlists-section {
+  background: var(--color-background-secondary-dark-mode);
+  border: 1px solid var(--color-border-dark-mode);
+}
+
+.watchlists-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dark-mode .watchlists-header {
+  border-bottom: 1px solid var(--color-border-dark-mode);
+}
+
+.watchlists-section h2 {
+  font-size: 1.5rem;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.dark-mode .watchlists-section h2 {
+  color: var(--color-text-light-dark-mode);
+}
+
+.create-watchlist-btn {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.create-watchlist-btn:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.create-watchlist-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.dark-mode .create-watchlist-btn {
+  background-color: var(--color-primary-dark-mode);
+}
+
+.dark-mode .create-watchlist-btn:hover {
+  background-color: var(--color-primary-hover-dark-mode);
+}
+
+/* Create Watchlist Form */
+.create-watchlist-form {
+  background: #f8f9fa;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dark-mode .create-watchlist-form {
+  background: var(--color-background-dark-mode);
+  border-color: var(--color-border-dark-mode);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.dark-mode .form-group label {
+  color: var(--color-text-light-dark-mode);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+
+.dark-mode .form-group input {
+  background: var(--color-background-dark-mode);
+  border-color: var(--color-border-dark-mode);
+  color: var(--color-text-light-dark-mode);
+}
+
+.dark-mode .form-group input:focus {
+  border-color: var(--color-primary-dark-mode);
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.save-btn {
+  background-color: var(--color-success);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.save-btn:hover:not(:disabled) {
+  background-color: var(--color-success-hover);
+}
+
+.save-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+/* Watchlist Container */
+.watchlists-container {
+  min-height: 200px;
+}
+
+.watchlist-placeholder {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #f8f9fa;
+  border: 2px dashed var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+}
+
+.dark-mode .watchlist-placeholder {
+  background: var(--color-background-dark-mode);
+  border-color: var(--color-border-dark-mode);
+  color: var(--color-text-secondary-dark-mode);
+}
+
+.watchlist-placeholder p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+/* Watchlists Grid */
+.watchlists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.watchlist-card {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.watchlist-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .watchlist-card {
+  background: var(--color-background-secondary-dark-mode);
+  border-color: var(--color-border-dark-mode);
+}
+
+.watchlist-header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.watchlist-header-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--color-text-primary);
+  flex: 1;
+}
+
+.dark-mode .watchlist-header-card h3 {
+  color: var(--color-text-light-dark-mode);
+}
+
+.status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status.complete {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status.incomplete {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.dark-mode .status.complete {
+  background-color: #0f2419;
+  color: #4ade80;
+}
+
+.dark-mode .status.incomplete {
+  background-color: #2d1b00;
+  color: #fbbf24;
+}
+
+.watchlist-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.view-btn, .add-media-btn {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.view-btn {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.view-btn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.add-media-btn {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.add-media-btn:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.dark-mode .view-btn {
+  background-color: var(--color-primary-dark-mode);
+}
+
+.dark-mode .view-btn:hover {
+  background-color: var(--color-primary-hover-dark-mode);
+}
+
+.dark-mode .add-media-btn {
+  color: white;
+  border-color: var(--color-primary-dark-mode);
+}
+
+.dark-mode .add-media-btn:hover {
+  background-color: var(--color-primary-dark-mode);
+}
+
+/* Loading and Error States */
+.watchlist-loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+}
+
+.dark-mode .watchlist-loading {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 1px solid #f5c6cb;
+}
+
+.dark-mode .error-message {
+  background-color: #2d1b1e;
+  color: #f1aeb5;
+  border-color: #842029;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .watchlists-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .watchlists-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-actions {
+    justify-content: stretch;
+  }
+  
+  .form-actions button {
+    flex: 1;
+  }
+  
+  .watchlist-actions {
+    flex-direction: column;
+  }
+}

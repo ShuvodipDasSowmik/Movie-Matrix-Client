@@ -114,6 +114,24 @@ const Movie = () => {
             </div>
           </div>
           
+          {/* Awards Section */}
+          {movie.awards && movie.awards.length > 0 && (
+            <div className="info-section awards-section">
+              <h2>Awards</h2>
+              <div className="awards-list">
+                {movie.awards.map((award, index) => (
+                  <div key={index} className="award-item">
+                    <div className="award-name">{award.awardname}</div>
+                    <div className="award-details">
+                      <span className="award-category">{award.awardcategory}</span>
+                      <span className="award-year">({award.year})</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
           {/* Genres Section */}
           {movie.genre && movie.genre.length > 0 && (
             <div className="info-section genre-section">

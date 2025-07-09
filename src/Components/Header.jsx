@@ -13,7 +13,7 @@ const navigationItems = [
     navigationLink: '/'
   },
   {
-    label: 'TV Shows',
+    label: 'Movies | Series',
     navigationLink: '/tv-shows'
   },
   {

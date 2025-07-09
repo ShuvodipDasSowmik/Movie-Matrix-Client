@@ -9,6 +9,9 @@ const Series = () => {
   const [series, setSeries] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [expandedSeason, setExpandedSeason] = useState(null);
+  const [episodes, setEpisodes] = useState({});
+  const [loadingEpisodes, setLoadingEpisodes] = useState({});
 
   useEffect(() => {
     const fetchSeries = async () => {
@@ -21,7 +24,8 @@ const Series = () => {
         }
 
         const data = await response.json();
-        console.log('Fetched series data:', data.seriesData); // Debug log
+        console.log('Fetched series data:', data.seriesData);
+        console.log('Seasons data:', data.seriesData?.seasons);
         setSeries(data.seriesData);
         setLoading(false);
       } catch (err) {
@@ -44,6 +48,48 @@ const Series = () => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
     return match && match[2].length === 11 ? match[2] : null;
+  };
+
+  const fetchEpisodes = async (seasonId) => {
+    try {
+      console.log('Fetching episodes for seasonId:', seasonId); // Debug log
+      setLoadingEpisodes(prev => ({ ...prev, [seasonId]: true }));
+      
+      // Replace this URL with your actual episodes endpoint
+      const response = await fetch(`${API_URL}/episodes/${seasonId}`);
+      
+      console.log('Episodes API response status:', response.status); // Debug log
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch episodes data');
+      }
+      
+      const data = await response.json();
+      console.log('Episodes API response data:', data); // Debug log
+      console.log('Episodes data length:', data.episodesData?.length); // Debug log
+      
+      setEpisodes(prev => ({ ...prev, [seasonId]: data.episodesData || [] }));
+      setLoadingEpisodes(prev => ({ ...prev, [seasonId]: false }));
+    } catch (err) {
+      console.error('Error fetching episodes:', err);
+      setEpisodes(prev => ({ ...prev, [seasonId]: [] }));
+      setLoadingEpisodes(prev => ({ ...prev, [seasonId]: false }));
+    }
+  };
+
+  const handleSeasonClick = (season, index) => {
+    const seasonKey = season.seasonid || index;
+    
+    if (expandedSeason === seasonKey) {
+      // Collapse if already expanded
+      setExpandedSeason(null);
+    } else {
+      // Expand and fetch episodes if not already fetched
+      setExpandedSeason(seasonKey);
+      if (!episodes[seasonKey]) {
+        fetchEpisodes(seasonKey);
+      }
+    }
   };
 
   const youtubeId = getYoutubeId(series.trailerlink);
@@ -74,6 +120,71 @@ const Series = () => {
           <div className="series-info">
             <h1 className="series-title">{series.title || 'Unknown Title'}</h1>
             <p className="series-description">{series.description || 'No description available'}</p>
+            
+            {series.seasons && series.seasons.length > 0 && (
+              <div className="seasons-section">
+                <h3 className="seasons-title">Seasons</h3>
+                <div className="seasons-list">
+                  {series.seasons.map((season, index) => {
+                    const seasonKey = season.seasonid || index;
+                    const isExpanded = expandedSeason === seasonKey;
+                    const seasonEpisodes = episodes[seasonKey] || [];
+                    const isLoadingEpisodes = loadingEpisodes[seasonKey];
+                    
+                    return (
+                      <div key={index} className="season-container">
+                        <button 
+                          className={`season-button ${isExpanded ? 'expanded' : ''}`}
+                          onClick={() => handleSeasonClick(season, index)}
+                        >
+                          <span>{season.seasontitle}</span>
+                          <span className={`arrow ${isExpanded ? 'rotated' : ''}`}>▼</span>
+                        </button>
+                        
+                        <div className={`episodes-container ${isExpanded ? 'expanded' : ''}`}>
+                          {isLoadingEpisodes ? (
+                            <div className="episodes-loading">Loading episodes...</div>
+                          ) : seasonEpisodes.length > 0 ? (
+                            <div className="episodes-list">
+                              {seasonEpisodes.map((episode, episodeIndex) => (
+                                <div key={episodeIndex} className="episode-item">
+                                  <div className="episode-number">
+                                    {episodeIndex + 1}
+                                  </div>
+                                  <div className="episode-details">
+                                    <div className="episode-header">
+                                      <h4 className="episode-title">
+                                        {episode.episodetitle || `Episode ${episodeIndex + 1}`}
+                                      </h4>
+                                      {episode.avgrating && (
+                                        <div className="episode-rating">
+                                          <span className="rating-star">⭐</span>
+                                          <span className="rating-value">{episode.avgrating}</span>
+                                        </div>
+                                      )}
+                                    </div>
+                                    <div className="episode-meta">
+                                      {episode.duration && (
+                                        <span className="episode-runtime">
+                                          <span className="meta-icon">🕒</span>
+                                          {episode.duration} min
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          ) : isExpanded ? (
+                            <div className="no-episodes">No episodes found for this season</div>
+                          ) : null}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -120,6 +231,24 @@ const Series = () => {
               </div>
             </div>
           </div>
+
+          {/* Awards Section */}
+          {series.awards && series.awards.length > 0 && (
+            <div className="info-section awards-section">
+              <h2>Awards</h2>
+              <div className="awards-list">
+                {series.awards.map((award, index) => (
+                  <div key={index} className="award-item">
+                    <div className="award-name">{award.awardname}</div>
+                    <div className="award-details">
+                      <span className="award-category">{award.awardcategory}</span>
+                      <span className="award-year">({award.year})</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {series.genre && series.genre.length > 0 && (
             <div className="info-section genre-section">

@@ -75,6 +75,272 @@
   color: var(--color-text-secondary-dark-mode);
 }
 
+/* Seasons Section */
+.youtube-style .seasons-section {
+  margin-top: 20px;
+}
+
+.youtube-style .seasons-title {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.dark-mode .seasons-title {
+  color: var(--color-text-primary-dark-mode);
+}
+
+.youtube-style .seasons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.youtube-style .season-container {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--color-border);
+  background: linear-gradient(135deg, var(--color-background) 0%, rgba(255, 152, 0, 0.05) 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.youtube-style .season-container:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  border-color: #ff9800;
+}
+
+.dark-mode .season-container {
+  border-color: var(--color-border-dark-mode);
+  background: linear-gradient(135deg, var(--color-background-light-dark-mode) 0%, rgba(255, 152, 0, 0.08) 100%);
+}
+
+.dark-mode .season-container:hover {
+  border-color: #ff9800;
+}
+
+.youtube-style .season-button {
+  background: linear-gradient(135deg, var(--color-border) 0%, rgba(255, 152, 0, 0.1) 100%);
+  color: var(--color-text-primary);
+  border: none;
+  padding: 16px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.youtube-style .season-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.youtube-style .season-button:hover::before {
+  left: 100%;
+}
+
+.youtube-style .season-button:hover {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: white;
+}
+
+.youtube-style .season-button.expanded {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: white;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.youtube-style .season-button .arrow {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 1rem;
+  font-weight: bold;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.youtube-style .season-button .arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.dark-mode .season-button {
+  background: linear-gradient(135deg, var(--color-border-dark-mode) 0%, rgba(255, 152, 0, 0.15) 100%);
+  color: var(--color-text-primary-dark-mode);
+}
+
+.dark-mode .season-button:hover,
+.dark-mode .season-button.expanded {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: white;
+}
+
+/* Episodes Container */
+.youtube-style .episodes-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--color-background);
+}
+
+.youtube-style .episodes-container.expanded {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.dark-mode .episodes-container {
+  background-color: var(--color-background-light-dark-mode);
+}
+
+.youtube-style .episodes-loading,
+.youtube-style .no-episodes {
+  padding: 16px;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.dark-mode .episodes-loading,
+.dark-mode .no-episodes {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+.youtube-style .episodes-list {
+  padding: 8px;
+}
+
+.youtube-style .episode-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-bottom: 1px solid var(--color-border);
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.youtube-style .episode-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.youtube-style .episode-item:hover {
+  background: linear-gradient(135deg, var(--color-border) 0%, rgba(255, 152, 0, 0.1) 100%);
+  transform: translateX(2px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .episode-item {
+  border-bottom-color: var(--color-border-dark-mode);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.dark-mode .episode-item:hover {
+  background: linear-gradient(135deg, var(--color-border-dark-mode) 0%, rgba(255, 152, 0, 0.15) 100%);
+}
+
+.youtube-style .episode-number {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(255, 152, 0, 0.3);
+}
+
+.youtube-style .episode-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.youtube-style .episode-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.youtube-style .episode-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.dark-mode .episode-title {
+  color: var(--color-text-primary-dark-mode);
+}
+
+.youtube-style .episode-rating {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.2) 100%);
+  padding: 2px 6px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 152, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.youtube-style .episode-rating .rating-star {
+  font-size: 0.8rem;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+}
+
+.youtube-style .episode-rating .rating-value {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #f57c00;
+}
+
+.youtube-style .episode-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.youtube-style .episode-runtime {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  background: rgba(255, 152, 0, 0.1);
+  padding: 1px 6px;
+  border-radius: 6px;
+}
+
+.dark-mode .episode-runtime {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+.youtube-style .episode-runtime .meta-icon {
+  font-size: 0.7rem;
+}
+
 /* Metadata */
 .youtube-style .series-metadata {
   background-color: var(--color-background);
@@ -176,6 +442,82 @@
 
 .dark-mode .info-section h2 {
   color: var(--color-text-primary-dark-mode);
+}
+
+/* Awards section styles */
+.youtube-style .awards-section {
+  background-color: var(--color-background);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .youtube-style .awards-section {
+  background-color: var(--color-background-light-dark-mode);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.youtube-style .awards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.youtube-style .award-item {
+  padding: 12px;
+  background-color: var(--color-border);
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.dark-mode .youtube-style .award-item {
+  background-color: var(--color-border-dark-mode);
+}
+
+.youtube-style .award-item:hover {
+  background-color: var(--color-background-light);
+}
+
+.dark-mode .youtube-style .award-item:hover {
+  background-color: var(--color-background-light-dark-mode);
+}
+
+.youtube-style .award-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.dark-mode .youtube-style .award-name {
+  color: var(--color-text-primary-dark-mode);
+}
+
+.youtube-style .award-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.youtube-style .award-category {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.dark-mode .youtube-style .award-category {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+.youtube-style .award-year {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.dark-mode .youtube-style .award-year {
+  color: var(--color-text-secondary-dark-mode);
 }
 
 /* Genre Tags */
@@ -382,5 +724,49 @@
     width: 100px;
     height: 150px;
     margin: 0 auto 16px;
+  }
+
+  .youtube-style .seasons-title {
+    font-size: 1.1rem;
+  }
+
+  .youtube-style .season-button {
+    font-size: 0.9rem;
+    padding: 14px 16px;
+  }
+
+  .youtube-style .episode-item {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .youtube-style .episode-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .youtube-style .episode-rating {
+    align-self: flex-start;
+  }
+
+  .youtube-style .episode-number {
+    align-self: flex-start;
+    width: 26px;
+    height: 26px;
+    font-size: 0.75rem;
+  }
+
+  .youtube-style .episodes-container.expanded {
+    max-height: 350px;
+  }
+
+  .youtube-style .episode-title {
+    font-size: 0.85rem;
+  }
+
+  .youtube-style .episode-runtime {
+    font-size: 0.7rem;
   }
 }

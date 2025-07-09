@@ -386,6 +386,7 @@ const UserPost = ({ username }) => {
 
         try {
             const response = await axios.put(`${API_URL}/update-comment/${commentId}`, {
+                blogcommentid: commentId,
                 commenttext: editCommentContent
             });
 

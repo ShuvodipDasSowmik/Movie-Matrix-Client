@@ -297,6 +297,7 @@ const Blogs = () => {
     const handleUpdateComment = async (commentId) => {
         try {
             const response = await axios.put(`${API_URL}/update-comment/${commentId}`, {
+                blogcommentid: commentId,
                 commenttext: editCommentContent
             });
 

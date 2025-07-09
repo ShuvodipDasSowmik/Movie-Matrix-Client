@@ -289,6 +289,82 @@
   color: var(--color-text-primary-dark-mode);
 }
 
+/* Awards section styles */
+.youtube-style .awards-section {
+  background-color: var(--color-background);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .youtube-style .awards-section {
+  background-color: var(--color-background-light-dark-mode);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.youtube-style .awards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.youtube-style .award-item {
+  padding: 12px;
+  background-color: var(--color-border);
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.dark-mode .youtube-style .award-item {
+  background-color: var(--color-border-dark-mode);
+}
+
+.youtube-style .award-item:hover {
+  background-color: var(--color-background-light);
+}
+
+.dark-mode .youtube-style .award-item:hover {
+  background-color: var(--color-background-light-dark-mode);
+}
+
+.youtube-style .award-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.dark-mode .youtube-style .award-name {
+  color: var(--color-text-primary-dark-mode);
+}
+
+.youtube-style .award-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.youtube-style .award-category {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.dark-mode .youtube-style .award-category {
+  color: var(--color-text-secondary-dark-mode);
+}
+
+.youtube-style .award-year {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.dark-mode .youtube-style .award-year {
+  color: var(--color-text-secondary-dark-mode);
+}
+
 /* Genre styles */
 .youtube-style .genre-list {
   display: flex;

@@ -124,6 +124,24 @@ const Actor = () => {
                         <p>{actor.biography || 'No biography available.'}</p>
                     </div>
 
+                    {/* Awards Section */}
+                    {actor.awards && actor.awards.length > 0 && (
+                        <div className="actor-awards">
+                            <h2>Awards</h2>
+                            <div className="awards-list">
+                                {actor.awards.map((award, index) => (
+                                    <div key={index} className="award-item">
+                                        <div className="award-name">{award.awardname}</div>
+                                        <div className="award-details">
+                                            <span className="award-category">{award.awardcategory}</span>
+                                            <span className="award-year">({award.year})</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
                     <div className="actor-filmography">
                         <h2>Filmography</h2>
                         {actor.medias && actor.medias.length > 0 ? (

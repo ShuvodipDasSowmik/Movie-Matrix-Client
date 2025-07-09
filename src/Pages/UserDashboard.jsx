@@ -5,6 +5,7 @@ import './UserDashboard.css';
 import { useAuth } from '../context/AuthContext';
 import PostPopUp from '../Components/PostPopUp';
 import UserPost from '../Components/UserPost';
+import Watchlist from '../Components/Watchlist';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -188,15 +189,7 @@ const UserDashboard = () => {
                         </div>
                     </div>
 
-                    <div className="watchlists-section">
-                        <h2>Your Watchlists</h2>
-                        <div className="watchlists-container">
-                            <div className="watchlist-placeholder">
-                                <p>Create your first watchlist</p>
-                                <button className="create-watchlist-btn">+ Create Watchlist</button>
-                            </div>
-                        </div>
-                    </div>
+                    <Watchlist username={user.username} />
 
                     <UserPost username={user.username} />
                 </>
