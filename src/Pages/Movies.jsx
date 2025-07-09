@@ -48,6 +48,17 @@ const Movies = () => {
     }
   };
 
+  // Function to get the appropriate year field based on content type
+  const getYearDisplay = (item) => {
+    // Both movies and series use releaseyear from MEDIA table
+    return item.releaseyear || 'N/A';
+  };
+
+  // Function to get the appropriate route based on content type
+  const getRoutePrefix = () => {
+    return contentType === 'movies' ? 'movie' : 'series1';
+  };
+
   if (loading) {
     return (
       <div className="movies-loading">
@@ -69,7 +80,9 @@ const Movies = () => {
 
   return (
     <div className="movies-container">
-      <h1 className="movies-title">Browse TV Shows</h1>
+      <h1 className="movies-title">
+        Browse {contentType === 'movies' ? 'Movies' : 'TV Series'}
+      </h1>
       
       <div className="content-type-selector">
         <button 
@@ -92,9 +105,9 @@ const Movies = () => {
         <div className="movies-grid">
           {content.map((item) => (
             <Link 
-              to={`/${contentType === 'movies' ? 'movie' : 'series'}/${item.mediaid}`} 
+              to={`/${getRoutePrefix()}/${item.mediaid}`} 
               className="movies-list-card" 
-              key={item.title}
+              key={`${item.mediaid}-${item.title}`}
             >
               <div className="movies-list-card-inner">
                 <div className="movies-list-image-container">
@@ -107,7 +120,7 @@ const Movies = () => {
                 <div className="movies-list-info">
                   <h3 className="movies-list-title">{item.title}</h3>
                   <div className="movies-list-details">
-                    <span className="movies-list-year">{item.releaseyear}</span>
+                    <span className="movies-list-year">{getYearDisplay(item)}</span>
                     <span className="movies-list-rating">{item.pgrating}</span>
                   </div>
                   <div className="movies-list-meta">
@@ -117,6 +130,7 @@ const Movies = () => {
                       <span>{item.overallrating}/10</span>
                     </div>
                   </div>
+                  {/* This section is removed since seasoncount and isOngoing are not available in getAllSeries */}
                 </div>
               </div>
             </Link>
