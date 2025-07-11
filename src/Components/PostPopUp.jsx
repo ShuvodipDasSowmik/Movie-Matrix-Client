@@ -4,6 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { useNotificationHelpers } from '../Hooks/useNotificationHelpers';
 import './PostPopUp.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 const PostPopUp = ({ onClose, userInfo }) => {
     const [postText, setPostText] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
@@ -71,7 +73,7 @@ const PostPopUp = ({ onClose, userInfo }) => {
                 formData.append('image', selectedImage);
             }
 
-            const response = await axios.post('http://localhost:3000/create-blog', formData, {
+            const response = await axios.post(`${API_URL}/create-blog`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`

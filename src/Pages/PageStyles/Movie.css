@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 20px;
   font-family: 'Poppins', sans-serif;
-  color: var(--color-text-primary);
+  color: #fff;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -65,37 +65,39 @@
 .youtube-style .movie-title {
   font-size: 2rem;
   margin-bottom: 15px;
-  color: var(--color-text-primary);
+  color: #5271ff;
 }
 
 .dark-mode .youtube-style .movie-title {
-  color: var(--color-text-primary-dark-mode);
+  color: #8670ff;
 }
 
 .youtube-style .movie-description {
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.8);
 }
 
 .dark-mode .youtube-style .movie-description {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 /* Secondary content section */
 .youtube-style .movie-metadata {
-  background-color: var(--color-background);
+  background: rgba(255,255,255,0.07);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 20px;
   display: flex;
   gap: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .dark-mode .youtube-style .movie-metadata {
-  background-color: var(--color-background-light-dark-mode);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background: rgba(20, 20, 35, 0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 .youtube-style .poster-small {
@@ -152,43 +154,45 @@
 .youtube-style .meta-label {
   font-weight: 500;
   margin-right: 8px;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
 }
 
 .dark-mode .youtube-style .meta-label {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 .youtube-style .meta-value {
-  color: var(--color-text-primary);
+  color: #fff;
 }
 
 .dark-mode .youtube-style .meta-value {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 /* Cast section */
 .youtube-style .cast-section {
-  background-color: var(--color-background);
+  background: rgba(255,255,255,0.07);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .dark-mode .youtube-style .cast-section {
-  background-color: var(--color-background-light-dark-mode);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background: rgba(20, 20, 35, 0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 .youtube-style .cast-section h2 {
   font-size: 1.4rem;
   margin-bottom: 16px;
-  color: var(--color-text-primary);
+  color: #5271ff;
 }
 
 .dark-mode .youtube-style .cast-section h2 {
-  color: var(--color-text-primary-dark-mode);
+  color: #8670ff;
 }
 
 /* Updated cast section with clickable items */
@@ -211,12 +215,12 @@
 }
 
 .youtube-style .cast-item:hover {
-  background-color: var(--color-border);
+  background: rgba(82, 113, 255, 0.07);
   cursor: pointer;
 }
 
 .dark-mode .youtube-style .cast-item:hover {
-  background-color: var(--color-border-dark-mode);
+  background: rgba(134, 112, 255, 0.07);
 }
 
 .youtube-style .cast-item::after {
@@ -240,11 +244,11 @@
 .youtube-style .actor-name {
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--color-text-primary);
+  color: #fff;
 }
 
 .dark-mode .youtube-style .actor-name {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 /* Add right arrow icon to indicate it's clickable */
@@ -267,40 +271,44 @@
 
 /* Shared info section styles */
 .youtube-style .info-section {
-  background-color: var(--color-background);
+  background: rgba(255,255,255,0.07);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .dark-mode .youtube-style .info-section {
-  background-color: var(--color-background-light-dark-mode);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background: rgba(20, 20, 35, 0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 .youtube-style .info-section h2 {
   font-size: 1.4rem;
   margin-bottom: 16px;
-  color: var(--color-text-primary);
+  color: #5271ff;
 }
 
 .dark-mode .youtube-style .info-section h2 {
-  color: var(--color-text-primary-dark-mode);
+  color: #8670ff;
 }
 
 /* Awards section styles */
 .youtube-style .awards-section {
-  background-color: var(--color-background);
+  background: rgba(255,255,255,0.07);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .dark-mode .youtube-style .awards-section {
-  background-color: var(--color-background-light-dark-mode);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background: rgba(20, 20, 35, 0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 .youtube-style .awards-list {
@@ -311,58 +319,52 @@
 
 .youtube-style .award-item {
   padding: 12px;
-  background-color: var(--color-border);
+  background: rgba(82, 113, 255, 0.07);
   border-radius: 8px;
-  transition: background-color 0.2s ease;
+  transition: background 0.2s ease;
 }
 
 .dark-mode .youtube-style .award-item {
-  background-color: var(--color-border-dark-mode);
+  background: rgba(134, 112, 255, 0.07);
 }
 
 .youtube-style .award-item:hover {
-  background-color: var(--color-background-light);
+  background: rgba(255,255,255,0.12);
 }
 
 .dark-mode .youtube-style .award-item:hover {
-  background-color: var(--color-background-light-dark-mode);
+  background: rgba(134, 112, 255, 0.15);
 }
 
 .youtube-style .award-name {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: #fff;
   margin-bottom: 4px;
 }
 
 .dark-mode .youtube-style .award-name {
-  color: var(--color-text-primary-dark-mode);
-}
-
-.youtube-style .award-details {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  color: #e0e0e0;
 }
 
 .youtube-style .award-category {
   font-size: 0.9rem;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
   font-style: italic;
 }
 
 .dark-mode .youtube-style .award-category {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 .youtube-style .award-year {
   font-size: 0.9rem;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
   font-weight: 500;
 }
 
 .dark-mode .youtube-style .award-year {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 /* Genre styles */
@@ -373,16 +375,16 @@
 }
 
 .youtube-style .genre-tag {
-  background-color: var(--color-border);
-  color: var(--color-text-primary);
+  background: rgba(82, 113, 255, 0.07);
+  color: #fff;
   padding: 4px 12px;
   border-radius: 16px;
   font-size: 0.85rem;
 }
 
 .dark-mode .youtube-style .genre-tag {
-  background-color: var(--color-border-dark-mode);
-  color: var(--color-text-primary-dark-mode);
+  background: rgba(134, 112, 255, 0.07);
+  color: #e0e0e0;
 }
 
 /* Directors styles */
@@ -416,11 +418,11 @@
 .youtube-style .person-name {
   font-size: 0.85rem;
   text-align: center;
-  color: var(--color-text-primary);
+  color: #fff;
 }
 
 .dark-mode .youtube-style .person-name {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 /* Studios styles */
@@ -443,7 +445,7 @@
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 8px;
-  background-color: white;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -458,11 +460,11 @@
 .youtube-style .studio-name {
   font-size: 0.85rem;
   text-align: center;
-  color: var(--color-text-primary);
+  color: #fff;
 }
 
 .dark-mode .youtube-style .studio-name {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 /* Loading and error states */
@@ -470,20 +472,20 @@
   text-align: center;
   padding: 50px 0;
   font-size: 1.5rem;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
 }
 
 .dark-mode .loading, 
 .dark-mode .no-movie {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 .error {
-  color: var(--color-error);
+  color: #ff4d4d;
 }
 
 .dark-mode .error {
-  color: var(--color-error-dark-mode);
+  color: #ff6b6b;
 }
 
 /* Responsive styles */

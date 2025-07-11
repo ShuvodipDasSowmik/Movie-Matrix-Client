@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './PageStyles/Blogs.css';
 import { useAuth } from '../context/AuthContext';
+import { useNotification } from '../context/NotificationContext';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 const Blogs = () => {
     const { user: authUser } = useAuth();
+    const { addNotification, removeNotification } = useNotification();
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -182,6 +184,13 @@ const Blogs = () => {
         const commentText = newComment[postId]?.trim();
         if (!commentText) return;
 
+        // Show uploading notification
+        const uploadingNotificationId = addNotification({
+            type: 'loading',
+            title: 'Uploading Comment',
+            message: 'Please wait...'
+        });
+
         try {
             const response = await axios.post(`${API_URL}/add-comment`, {
                 commenttext: commentText,
@@ -191,6 +200,9 @@ const Blogs = () => {
             });
 
             if (response.status === 200) {
+                // Remove loading notification
+                removeNotification(uploadingNotificationId);
+                
                 // Create the comment data locally since API doesn't return it
                 const newCommentData = {
                     blogcommentid: Date.now(), // Temporary ID, will be replaced when comments are fetched again
@@ -204,9 +216,24 @@ const Blogs = () => {
                     [postId]: [...(prev[postId] || []), newCommentData]
                 }));
                 setNewComment(prev => ({ ...prev, [postId]: '' }));
+
+                // Show success notification
+                addNotification({
+                    type: 'success',
+                    title: 'Comment Added',
+                    message: 'Your comment has been posted successfully!'
+                });
             }
         } catch (error) {
             console.error('Error adding comment:', error);
+            // Remove loading notification
+            removeNotification(uploadingNotificationId);
+            
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'Failed to add comment. Please try again.'
+            });
         }
     };
 
@@ -237,6 +264,13 @@ const Blogs = () => {
     };
 
     const handleUpdatePost = async (postId) => {
+        // Show uploading notification
+        const uploadingNotificationId = addNotification({
+            type: 'loading',
+            title: 'Updating Post',
+            message: 'Please wait...'
+        });
+
         try {
             const currentPost = posts.find(post => post.blogid === postId);
             
@@ -254,6 +288,9 @@ const Blogs = () => {
             const response = await axios.put(`${API_URL}/update/${postId}`, updatedPost);
 
             if (response.status === 200) {
+                // Remove loading notification
+                removeNotification(uploadingNotificationId);
+                
                 setPosts(prev => prev.map(post => 
                     post.blogid === postId 
                         ? { 
@@ -268,23 +305,63 @@ const Blogs = () => {
                 setEditContent('');
                 setDeleteImage(false);
                 setOriginalContent('');
+
+                // Show success notification
+                addNotification({
+                    type: 'success',
+                    title: 'Post Updated',
+                    message: 'Your post has been updated successfully!'
+                });
             }
         } catch (error) {
             console.error('Error updating post:', error);
+            // Remove loading notification
+            removeNotification(uploadingNotificationId);
+            
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'Failed to update post. Please try again.'
+            });
         }
     };
 
     const handleDeletePost = async (postId) => {
         if (window.confirm('Are you sure you want to delete this post?')) {
+            // Show deleting notification
+            const deletingNotificationId = addNotification({
+                type: 'loading',
+                title: 'Deleting Post',
+                message: 'Please wait...'
+            });
+
             try {
                 // Fix the delete endpoint path
                 const response = await axios.delete(`${API_URL}/delete/${postId}`);
 
                 if (response.status === 200) {
+                    // Remove loading notification
+                    removeNotification(deletingNotificationId);
+                    
                     setPosts(prev => prev.filter(post => post.blogid !== postId));
+
+                    // Show success notification
+                    addNotification({
+                        type: 'success',
+                        title: 'Post Deleted',
+                        message: 'Your post has been deleted successfully!'
+                    });
                 }
             } catch (error) {
                 console.error('Error deleting post:', error);
+                // Remove loading notification
+                removeNotification(deletingNotificationId);
+                
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: 'Failed to delete post. Please try again.'
+                });
             }
         }
     };
@@ -295,6 +372,13 @@ const Blogs = () => {
     };
 
     const handleUpdateComment = async (commentId) => {
+        // Show uploading notification
+        const uploadingNotificationId = addNotification({
+            type: 'loading',
+            title: 'Updating Comment',
+            message: 'Please wait...'
+        });
+
         try {
             const response = await axios.put(`${API_URL}/update-comment/${commentId}`, {
                 blogcommentid: commentId,
@@ -302,6 +386,9 @@ const Blogs = () => {
             });
 
             if (response.status === 200) {
+                // Remove loading notification
+                removeNotification(uploadingNotificationId);
+                
                 setPostComments(prev => {
                     const updated = { ...prev };
                     Object.keys(updated).forEach(postId => {
@@ -315,18 +402,43 @@ const Blogs = () => {
                 });
                 setEditingComment(null);
                 setEditCommentContent('');
+
+                // Show success notification
+                addNotification({
+                    type: 'success',
+                    title: 'Comment Updated',
+                    message: 'Your comment has been updated successfully!'
+                });
             }
         } catch (error) {
             console.error('Error updating comment:', error);
+            // Remove loading notification
+            removeNotification(uploadingNotificationId);
+            
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'Failed to update comment. Please try again.'
+            });
         }
     };
 
     const handleDeleteComment = async (commentId) => {
         if (window.confirm('Are you sure you want to delete this comment?')) {
+            // Show deleting notification
+            const deletingNotificationId = addNotification({
+                type: 'loading',
+                title: 'Deleting Comment',
+                message: 'Please wait...'
+            });
+
             try {
                 const response = await axios.delete(`${API_URL}/delete-comment/${commentId}`);
 
                 if (response.status === 200) {
+                    // Remove loading notification
+                    removeNotification(deletingNotificationId);
+                    
                     setPostComments(prev => {
                         const updated = { ...prev };
                         Object.keys(updated).forEach(postId => {
@@ -336,9 +448,24 @@ const Blogs = () => {
                         });
                         return updated;
                     });
+
+                    // Show success notification
+                    addNotification({
+                        type: 'success',
+                        title: 'Comment Deleted',
+                        message: 'Your comment has been deleted successfully!'
+                    });
                 }
             } catch (error) {
                 console.error('Error deleting comment:', error);
+                // Remove loading notification
+                removeNotification(deletingNotificationId);
+                
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: 'Failed to delete comment. Please try again.'
+                });
             }
         }
     };

@@ -2,18 +2,20 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
+    background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+    color: #fff;
 }
 
 .actor-header {
     margin-bottom: 2rem;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
     padding-bottom: 1rem;
 }
 
 .actor-header h1 {
     font-size: 2.5rem;
     font-weight: 600;
-    color: var(--color-text-primary);
+    color: #5271ff;
 }
 
 .actor-content {
@@ -34,7 +36,7 @@
     height: 350px;
     object-fit: cover;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(82, 113, 255, 0.15);
 }
 
 .actor-image-placeholder {
@@ -44,8 +46,8 @@
     align-items: center;
     justify-content: center;
     font-size: 3rem;
-    background-color: var(--color-primary);
-    color: var(--color-text-light);
+    background-color: #5271ff;
+    color: #fff;
     border-radius: 8px;
 }
 
@@ -53,14 +55,14 @@
     margin-top: 1rem;
     width: 100%;
     padding: 1rem;
-    background-color: var(--color-background);
+    background: rgba(255,255,255,0.07);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 
 .actor-quick-info p {
     margin: 0.5rem 0;
-    color: var(--color-text-secondary);
+    color: rgba(255,255,255,0.7);
 }
 
 .actor-details {
@@ -74,15 +76,15 @@
 .actor-biography h2, .actor-filmography h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: var(--color-text-primary);
-    border-bottom: 2px solid var(--color-primary);
+    color: #fff;
+    border-bottom: 2px solid #5271ff;
     padding-bottom: 0.5rem;
     display: inline-block;
 }
 
 .actor-biography p {
     line-height: 1.6;
-    color: var(--color-text-secondary);
+    color: rgba(255,255,255,0.7);
 }
 
 /* Awards section styles */
@@ -93,8 +95,8 @@
 .actor-awards h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: var(--color-text-primary);
-    border-bottom: 2px solid var(--color-primary);
+    color: #fff;
+    border-bottom: 2px solid #5271ff;
     padding-bottom: 0.5rem;
     display: inline-block;
 }
@@ -108,21 +110,21 @@
 
 .award-item {
     padding: 1rem;
-    background-color: var(--color-background);
+    background: rgba(255,255,255,0.07);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .award-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 25px rgba(82, 113, 255, 0.2);
 }
 
 .award-name {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--color-text-primary);
+    color: #fff;
     margin-bottom: 0.5rem;
 }
 
@@ -134,38 +136,66 @@
 
 .award-category {
     font-size: 0.9rem;
-    color: var(--color-text-secondary);
+    color: rgba(255,255,255,0.7);
     font-style: italic;
 }
 
 .award-year {
     font-size: 0.9rem;
-    color: var(--color-text-secondary);
+    color: rgba(255,255,255,0.7);
     font-weight: 500;
 }
 
 /* Dark mode styles for awards */
+.dark-mode .actor-container {
+    background: linear-gradient(135deg, #0a0a14 0%, #191928 100%);
+    color: #e0e0e0;
+}
+
+.dark-mode .actor-header h1 {
+    color: #8670ff;
+}
+
+.dark-mode .actor-header {
+    border-bottom-color: #333333;
+}
+
+.dark-mode .actor-quick-info {
+    background: rgba(20, 20, 35, 0.5);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+
+.dark-mode .actor-quick-info p {
+    color: #a0a0a0;
+}
+
+.dark-mode .actor-biography h2, 
+.dark-mode .actor-filmography h2,
 .dark-mode .actor-awards h2 {
-    color: var(--color-text-primary-dark-mode);
-    border-bottom-color: var(--color-primary-dark-mode);
+    color: #e0e0e0;
+    border-bottom-color: #8670ff;
+}
+
+.dark-mode .actor-biography p {
+    color: #a0a0a0;
 }
 
 .dark-mode .award-item {
-    background-color: var(--color-background-light-dark-mode);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background: rgba(20, 20, 35, 0.5);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
 }
 
 .dark-mode .award-item:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 12px 32px rgba(134, 112, 255, 0.2);
 }
 
 .dark-mode .award-name {
-    color: var(--color-text-primary-dark-mode);
+    color: #e0e0e0;
 }
 
 .dark-mode .award-category,
 .dark-mode .award-year {
-    color: var(--color-text-secondary-dark-mode);
+    color: #a0a0a0;
 }
 
 .actor-movies-grid {
@@ -176,17 +206,16 @@
 }
 
 .movie-card {
-    background-color: var(--color-background);
+    background: rgba(255,255,255,0.07);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
 
 .movie-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 25px rgba(82, 113, 255, 0.2);
 }
 
 .movie-poster {
@@ -196,14 +225,14 @@
 }
 
 .movie-poster-placeholder {
-    background-color: #303030;
+    background-color: #5271ff;
+    color: #fff;
     border-radius: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     aspect-ratio: 2/3;
-    color: #ffffff;
 }
 
 .placeholder-content {
@@ -231,13 +260,13 @@
 .movie-card h3 {
     font-size: 1rem;
     margin: 0.75rem 0.75rem 0.25rem;
-    color: var(--color-text-primary);
+    color: #fff;
 }
 
 .movie-card p {
     font-size: 0.875rem;
     margin: 0 0.75rem 0.75rem;
-    color: var(--color-text-secondary);
+    color: rgba(255,255,255,0.7);
 }
 
 .actor-loading, .actor-error, .actor-not-found {
@@ -246,7 +275,7 @@
     align-items: center;
     height: 50vh;
     font-size: 1.25rem;
-    color: var(--color-text-secondary);
+    color: rgba(255,255,255,0.7);
 }
 
 /* Dark mode specific styles */

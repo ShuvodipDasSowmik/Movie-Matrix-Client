@@ -188,7 +188,7 @@ const UserPost = ({ username }) => {
         if (!commentText) return;
 
         // Show uploading notification
-        const uploadingNotification = addNotification({
+        const uploadingNotificationId = addNotification({
             type: 'loading',
             title: 'Uploading Comment',
             message: 'Please wait...'
@@ -204,7 +204,7 @@ const UserPost = ({ username }) => {
 
             if (response.status === 200) {
                 // Remove loading notification
-                removeNotification(uploadingNotification.id);
+                removeNotification(uploadingNotificationId);
                 
                 // Only update UI after successful server response
                 const newCommentData = {
@@ -230,7 +230,7 @@ const UserPost = ({ username }) => {
         } catch (error) {
             console.error('Error adding comment:', error);
             // Remove loading notification
-            removeNotification(uploadingNotification.id);
+            removeNotification(uploadingNotificationId);
             
             addNotification({
                 type: 'error',
@@ -268,9 +268,9 @@ const UserPost = ({ username }) => {
 
     const handleUpdatePost = async (postId) => {
         // Show uploading notification
-        const uploadingNotification = addNotification({
+        const uploadingNotificationId = addNotification({
             type: 'loading',
-            title: 'Uploading Post',
+            title: 'Updating Post',
             message: 'Please wait...'
         });
 
@@ -292,7 +292,7 @@ const UserPost = ({ username }) => {
 
             if (response.status === 200) {
                 // Remove loading notification
-                removeNotification(uploadingNotification.id);
+                removeNotification(uploadingNotificationId);
                 
                 // Only update UI after successful server response
                 setPosts(prev => prev.map(post => 
@@ -320,7 +320,7 @@ const UserPost = ({ username }) => {
         } catch (error) {
             console.error('Error updating post:', error);
             // Remove loading notification
-            removeNotification(uploadingNotification.id);
+            removeNotification(uploadingNotificationId);
             
             addNotification({
                 type: 'error',
@@ -333,7 +333,7 @@ const UserPost = ({ username }) => {
     const handleDeletePost = async (postId) => {
         if (window.confirm('Are you sure you want to delete this post?')) {
             // Show deleting notification
-            const deletingNotification = addNotification({
+            const deletingNotificationId = addNotification({
                 type: 'loading',
                 title: 'Deleting Post',
                 message: 'Please wait...'
@@ -345,7 +345,7 @@ const UserPost = ({ username }) => {
 
                 if (response.status === 200) {
                     // Remove loading notification
-                    removeNotification(deletingNotification.id);
+                    removeNotification(deletingNotificationId);
                     
                     // Only update UI after successful server response
                     setPosts(prev => prev.filter(post => post.blogid !== postId));
@@ -360,7 +360,7 @@ const UserPost = ({ username }) => {
             } catch (error) {
                 console.error('Error deleting post:', error);
                 // Remove loading notification
-                removeNotification(deletingNotification.id);
+                removeNotification(deletingNotificationId);
                 
                 addNotification({
                     type: 'error',
@@ -378,9 +378,9 @@ const UserPost = ({ username }) => {
 
     const handleUpdateComment = async (commentId) => {
         // Show uploading notification
-        const uploadingNotification = addNotification({
+        const uploadingNotificationId = addNotification({
             type: 'loading',
-            title: 'Uploading Comment',
+            title: 'Updating Comment',
             message: 'Please wait...'
         });
 
@@ -392,7 +392,7 @@ const UserPost = ({ username }) => {
 
             if (response.status === 200) {
                 // Remove loading notification
-                removeNotification(uploadingNotification.id);
+                removeNotification(uploadingNotificationId);
                 
                 // Only update UI after successful server response
                 setPostComments(prev => {
@@ -419,7 +419,7 @@ const UserPost = ({ username }) => {
         } catch (error) {
             console.error('Error updating comment:', error);
             // Remove loading notification
-            removeNotification(uploadingNotification.id);
+            removeNotification(uploadingNotificationId);
             
             addNotification({
                 type: 'error',
@@ -432,7 +432,7 @@ const UserPost = ({ username }) => {
     const handleDeleteComment = async (commentId) => {
         if (window.confirm('Are you sure you want to delete this comment?')) {
             // Show deleting notification
-            const deletingNotification = addNotification({
+            const deletingNotificationId = addNotification({
                 type: 'loading',
                 title: 'Deleting Comment',
                 message: 'Please wait...'
@@ -443,7 +443,7 @@ const UserPost = ({ username }) => {
 
                 if (response.status === 200) {
                     // Remove loading notification
-                    removeNotification(deletingNotification.id);
+                    removeNotification(deletingNotificationId);
                     
                     // Only update UI after successful server response
                     setPostComments(prev => {
@@ -466,7 +466,7 @@ const UserPost = ({ username }) => {
             } catch (error) {
                 console.error('Error deleting comment:', error);
                 // Remove loading notification
-                removeNotification(deletingNotification.id);
+                removeNotification(deletingNotificationId);
                 
                 addNotification({
                     type: 'error',

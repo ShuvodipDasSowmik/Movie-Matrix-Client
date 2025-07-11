@@ -7,20 +7,21 @@ html.dark-theme {
 
 :root {
   /* Light theme colors */
-  --color-primary: #0056b3;
-  --color-primary-dark: #003d82;
-  --color-background: #ffffff;
-  --color-text-primary: #333333;
-  --color-text-secondary: #555555;
-  --color-text-light: #ffffff;
-  --color-border: #dddddd;
+  --color-primary: #5271ff;
+  --color-accent: #ff4d4d;
+  --color-background: #f9f9f9;
+  --color-background-glass: rgba(255,255,255,0.07);
+  --color-border: rgba(255,255,255,0.15);
+  --color-text-primary: #222;
+  --color-text-secondary: #555;
+  --color-text-light: #fff;
   --color-input-bg: #ffffff;
   --color-disabled: #cccccc;
   --color-error: #ff0000;
   --color-error-light: #ffebeb;
 
   /* Dark theme colors */
-  --color-primary-dark-mode: #001c55;
+  --color-primary-dark-mode: #8670ff;
   --color-primary-dark-dark-mode: #001339;
   --color-background-dark-mode: #050517;
   --color-background-light-dark-mode: #12121e;
@@ -43,10 +44,12 @@ html.dark-theme {
 
 /* Apply body transitions only after initial load */
 body {
-  background: linear-gradient(135deg, #f0f0f0 0%, #ffffff 100%);
-  color: var(--color-text-primary);
-  font-size: 16px;
-  line-height: 1.5;
+  background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+  color: #fff;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  transition: background 0.4s, color 0.3s;
 }
 
 /* Add a class for transitions that will be applied after initial render */
@@ -81,8 +84,8 @@ body {
 
 /* Dark mode styles */
 body.dark-mode {
-  background: linear-gradient(135deg, #2d0036 0%, #050517 100%);
-  color: var(--color-text-primary-dark-mode);
+  background: linear-gradient(135deg, #0a0a14 0%, #191928 100%);
+  color: #e0e0e0;
 }
 
 .dark-mode .theme-toggle {
@@ -94,9 +97,13 @@ body.dark-mode {
 }
 
 a {
+  color: var(--color-primary);
   text-decoration: none;
-  position: relative;
-  display: inline-block;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--color-accent);
 }
 
 a::after {
@@ -113,4 +120,97 @@ a::after {
 
 a:hover::after {
   width: 100%;
+}
+
+.card, .glass, .input-glass {
+  background: var(--color-background-glass);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+input, textarea, select {
+  background: var(--color-background-glass);
+  color: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  transition: border-color 0.2s, background 0.2s;
+  outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--color-primary);
+  background: rgba(255,255,255,0.12);
+}
+
+button, .btn {
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 28px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: rgba(36, 59, 85, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: #5271ff;
+  border-radius: 8px;
+}
+
+/* Dark mode overrides */
+body.dark-mode {
+  background: linear-gradient(135deg, #0a0a14 0%, #191928 100%);
+  color: #e0e0e0;
+}
+
+body.dark-mode a {
+  color: #8670ff;
+}
+
+body.dark-mode a:hover {
+  color: #ff6b6b;
+}
+
+body.dark-mode .card,
+body.dark-mode .glass,
+body.dark-mode .input-glass {
+  background: rgba(20, 20, 35, 0.5);
+  border: 1px solid rgba(128, 0, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background: rgba(20, 20, 35, 0.5);
+  color: #fff;
+  border: 1px solid #333;
+}
+
+body.dark-mode input:focus,
+body.dark-mode textarea:focus,
+body.dark-mode select:focus {
+  border-color: #8670ff;
+  background: rgba(134, 112, 255, 0.08);
+}
+
+body.dark-mode button,
+body.dark-mode .btn {
+  color: #fff;
+}
+
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+  background: #8670ff;
 }

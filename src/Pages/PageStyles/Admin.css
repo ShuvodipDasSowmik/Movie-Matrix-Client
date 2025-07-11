@@ -1,7 +1,31 @@
+/* Color palette variables */
+:root {
+    --color-primary: #5271ff;
+    --color-primary-dark: #4060ff;
+    --color-primary-dark-mode: #8670ff;
+    --color-primary-dark-dark-mode: #7560ee;
+    --color-background: #fff;
+    --color-background-light-dark-mode: #18192b;
+    --color-text-secondary: #888;
+    --color-text-secondary-dark-mode: #b0b0b0;
+    --color-text-light-dark-mode: #e0e0e0;
+    --color-error: #ff4d4d;
+    --color-error-dark-mode: #ff6b6b;
+    --color-error-light: rgba(255, 77, 77, 0.08);
+    --color-error-light-dark-mode: rgba(255, 77, 77, 0.08);
+}
+
 .admin-container {
     padding: 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+    color: #fff;
+}
+
+.dark-mode .admin-container {
+    background: linear-gradient(135deg, #0a0a14 0%, #191928 100%);
+    color: #e0e0e0;
 }
 
 .admin-header {
@@ -25,17 +49,21 @@
     gap: 2rem;
 }
 
-.file-upload-section {
-    background-color: var(--color-background);
-    border-radius: 8px;
+.file-upload-section,
+.data-table-section {
+    background: rgba(255,255,255,0.07);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    border: 1px solid rgba(255,255,255,0.1);
     padding: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
 }
 
-.dark-mode .file-upload-section {
-    background-color: var(--color-background-light-dark-mode);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+.dark-mode .file-upload-section,
+.dark-mode .data-table-section {
+    background: rgba(20, 20, 35, 0.5);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 .file-upload-section h2 {
@@ -55,8 +83,8 @@
 .file-input-label {
     display: inline-block;
     padding: 10px 20px;
-    background-color: var(--color-primary);
-    color: white;
+    background: #5271ff;
+    color: #fff;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -64,15 +92,15 @@
 }
 
 .file-input-label:hover {
-    background-color: var(--color-primary-dark);
+    background: #4060ff;
 }
 
 .dark-mode .file-input-label {
-    background-color: var(--color-primary-dark-mode);
+    background: #8670ff;
 }
 
 .dark-mode .file-input-label:hover {
-    background-color: var(--color-primary-dark-dark-mode);
+    background: #7560ee;
 }
 
 .file-input {
@@ -83,20 +111,21 @@
 
 .file-name-display {
     margin-top: 1rem;
-    background-color: rgba(0, 0, 0, 0.05);
+    background: rgba(255,255,255,0.07);
+    color: #fff;
     padding: 8px 15px;
     border-radius: 4px;
     display: inline-block;
 }
 
 .dark-mode .file-name-display {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--color-text-secondary-dark-mode);
+    background: rgba(20, 20, 35, 0.07);
+    color: #a0a0a0;
 }
 
 .error-message {
-    color: var(--color-error);
-    background-color: var(--color-error-light);
+    color: #ff4d4d;
+    background: rgba(255,77,77,0.08);
     padding: 10px;
     border-radius: 4px;
     margin-top: 1rem;
@@ -104,8 +133,8 @@
 }
 
 .dark-mode .error-message {
-    color: var(--color-error-dark-mode);
-    background-color: var(--color-error-light-dark-mode);
+    color: #ff6b6b;
+    background: rgba(255,77,77,0.08);
 }
 
 .data-table-section {
@@ -154,8 +183,8 @@
 .file-remove-button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #dc3545;
-    color: white;
+    background: #ff4d4d;
+    color: #fff;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -165,15 +194,15 @@
 }
 
 .file-remove-button:hover {
-    background-color: #bd2130;
+    background: #ff6b6b;
 }
 
 .dark-mode .file-remove-button {
-    background-color: #c82333;
+    background: #ff6b6b;
 }
 
 .dark-mode .file-remove-button:hover {
-    background-color: #a71d2a;
+    background: #ff4d4d;
 }
 
 .database-entry-section {
@@ -182,8 +211,8 @@
 }
 
 .database-entry-button {
-    background-color: #00b506;
-    color: black;
+    background: #5271ff;
+    color: #fff;
     padding: 12px 24px;
     border: none;
     border-radius: 4px;
@@ -193,12 +222,12 @@
 }
 
 .database-entry-button:hover {
-    background-color: #00ff0d;
+    background: #4060ff;
 }
 
 .database-entry-button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+    background: #cccccc;
+    color: #888;
 }
 
 .success-message {
@@ -215,34 +244,57 @@
     margin-bottom: 10px;
 }
 
+/* Dropdown styling */
 .data-type-dropdown {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: white;
+    padding: 10px 14px;
+    font-size: 1rem;
+    border: 1.5px solid #5271ff;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.07);
+    color: #222;
     margin-top: 10px;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(82, 113, 255, 0.04);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='10' viewBox='0 0 16 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2L8 8L14 2' stroke='%235271ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px 12px;
+}
+
+.data-type-dropdown:focus {
+    border-color: #4060ff;
+    background: rgba(255,255,255,0.12);
+    box-shadow: 0 0 0 2px rgba(82, 113, 255, 0.15);
+}
+
+.data-type-dropdown:disabled {
+    background: #f0f0f0;
+    color: #aaa;
+    cursor: not-allowed;
 }
 
 .dark-mode .data-type-dropdown {
-    background-color: var(--color-background-light-dark-mode);
-    border-color: #555;
-    color: var(--color-text-light-dark-mode);
+    background: rgba(20, 20, 35, 0.5);
+    border-color: #8670ff;
+    color: #e0e0e0;
+    box-shadow: 0 2px 8px rgba(134, 112, 255, 0.04);
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='10' viewBox='0 0 16 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2L8 8L14 2' stroke='%238670ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
 }
 
-.required-columns-list {
-    margin-top: 10px;
-    padding-left: 20px;
+.dark-mode .data-type-dropdown:focus {
+    border-color: #7560ee;
+    background: rgba(134, 112, 255, 0.08);
+    box-shadow: 0 0 0 2px rgba(134, 112, 255, 0.15);
 }
 
-.required-columns-list li {
-    margin-bottom: 5px;
-    font-weight: 500;
-}
-
-.dark-mode .required-columns-list li {
-    color: var(--color-text-secondary-dark-mode);
+.dark-mode .data-type-dropdown:disabled {
+    background: #22223a;
+    color: #666;
 }
 
 /* Responsive adjustments */

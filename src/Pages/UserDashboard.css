@@ -1,8 +1,26 @@
+/* Color palette variables */
+:root {
+  --color-primary: #5271ff;
+  --color-primary-dark: #4060ff;
+  --color-primary-dark-mode: #8670ff;
+  --color-primary-dark-dark-mode: #7560ee;
+  --color-background: #fff;
+  --color-background-light-dark-mode: #18192b;
+  --color-text-secondary: #888;
+  --color-text-secondary-dark-mode: #b0b0b0;
+  --color-text-light-dark-mode: #e0e0e0;
+  --color-error: #ff4d4d;
+  --color-error-dark-mode: #ff6b6b;
+  --color-error-light: rgba(255, 77, 77, 0.08);
+  --color-error-light-dark-mode: rgba(255, 77, 77, 0.08);
+}
+
 .dashboard-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   font-family: 'Poppins', sans-serif;
+  color: #fff;
 }
 
 .dashboard-header {
@@ -11,7 +29,7 @@
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
 }
 
 .dark-mode .dashboard-header {
@@ -20,12 +38,12 @@
 
 .dashboard-header h1 {
   font-size: 2rem;
-  color: var(--color-primary);
+  color: #5271ff;
   margin: 0;
 }
 
 .dark-mode .dashboard-header h1 {
-  color: var(--color-text-light-dark-mode);
+  color: #8670ff;
 }
 
 .logout-btn {
@@ -57,16 +75,18 @@
 
 /* User Profile Section */
 .user-profile-section {
-  background-color: var(--color-background);
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  background: rgba(255,255,255,0.07);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   padding: 2rem;
   margin-bottom: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .dark-mode .user-profile-section {
-  background-color: var(--color-background-light-dark-mode);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  background: rgba(20, 20, 35, 0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 .profile-header {
@@ -79,8 +99,8 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: var(--color-primary);
-  color: var(--color-text-light);
+  background-color: #5271ff;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,8 +109,8 @@
 }
 
 .dark-mode .profile-avatar {
-  background-color: var(--color-primary-dark-mode);
-  color: var(--color-text-light-dark-mode);
+  background-color: #8670ff;
+  color: #fff;
 }
 
 .profile-info {
@@ -102,17 +122,17 @@
   font-size: 1.8rem;
   margin: 0 0 0.5rem 0;
   display: inline-block;
-  color: var(--color-text-primary);
+  color: #fff;
 }
 
 .dark-mode .profile-info h2 {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 .edit-btn {
   background: none;
   border: none;
-  color: var(--color-primary);
+  color: #5271ff;
   cursor: pointer;
   font-size: 0.9rem;
   margin-left: 1rem;
@@ -122,19 +142,19 @@
 }
 
 .edit-btn:hover {
-  background-color: rgba(0, 86, 179, 0.1);
+  background-color: rgba(82, 113, 255, 0.07);
 }
 
 .dark-mode .edit-btn {
-  color: var(--color-link-dark-mode);
+  color: #8670ff;
 }
 
 .dark-mode .edit-btn:hover {
-  background-color: rgba(30, 144, 255, 0.1);
+  background-color: rgba(134, 112, 255, 0.07);
 }
 
 .username, .user-email, .user-age {
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
   font-size: 1rem;
   margin: 0.25rem 0;
 }
@@ -142,7 +162,7 @@
 .dark-mode .username, 
 .dark-mode .user-email, 
 .dark-mode .user-age {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 /* Edit form */
@@ -152,20 +172,20 @@
 
 .edit-name-form input {
   padding: 0.5rem;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: 4px;
   font-size: 1rem;
   width: 300px;
   max-width: 100%;
   margin-bottom: 0.5rem;
-  background-color: var(--color-input-bg);
-  color: var(--color-text-primary);
+  background: rgba(255,255,255,0.07);
+  color: #fff;
 }
 
 .dark-mode .edit-name-form input {
-  border: 1px solid var(--color-border-dark-mode);
-  background-color: var(--color-input-bg-dark-mode);
-  color: var(--color-text-primary-dark-mode);
+  border: 1px solid #333333;
+  background: rgba(20, 20, 35, 0.5);
+  color: #e0e0e0;
 }
 
 .edit-buttons {
@@ -204,11 +224,11 @@
 .create-post-section {
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid rgba(255,255,255,0.15);
 }
 
 .dark-mode .create-post-section {
-  border-top: 1px solid var(--color-border-dark-mode);
+  border-top: 1px solid #333333;
 }
 
 .create-post-input {
@@ -216,26 +236,26 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: 8px;
-  background-color: var(--color-input-bg);
+  background: rgba(255,255,255,0.07);
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .create-post-input:hover {
-  border-color: var(--color-primary);
-  box-shadow: 0 2px 8px rgba(0, 86, 179, 0.1);
+  border-color: #5271ff;
+  box-shadow: 0 2px 8px rgba(82, 113, 255, 0.07);
 }
 
 .dark-mode .create-post-input {
-  border: 1px solid var(--color-border-dark-mode);
-  background-color: var(--color-input-bg-dark-mode);
+  border: 1px solid #333333;
+  background: rgba(20, 20, 35, 0.5);
 }
 
 .dark-mode .create-post-input:hover {
-  border-color: var(--color-primary-dark-mode);
-  box-shadow: 0 2px 8px rgba(30, 144, 255, 0.1);
+  border-color: #8670ff;
+  box-shadow: 0 2px 8px rgba(134, 112, 255, 0.07);
 }
 
 .post-input-placeholder {
@@ -243,17 +263,17 @@
 }
 
 .post-input-placeholder span {
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
   font-size: 1rem;
 }
 
 .dark-mode .post-input-placeholder span {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 .post-btn-preview {
-  background-color: var(--color-primary);
-  color: var(--color-text-light);
+  background: #5271ff;
+  color: #fff;
   border: none;
   border-radius: 4px;
   padding: 0.5rem 1.5rem;
@@ -264,79 +284,75 @@
 }
 
 .post-btn-preview:hover {
-  background-color: var(--color-primary-dark);
+  background: #4060ff;
 }
 
 .dark-mode .post-btn-preview {
-  background-color: var(--color-primary-dark-mode);
-  color: var(--color-text-light-dark-mode);
+  background: #8670ff;
+  color: #fff;
 }
 
 .dark-mode .post-btn-preview:hover {
-  background-color: var(--color-primary-dark-dark-mode);
+  background: #7560ee;
 }
 
 /* Posts Section */
 .posts-section {
-  background-color: var(--color-background);
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  background: rgba(255,255,255,0.07);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   padding: 2rem;
   margin-top: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .dark-mode .posts-section {
-  background-color: var(--color-background-light-dark-mode);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  background: rgba(20, 20, 35, 0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 .posts-section h2 {
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  color: var(--color-primary);
+  color: #5271ff;
 }
 
 .dark-mode .posts-section h2 {
-  color: var(--color-text-light-dark-mode);
+  color: #8670ff;
 }
 
 .posts-loading {
   text-align: center;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
   padding: 2rem;
   font-size: 1.1rem;
 }
 
 .dark-mode .posts-loading {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 .posts-error {
-  background-color: #ffebee;
-  color: #c62828;
-  padding: 1rem;
-  border-radius: 4px;
-  border-left: 4px solid #c62828;
-  margin-bottom: 1rem;
+  background: rgba(255,77,77,0.08);
+  color: #ff4d4d;
+  border-left: 4px solid #ff4d4d;
 }
 
 .dark-mode .posts-error {
-  background-color: rgba(244, 67, 54, 0.1);
-  color: #ff5722;
-  border-left: 4px solid #ff5722;
+  background: rgba(255,77,77,0.08);
+  color: #ff6b6b;
+  border-left: 4px solid #ff6b6b;
 }
 
 .posts-placeholder {
-  text-align: center;
-  padding: 3rem 2rem;
-  border: 2px dashed var(--color-border);
-  border-radius: 8px;
-  color: var(--color-text-secondary);
+  border: 2px dashed rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.07);
 }
 
 .dark-mode .posts-placeholder {
-  border: 2px dashed var(--color-border-dark-mode);
-  color: var(--color-text-secondary-dark-mode);
+  border: 2px dashed #333333;
+  color: #a0a0a0;
+  background: rgba(20, 20, 35, 0.5);
 }
 
 .posts-placeholder p {
@@ -346,11 +362,11 @@
 
 .posts-placeholder p:first-child {
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: #fff;
 }
 
 .dark-mode .posts-placeholder p:first-child {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 .posts-container {
@@ -360,26 +376,26 @@
 }
 
 .post-card {
-  background-color: var(--color-input-bg);
-  border: 1px solid var(--color-border);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: 8px;
   padding: 1.5rem;
   transition: all 0.3s;
 }
 
 .post-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(82, 113, 255, 0.2);
+  border-color: #5271ff;
 }
 
 .dark-mode .post-card {
-  background-color: var(--color-input-bg-dark-mode);
-  border: 1px solid var(--color-border-dark-mode);
+  background: rgba(20, 20, 35, 0.5);
+  border: 1px solid #333333;
 }
 
 .dark-mode .post-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  border-color: var(--color-primary-dark-mode);
+  box-shadow: 0 4px 12px rgba(134, 112, 255, 0.2);
+  border-color: #8670ff;
 }
 
 .post-header {
@@ -520,8 +536,8 @@
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background-color: var(--color-primary);
-  color: var(--color-text-light);
+  background: #5271ff;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -530,8 +546,8 @@
 }
 
 .dark-mode .post-avatar {
-  background-color: var(--color-primary-dark-mode);
-  color: var(--color-text-light-dark-mode);
+  background: #8670ff;
+  color: #fff;
 }
 
 .post-user-info {
@@ -541,22 +557,22 @@
 
 .post-username {
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: #fff;
   font-size: 1rem;
 }
 
 .dark-mode .post-username {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 .post-date {
   font-size: 0.85rem;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
   margin-top: 0.25rem;
 }
 
 .dark-mode .post-date {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 .post-content {
@@ -564,14 +580,14 @@
 }
 
 .post-content p {
-  color: var(--color-text-primary);
+  color: #fff;
   margin: 0 0 1rem 0;
   font-size: 1rem;
   white-space: pre-wrap;
 }
 
 .dark-mode .post-content p {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 .post-image {
@@ -627,7 +643,7 @@
 .action-btn {
   background: none;
   border: none;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
   cursor: pointer;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -640,15 +656,15 @@
 }
 
 .action-btn:hover {
-  color: var(--color-primary);
+  color: #5271ff;
 }
 
 .dark-mode .action-btn {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 .dark-mode .action-btn:hover {
-  color: #ffffff; /* White text on hover in dark mode */
+  color: #fff;
 }
 
 .reaction-container {
@@ -656,13 +672,13 @@
 }
 
 .reaction-btn.reacted {
-  color: var(--color-primary);
-  background-color: rgba(0, 86, 179, 0.1);
+  color: #5271ff;
+  background: rgba(82, 113, 255, 0.07);
 }
 
 .dark-mode .reaction-btn.reacted {
-  color: var(--color-primary-dark-mode);
-  background-color: rgba(30, 144, 255, 0.1);
+  color: #fff;
+  background: rgba(134, 112, 255, 0.07);
 }
 
 .reaction-overlay {
@@ -680,8 +696,8 @@
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background: white;
-  border: 1px solid var(--color-border);
+  background: rgba(255,255,255,0.97);
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: 25px;
   padding: 0.5rem;
   display: flex;
@@ -692,8 +708,8 @@
 }
 
 .dark-mode .reaction-popup {
-  background: var(--color-background-light-dark-mode);
-  border: 1px solid var(--color-border-dark-mode);
+  background: rgba(20, 20, 35, 0.97);
+  border: 1px solid #333333;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -713,12 +729,11 @@
 }
 
 .reaction-option:hover {
-  transform: scale(1.2);
-  background-color: rgba(0, 0, 0, 0.1);
+  background: rgba(82, 113, 255, 0.07);
 }
 
 .dark-mode .reaction-option:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background: rgba(134, 112, 255, 0.07);
 }
 
 /* Comments Section */
@@ -802,8 +817,8 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: var(--color-primary);
-  color: white;
+  background: #5271ff;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -813,18 +828,18 @@
 }
 
 .dark-mode .comment-avatar {
-  background-color: var(--color-primary-dark-mode);
+  background: #8670ff;
 }
 
 .comment-content {
   flex: 1;
-  background-color: rgba(0, 0, 0, 0.05);
+  background: rgba(255,255,255,0.07);
   border-radius: 12px;
   padding: 0.75rem;
 }
 
 .dark-mode .comment-content {
-  background-color: rgba(255, 255, 255, 0.05);
+  background: rgba(20, 20, 35, 0.07);
 }
 
 .comment-header {
@@ -837,31 +852,31 @@
 .comment-username {
   font-weight: 600;
   font-size: 0.85rem;
-  color: var(--color-text-primary);
+  color: #fff;
 }
 
 .dark-mode .comment-username {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 .comment-date {
   font-size: 0.75rem;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
 }
 
 .dark-mode .comment-date {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 .comment-text {
   margin: 0;
   font-size: 0.9rem;
   line-height: 1.4;
-  color: var(--color-text-primary);
+  color: #fff;
 }
 
 .dark-mode .comment-text {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 /* Edit Image styles - optimized for dark mode */

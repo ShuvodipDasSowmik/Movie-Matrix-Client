@@ -37,8 +37,8 @@ const Header = () => {
   // Check if viewport is mobile size
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth >= 768) {
+      setIsMobile(window.innerWidth <= 767);
+      if (window.innerWidth > 767) {
         setDrawerOpen(false);
       }
     };
@@ -50,6 +50,28 @@ const Header = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // Control body scroll when drawer is open
+  useEffect(() => {
+    if (drawerOpen) {
+      document.body.classList.add('drawer-open');
+      // Store current scroll position
+      const scrollY = window.scrollY;
+      document.body.style.top = `-${scrollY}px`;
+    } else {
+      document.body.classList.remove('drawer-open');
+      // Restore scroll position
+      const scrollY = document.body.style.top;
+      document.body.style.top = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+    
+    // Cleanup function
+    return () => {
+      document.body.classList.remove('drawer-open');
+      document.body.style.top = '';
+    };
+  }, [drawerOpen]);
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
@@ -157,7 +179,7 @@ const Header = () => {
         </nav>
 
         {/* Mobile actions group: search + toggle button */}
-        <div className="mobile-actions">
+        <div className={`mobile-actions ${isMobile ? '' : 'hidden'}`}>
           {/* Mobile Search Bar */}
           <div className="mobile-search">
             <SearchBar />
@@ -165,7 +187,7 @@ const Header = () => {
 
           {/* Mobile Navigation Button */}
           <button
-            className={`mobile-nav-toggle ${isMobile ? '' : 'hidden'}`}
+            className="mobile-nav-toggle"
             onClick={toggleDrawer}
             aria-label="Toggle navigation menu"
           >
@@ -173,70 +195,65 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Mobile Drawer */}
-        <div className={`mobile-drawer ${drawerOpen ? 'open' : ''}`}>
-          <div className="drawer-header">
-            <button
-              className="close-drawer"
-              onClick={toggleDrawer}
-              aria-label="Close navigation menu"
-            >
-              <IoClose />
-            </button>
-          </div>
-          <nav className="drawer-nav">
-            <ul className="drawer-menu">
-              {navigationItems.map((item, index) => (
-                <li key={index} className="drawer-item">
-                  {item.subItems ? (
-                    <div
-                      className="drawer-dropdown"
-                      onClick={() => handleMobileExpand(index)}
-                    >
-                      <span>{item.label}</span>
-                      <IoMdArrowDropdown className={expandedItems[index] ? 'rotated' : ''} />
-                    </div>
+        {/* Mobile Drawer - Only render on mobile/tablet */}
+        {isMobile && (
+          <>
+            <div className={`mobile-drawer ${drawerOpen ? 'open' : ''}`}>
+              <div className="drawer-header">
+                <span className="drawer-title">Menu</span>
+                <button
+                  className="drawer-close"
+                  onClick={toggleDrawer}
+                  aria-label="Close navigation menu"
+                >
+                  <IoClose />
+                </button>
+              </div>
+              <div className="drawer-content">
+                <ul className="drawer-nav-list">
+                  {navigationItems.map((item, index) => (
+                    <li key={index} className="drawer-nav-item">
+                      <a 
+                        href={item.navigationLink} 
+                        className="drawer-nav-link"
+                        onClick={() => setDrawerOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <div className="drawer-user-section">
+                  {isLoggedIn ? (
+                    <>                    
+                      <div className="drawer-user-info">
+                        <FaUserCircle size={20} />
+                        <span>Welcome, {user?.username}</span>
+                      </div>
+                      <button onClick={handleLogout} className="drawer-logout-button">
+                        <FaSignOutAlt size={16} /> Logout
+                      </button>
+                    </>
                   ) : (
-                    <a href={item.navigationLink} className="drawer-link">
-                      {item.label}
+                    <a 
+                      href="/signin" 
+                      className="drawer-login-button"
+                      onClick={() => setDrawerOpen(false)}
+                    >
+                      Login
                     </a>
                   )}
+                </div>
+              </div>
+            </div>
 
-                  {expandedItems[index] && item.subItems && (
-                    <ul className="drawer-submenu">
-                      {item.subItems.map((subItem, subIndex) => (
-                        <li key={subIndex}>
-                          <a
-                            href={subItem.navigationLink}
-                            onClick={() => handleMenuItemClick(subItem.navigationLink)}
-                          >
-                            {subItem.label}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-
-              <li className="drawer-item">
-                {isLoggedIn ? (
-                  <>                    <a href={`/profile/${user?.username}`} className="drawer-profile-btn">
-                    <FaUserCircle size={20} /> My Profile
-                  </a>
-                    <button onClick={handleLogout} className="drawer-logout-btn">
-                      <FaSignOutAlt size={20} /> Logout
-                    </button>
-                  </>
-                ) : (
-                  <a href="/signin" className="drawer-login-btn">Login</a>
-                )}
-              </li>
-            </ul>
-          </nav>
-        </div>
-
-        {drawerOpen && <div className="drawer-backdrop" onClick={toggleDrawer}></div>}
+            {/* Backdrop */}
+            <div 
+              className={`mobile-drawer-backdrop ${drawerOpen ? 'show' : ''}`} 
+              onClick={toggleDrawer}
+            />
+          </>
+        )}
       </div>
     </header>
   );

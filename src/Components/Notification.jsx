@@ -5,12 +5,23 @@ import './ComponentStyles/Notification.css';
 const Notification = ({ notification, onRemove }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [isRemoving, setIsRemoving] = useState(false);
+    const [showProgress, setShowProgress] = useState(false);
 
     useEffect(() => {
         // Trigger entrance animation
-        const timer = setTimeout(() => setIsVisible(true), 50);
+        const timer = setTimeout(() => setIsVisible(true), 100);
+        
+        // Show progress bar for timed notifications
+        if (notification.duration && notification.duration > 0) {
+            const progressTimer = setTimeout(() => setShowProgress(true), 200);
+            return () => {
+                clearTimeout(timer);
+                clearTimeout(progressTimer);
+            };
+        }
+        
         return () => clearTimeout(timer);
-    }, []);
+    }, [notification.duration]);
 
     const handleRemove = () => {
         setIsRemoving(true);
@@ -24,7 +35,7 @@ const Notification = ({ notification, onRemove }) => {
             case 'success':
                 return '✓';
             case 'error':
-                return '✕';
+                return '⚠';
             case 'warning':
                 return '⚠';
             case 'info':
@@ -39,6 +50,15 @@ const Notification = ({ notification, onRemove }) => {
         <div 
             className={`notification ${notification.type} ${isVisible ? 'visible' : ''} ${isRemoving ? 'removing' : ''}`}
             onClick={handleRemove}
+            role="alert"
+            aria-live="polite"
+            tabIndex={0}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleRemove();
+                }
+            }}
         >
             <div className="notification-content">
                 <div className="notification-icon">
@@ -60,10 +80,20 @@ const Notification = ({ notification, onRemove }) => {
                         e.stopPropagation();
                         handleRemove();
                     }}
+                    aria-label="Close notification"
+                    tabIndex={0}
                 >
                     ×
                 </button>
             </div>
+            {showProgress && notification.duration && notification.duration > 0 && (
+                <div 
+                    className="notification-progress"
+                    style={{
+                        animationDuration: `${notification.duration}ms`
+                    }}
+                />
+            )}
         </div>
     );
 };

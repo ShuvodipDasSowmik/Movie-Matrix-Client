@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 20px;
   font-family: 'Poppins', sans-serif;
-  color: var(--color-text-primary);
+  color: #fff;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -58,21 +58,21 @@
 .youtube-style .series-title {
   font-size: 2rem;
   margin-bottom: 15px;
-  color: var(--color-text-primary);
+  color: #5271ff;
 }
 
 .dark-mode .series-title {
-  color: var(--color-text-primary-dark-mode);
+  color: #8670ff;
 }
 
 .youtube-style .series-description {
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.8);
 }
 
 .dark-mode .series-description {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 /* Seasons Section */
@@ -100,29 +100,29 @@
 .youtube-style .season-container {
   border-radius: 12px;
   overflow: hidden;
-  border: 2px solid var(--color-border);
-  background: linear-gradient(135deg, var(--color-background) 0%, rgba(255, 152, 0, 0.05) 100%);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.07);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .youtube-style .season-container:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  border-color: #ff9800;
+  box-shadow: 0 8px 25px rgba(82, 113, 255, 0.2);
+  border-color: #5271ff;
 }
 
 .dark-mode .season-container {
-  border-color: var(--color-border-dark-mode);
-  background: linear-gradient(135deg, var(--color-background-light-dark-mode) 0%, rgba(255, 152, 0, 0.08) 100%);
+  border-color: #333333;
+  background: rgba(20, 20, 35, 0.5);
 }
 
 .dark-mode .season-container:hover {
-  border-color: #ff9800;
+  border-color: #8670ff;
 }
 
 .youtube-style .season-button {
-  background: linear-gradient(135deg, var(--color-border) 0%, rgba(255, 152, 0, 0.1) 100%);
-  color: var(--color-text-primary);
+  background: rgba(255,255,255,0.07);
+  color: #fff;
   border: none;
   padding: 16px 20px;
   font-size: 1rem;
@@ -138,52 +138,26 @@
   overflow: hidden;
 }
 
-.youtube-style .season-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.youtube-style .season-button:hover::before {
-  left: 100%;
-}
-
 .youtube-style .season-button:hover {
-  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
-  color: white;
+  background: #5271ff;
+  color: #fff;
 }
 
 .youtube-style .season-button.expanded {
-  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
-  color: white;
+  background: #5271ff;
+  color: #fff;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.youtube-style .season-button .arrow {
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  font-size: 1rem;
-  font-weight: bold;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
-}
-
-.youtube-style .season-button .arrow.rotated {
-  transform: rotate(180deg);
-}
-
 .dark-mode .season-button {
-  background: linear-gradient(135deg, var(--color-border-dark-mode) 0%, rgba(255, 152, 0, 0.15) 100%);
-  color: var(--color-text-primary-dark-mode);
+  background: rgba(20, 20, 35, 0.5);
+  color: #e0e0e0;
 }
 
 .dark-mode .season-button:hover,
 .dark-mode .season-button.expanded {
-  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
-  color: white;
+  background: #8670ff;
+  color: #fff;
 }
 
 /* Episodes Container */
@@ -225,11 +199,11 @@
   display: flex;
   gap: 12px;
   padding: 12px;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
   transition: all 0.2s ease;
   border-radius: 6px;
   margin-bottom: 6px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255,255,255,0.02);
 }
 
 .youtube-style .episode-item:last-child {
@@ -238,18 +212,18 @@
 }
 
 .youtube-style .episode-item:hover {
-  background: linear-gradient(135deg, var(--color-border) 0%, rgba(255, 152, 0, 0.1) 100%);
+  background: rgba(82, 113, 255, 0.07);
   transform: translateX(2px);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .dark-mode .episode-item {
-  border-bottom-color: var(--color-border-dark-mode);
-  background: rgba(255, 255, 255, 0.02);
+  border-bottom-color: #333333;
+  background: rgba(20, 20, 35, 0.02);
 }
 
 .dark-mode .episode-item:hover {
-  background: linear-gradient(135deg, var(--color-border-dark-mode) 0%, rgba(255, 152, 0, 0.15) 100%);
+  background: rgba(134, 112, 255, 0.07);
 }
 
 .youtube-style .episode-number {
@@ -285,12 +259,12 @@
   font-size: 0.9rem;
   font-weight: 600;
   margin: 0;
-  color: var(--color-text-primary);
+  color: #fff;
   line-height: 1.3;
 }
 
 .dark-mode .episode-title {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 .youtube-style .episode-rating {
@@ -326,15 +300,16 @@
   align-items: center;
   gap: 3px;
   font-size: 0.75rem;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
   font-weight: 500;
-  background: rgba(255, 152, 0, 0.1);
+  background: rgba(82, 113, 255, 0.07);
   padding: 1px 6px;
   border-radius: 6px;
 }
 
 .dark-mode .episode-runtime {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
+  background: rgba(134, 112, 255, 0.07);
 }
 
 .youtube-style .episode-runtime .meta-icon {
@@ -343,17 +318,20 @@
 
 /* Metadata */
 .youtube-style .series-metadata {
-  background-color: var(--color-background);
+  background: rgba(255,255,255,0.07);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 20px;
   display: flex;
   gap: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .dark-mode .series-metadata {
-  background-color: var(--color-background-light-dark-mode);
+  background: rgba(20, 20, 35, 0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 .youtube-style .poster-small {
@@ -406,56 +384,61 @@
 .youtube-style .meta-label {
   font-weight: 500;
   margin-right: 8px;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
 }
 
 .dark-mode .meta-label {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 .youtube-style .meta-value {
-  color: var(--color-text-primary);
+  color: #fff;
 }
 
 .dark-mode .meta-value {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 /* Info Section (Genre, Directors, Studios) */
 .youtube-style .info-section {
-  background-color: var(--color-background);
+  background: rgba(255,255,255,0.07);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .dark-mode .info-section {
-  background-color: var(--color-background-light-dark-mode);
+  background: rgba(20, 20, 35, 0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 .youtube-style .info-section h2 {
   font-size: 1.4rem;
   margin-bottom: 16px;
-  color: var(--color-text-primary);
+  color: #5271ff;
 }
 
 .dark-mode .info-section h2 {
-  color: var(--color-text-primary-dark-mode);
+  color: #8670ff;
 }
 
 /* Awards section styles */
 .youtube-style .awards-section {
-  background-color: var(--color-background);
+  background: rgba(255,255,255,0.07);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .dark-mode .youtube-style .awards-section {
-  background-color: var(--color-background-light-dark-mode);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background: rgba(20, 20, 35, 0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 .youtube-style .awards-list {
@@ -466,32 +449,32 @@
 
 .youtube-style .award-item {
   padding: 12px;
-  background-color: var(--color-border);
+  background: rgba(82, 113, 255, 0.07);
   border-radius: 8px;
-  transition: background-color 0.2s ease;
+  transition: background 0.2s ease;
 }
 
 .dark-mode .youtube-style .award-item {
-  background-color: var(--color-border-dark-mode);
+  background: rgba(134, 112, 255, 0.07);
 }
 
 .youtube-style .award-item:hover {
-  background-color: var(--color-background-light);
+  background: rgba(255,255,255,0.12);
 }
 
 .dark-mode .youtube-style .award-item:hover {
-  background-color: var(--color-background-light-dark-mode);
+  background: rgba(134, 112, 255, 0.15);
 }
 
 .youtube-style .award-name {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: #fff;
   margin-bottom: 4px;
 }
 
 .dark-mode .youtube-style .award-name {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 .youtube-style .award-details {
@@ -502,22 +485,22 @@
 
 .youtube-style .award-category {
   font-size: 0.9rem;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
   font-style: italic;
 }
 
 .dark-mode .youtube-style .award-category {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 .youtube-style .award-year {
   font-size: 0.9rem;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
   font-weight: 500;
 }
 
 .dark-mode .youtube-style .award-year {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 /* Genre Tags */
@@ -528,39 +511,42 @@
 }
 
 .youtube-style .genre-tag {
-  background-color: var(--color-border);
-  color: var(--color-text-primary);
+  background: rgba(82, 113, 255, 0.07);
+  color: #fff;
   padding: 4px 12px;
   border-radius: 16px;
   font-size: 0.85rem;
 }
 
 .dark-mode .genre-tag {
-  background-color: var(--color-border-dark-mode);
-  color: var(--color-text-primary-dark-mode);
+  background: rgba(134, 112, 255, 0.07);
+  color: #e0e0e0;
 }
 
 /* Cast */
 .youtube-style .cast-section {
-  background-color: var(--color-background);
+  background: rgba(255,255,255,0.07);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .dark-mode .cast-section {
-  background-color: var(--color-background-light-dark-mode);
+  background: rgba(20, 20, 35, 0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 .youtube-style .cast-section h2 {
   font-size: 1.4rem;
   margin-bottom: 16px;
-  color: var(--color-text-primary);
+  color: #5271ff;
 }
 
 .dark-mode .cast-section h2 {
-  color: var(--color-text-primary-dark-mode);
+  color: #8670ff;
 }
 
 .youtube-style .cast-list {
@@ -583,12 +569,12 @@
 }
 
 .youtube-style .cast-item:hover {
-  background-color: var(--color-border);
+  background: rgba(82, 113, 255, 0.07);
   cursor: pointer;
 }
 
 .dark-mode .cast-item:hover {
-  background-color: var(--color-border-dark-mode);
+  background: rgba(134, 112, 255, 0.07);
 }
 
 .youtube-style .cast-item::before {
@@ -621,11 +607,11 @@
 .youtube-style .actor-name {
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--color-text-primary);
+  color: #fff;
 }
 
 .dark-mode .actor-name {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 /* Person/Studio Items */
@@ -683,20 +669,20 @@
   text-align: center;
   padding: 50px 0;
   font-size: 1.5rem;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
 }
 
 .dark-mode .loading,
 .dark-mode .no-series {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 .error {
-  color: var(--color-error);
+  color: #ff4d4d;
 }
 
 .dark-mode .error {
-  color: var(--color-error-dark-mode);
+  color: #ff6b6b;
 }
 
 /* Responsive */

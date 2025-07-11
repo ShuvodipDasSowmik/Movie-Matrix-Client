@@ -15,6 +15,7 @@ const SignIn = () => {
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -93,14 +94,36 @@ const SignIn = () => {
 
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
+                    <div style={{ position: "relative" }}>
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            id="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                            style={{ paddingRight: "60px" }}
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            style={{
+                                position: "absolute",
+                                right: 4,
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                                background: "none",
+                                border: "none",
+                                color: "#5271ff",
+                                cursor: "pointer",
+                                fontSize: "0.85rem",
+                                padding: "0 8px"
+                            }}
+                            tabIndex={-1}
+                        >
+                            {showPassword ? "Hide" : "Show"}
+                        </button>
+                    </div>
                 </div>
 
                 <button

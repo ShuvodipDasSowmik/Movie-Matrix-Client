@@ -1,8 +1,7 @@
 .footer {
-  background: linear-gradient(135deg, #e5e7eb 0%, #ffffff 100%);
-  color: var(--color-text-primary, #333333);
+  background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+  color: #fff;
   padding: 2rem 0;
-  margin-top: 2rem;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -18,11 +17,11 @@
 .footer-logo h3 {
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
-  color: var(--color-primary, #0056b3);
+  color: #5271ff;
 }
 
 .footer-logo p {
-  color: var(--color-text-secondary, #555555);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
 }
 
@@ -44,7 +43,7 @@
   bottom: 0;
   width: 50px;
   height: 2px;
-  background-color: var(--color-primary, #0056b3);
+  background: linear-gradient(90deg, transparent, #5271ff, transparent);
 }
 
 .contributors-list {
@@ -54,22 +53,24 @@
 }
 
 .contributor-card {
-  background-color: var(--color-background, #ffffff);
+  background-color: rgba(255, 255, 255, 0.07);
   padding: 1rem;
-  border-radius: 5px;
+  border-radius: 12px;
   min-width: 200px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .contributor-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 25px rgba(82, 113, 255, 0.2);
 }
 
 .contributor-card h5 {
   margin-bottom: 0.5rem;
   font-size: 1rem;
+  color: #fff;
 }
 
 .social-links {
@@ -83,11 +84,11 @@
 }
 
 .social-links a {
-  color: var(--color-text-secondary, #555555);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .social-links a:hover {
-  color: var(--color-primary, #0056b3);
+  color: #5271ff;
 }
 
 .social-links a::after {
@@ -98,37 +99,38 @@
   text-align: center;
   margin-top: 2rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--color-border, #dddddd);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   font-size: 0.8rem;
-  color: var(--color-text-secondary, #777);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Dark mode specific styles */
 body.dark-mode .footer {
-  background: linear-gradient(135deg, #2d0036 0%, #050517 100%);
-  color: var(--color-text-primary-dark-mode, #e0e0e0);
+  background: linear-gradient(135deg, #0a0a14 0%, #191928 100%);
+  color: #e0e0e0;
 }
 
 body.dark-mode .footer-logo h3 {
-  color: var(--color-text-primary-dark-mode);
+  color: #8670ff;
 }
 
 body.dark-mode .contributor-card {
-  background-color: var(--color-background-dark-mode, #050517);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  background-color: rgba(20, 20, 35, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 body.dark-mode .social-links a {
-  color: var(--color-text-secondary-dark-mode, #a0a0a0);
+  color: #a0a0a0;
 }
 
 body.dark-mode .social-links a:hover {
-  color: var(--color-link-dark-mode, #1e90ff);
+  color: #8670ff;
 }
 
 body.dark-mode .footer-bottom {
-  border-top: 1px solid var(--color-border-dark-mode, #333333);
-  color: var(--color-text-secondary-dark-mode, #a0a0a0);
+  border-top: 1px solid #333333;
+  color: #a0a0a0;
 }
 
 @media (max-width: 768px) {

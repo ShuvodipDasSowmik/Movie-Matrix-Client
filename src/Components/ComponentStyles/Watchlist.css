@@ -3,14 +3,17 @@
 .watchlists-section {
   margin-top: 2rem;
   padding: 1.5rem;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .dark-mode .watchlists-section {
-  background: var(--color-background-secondary-dark-mode);
-  border: 1px solid var(--color-border-dark-mode);
+  background: linear-gradient(135deg, #0a0a14 0%, #191928 100%);
+  border: 1px solid rgba(128, 0, 255, 0.1);
+  color: #e0e0e0;
 }
 
 .watchlists-header {
@@ -37,34 +40,36 @@
 }
 
 .create-watchlist-btn {
-  background-color: var(--color-primary);
-  color: white;
+  background: linear-gradient(135deg, #5271ff 0%, #7592ff 100%);
+  color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 50px;
   padding: 0.75rem 1.25rem;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(82, 113, 255, 0.2);
 }
 
 .create-watchlist-btn:hover {
-  background-color: var(--color-primary-hover);
+  background: linear-gradient(135deg, #4060ff 0%, #6080ff 100%);
   transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(82, 113, 255, 0.3);
 }
 
 .create-watchlist-btn:disabled {
-  background-color: #ccc;
+  background: #ccc;
   cursor: not-allowed;
   transform: none;
 }
 
 .dark-mode .create-watchlist-btn {
-  background-color: var(--color-primary-dark-mode);
+  background: linear-gradient(135deg, #8670ff 0%, #9e77d3 100%);
 }
 
 .dark-mode .create-watchlist-btn:hover {
-  background-color: var(--color-primary-hover-dark-mode);
+  background: linear-gradient(135deg, #7560ee 0%, #8e67c3 100%);
 }
 
 /* Create Watchlist Form */
@@ -169,16 +174,16 @@
 .watchlist-placeholder {
   text-align: center;
   padding: 3rem 2rem;
-  background: #f8f9fa;
-  border: 2px dashed var(--color-border);
+  background: rgba(255,255,255,0.07);
+  border: 2px dashed rgba(255,255,255,0.15);
   border-radius: 8px;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
 }
 
 .dark-mode .watchlist-placeholder {
-  background: var(--color-background-dark-mode);
-  border-color: var(--color-border-dark-mode);
-  color: var(--color-text-secondary-dark-mode);
+  background: rgba(20, 20, 35, 0.5);
+  border-color: #333333;
+  color: #a0a0a0;
 }
 
 .watchlist-placeholder p {
@@ -194,21 +199,23 @@
 }
 
 .watchlist-card {
-  background: white;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
   padding: 1.5rem;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 
 .watchlist-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(82, 113, 255, 0.2);
 }
 
 .dark-mode .watchlist-card {
-  background: var(--color-background-secondary-dark-mode);
-  border-color: var(--color-border-dark-mode);
+  background: rgba(20, 20, 35, 0.5);
+  border-color: rgba(128, 0, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
 }
 
 .watchlist-header-card {
@@ -274,40 +281,41 @@
 }
 
 .view-btn {
-  background-color: var(--color-primary);
-  color: white;
+  background: #5271ff;
+  color: #fff;
 }
 
 .view-btn:hover {
-  background-color: var(--color-primary-hover);
+  background: #4060ff;
 }
 
 .add-media-btn {
-  background-color: transparent;
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
+  background: transparent;
+  color: #5271ff;
+  border: 1px solid #5271ff;
 }
 
 .add-media-btn:hover {
-  background-color: var(--color-primary);
-  color: white;
+  background: #5271ff;
+  color: #fff;
 }
 
 .dark-mode .view-btn {
-  background-color: var(--color-primary-dark-mode);
+  background: #8670ff;
 }
 
 .dark-mode .view-btn:hover {
-  background-color: var(--color-primary-hover-dark-mode);
+  background: #7560ee;
 }
 
 .dark-mode .add-media-btn {
-  color: white;
-  border-color: var(--color-primary-dark-mode);
+  color: #8670ff;
+  border-color: #8670ff;
 }
 
 .dark-mode .add-media-btn:hover {
-  background-color: var(--color-primary-dark-mode);
+  background: #8670ff;
+  color: #fff;
 }
 
 /* Loading and Error States */

@@ -3,6 +3,8 @@
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
+  background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+  color: #fff;
 }
 
 /* Page title */
@@ -10,11 +12,11 @@
   font-size: 2.5rem;
   margin-bottom: 2rem;
   text-align: center;
-  color: var(--color-primary);
+  color: #5271ff;
 }
 
 body.dark-mode .actors-title {
-  color: var(--color-link-dark-mode);
+  color: #8670ff;
 }
 
 /* Actors grid layout */
@@ -26,19 +28,20 @@ body.dark-mode .actors-title {
 
 /* Actor card styling */
 .actors-list-card {
-  background-color: var(--color-background);
-  border-radius: 8px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100%;
   text-decoration: none;
   color: inherit;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .actors-list-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 30px rgba(82, 113, 255, 0.2);
 }
 
 .actors-list-card::after {
@@ -60,7 +63,7 @@ body.dark-mode .actors-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f0f0f0;
+  background-color: #5271ff10;
 }
 
 .actors-list-image {
@@ -76,7 +79,7 @@ body.dark-mode .actors-title {
 }
 
 body.dark-mode .actors-list-image-container {
-  background-color: #191925;
+  background-color: #191928;
 }
 
 /* Actor info section */
@@ -90,11 +93,11 @@ body.dark-mode .actors-list-image-container {
 .actors-list-name {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: var(--color-text-primary);
+  color: #fff;
 }
 
 .actors-list-nationality {
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
   font-size: 0.9rem;
 }
 
@@ -110,7 +113,7 @@ body.dark-mode .actors-list-image-container {
 .spinner {
   border: 4px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
-  border-top: 4px solid var(--color-primary);
+  border-top: 4px solid #5271ff;
   width: 40px;
   height: 40px;
   animation: spin 1s linear infinite;
@@ -118,7 +121,7 @@ body.dark-mode .actors-list-image-container {
 }
 
 body.dark-mode .spinner {
-  border-top: 4px solid var(--color-link-dark-mode);
+  border-top: 4px solid #8670ff;
 }
 
 @keyframes spin {
@@ -137,23 +140,23 @@ body.dark-mode .spinner {
 .actors-error h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: var(--color-error);
+  color: #ff4d4d;
 }
 
 .actors-error button {
-  background-color: var(--color-primary);
-  color: white;
+  background: #5271ff;
+  color: #fff;
   border: none;
   padding: 0.8rem 1.5rem;
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background 0.3s;
   margin-top: 1rem;
 }
 
 .actors-error button:hover {
-  background-color: var(--color-primary-dark);
+  background: #4060ff;
 }
 
 /* Empty state */
@@ -161,29 +164,35 @@ body.dark-mode .spinner {
   text-align: center;
   padding: 2rem;
   font-size: 1.2rem;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.7);
 }
 
 /* Dark mode specific styles */
+body.dark-mode .actors-container {
+  background: linear-gradient(135deg, #0a0a14 0%, #191928 100%);
+  color: #e0e0e0;
+}
+
 body.dark-mode .actors-list-card {
-  background-color: var(--color-background-light-dark-mode);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background: rgba(20, 20, 35, 0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 body.dark-mode .actors-list-name {
-  color: var(--color-text-primary-dark-mode);
+  color: #e0e0e0;
 }
 
 body.dark-mode .actors-list-nationality {
-  color: var(--color-text-secondary-dark-mode);
+  color: #a0a0a0;
 }
 
 body.dark-mode .actors-error button {
-  background-color: var(--color-primary-dark-mode);
+  background: #8670ff;
 }
 
 body.dark-mode .actors-error button:hover {
-  background-color: var(--color-primary-dark-dark-mode);
+  background: #7560ee;
 }
 
 /* Responsive adjustments */
