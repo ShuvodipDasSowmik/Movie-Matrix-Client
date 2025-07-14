@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "../Components/DataTable";
-import DatabaseOverview from "../Components/AdminPage/DatabaseOverview";
 import useFileUpload from "../Hooks/useFileUpload";
 import "./PageStyles/Admin.css";
+import AdminUserEmailTable from "../Components/AdminUserEmailTable";
+import DatabaseOverview from "../Components/DatabaseOverview";
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -158,6 +159,7 @@ const Admin = () => {
                 <p>Upload and manage your movie data</p>
             </div>
 
+            {/* DatabaseOverview component is not defined - commenting out for now */}
             <DatabaseOverview />
 
             <div className="admin-content">
@@ -260,6 +262,8 @@ const Admin = () => {
                     )}
                 </div>
             </div>
+
+            <AdminUserEmailTable/>
         </div>
     );
 };

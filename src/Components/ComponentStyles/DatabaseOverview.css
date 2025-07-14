@@ -1,24 +1,28 @@
 .database-overview {
-    background-color: var(--color-background);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
     padding: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 2rem;
+    transition: all 0.3s ease;
 }
 
 .dark-mode .database-overview {
-    background-color: var(--color-background-light-dark-mode);
+    background: rgba(20, 20, 35, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 .database-overview h2 {
     margin-bottom: 1.5rem;
-    color: var(--color-primary);
+    color: #5271ff;
     font-size: 1.8rem;
     text-align: center;
 }
 
 .dark-mode .database-overview h2 {
-    color: var(--color-text-light-dark-mode);
+    color: #8670ff;
 }
 
 .stats-grid {
@@ -28,41 +32,51 @@
 }
 
 .stats-card {
-    background-color: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.04);
     padding: 1.5rem;
-    border-radius: 8px;
+    border-radius: 12px;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .stats-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(82, 113, 255, 0.2);
+    border-color: #5271ff;
 }
 
 .dark-mode .stats-card {
-    background-color: rgba(255, 255, 255, 0.1);
+    background: rgba(20, 20, 35, 0.3);
+    border-color: rgba(255, 255, 255, 0.03);
+}
+
+.dark-mode .stats-card:hover {
+    box-shadow: 0 8px 25px rgba(134, 112, 255, 0.2);
+    border-color: #8670ff;
 }
 
 .stats-card h3 {
     font-size: 1.2rem;
-    color: var(--color-primary);
+    color: #5271ff;
     margin-bottom: 0.8rem;
 }
 
 .dark-mode .stats-card h3 {
-    color: var(--color-text-light-dark-mode);
+    color: #8670ff;
 }
 
 .stat-value {
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    color: var(--color-text-primary);
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .dark-mode .stat-value {
-    color: var(--color-text-primary-dark-mode);
+    color: #e0e0e0;
 }
 
 .sub-stats {
@@ -72,27 +86,40 @@
 }
 
 .sub-stat {
-    color: var(--color-text-secondary);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 0.95rem;
 }
 
 .dark-mode .sub-stat {
-    color: var(--color-text-secondary-dark-mode);
+    color: #a0a0a0;
 }
 
 .stats-loading {
     text-align: center;
     padding: 2rem;
-    color: var(--color-text-secondary);
+    color: rgba(255, 255, 255, 0.7);
     font-style: italic;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.dark-mode .stats-loading {
+    color: #a0a0a0;
+    background: rgba(20, 20, 35, 0.3);
 }
 
 .stats-error {
-    color: var(--color-error);
-    background-color: var(--color-error-light);
+    color: #ff4d4d;
+    background: rgba(255, 77, 77, 0.08);
     padding: 1rem;
-    border-radius: 4px;
+    border-radius: 8px;
     text-align: center;
+    border-left: 4px solid #ff4d4d;
+}
+
+.dark-mode .stats-error {
+    color: #ff6b6b;
+    border-left-color: #ff6b6b;
 }
 
 @media (max-width: 767px) {

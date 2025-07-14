@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../ComponentStyles/DatabaseOverview.css';
+import './ComponentStyles/DatabaseOverview.css';
 
 const DatabaseOverview = () => {
     const [stats, setStats] = useState({

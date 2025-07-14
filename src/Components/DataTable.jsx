@@ -1,37 +1,36 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ComponentStyles/DataTable.css';
 
 const DataTable = ({ data }) => {
-    if (!data || data.length === 0) {
-        return <p className="text-muted">No data available</p>;
-    }
-
-    // Get all unique headers
-    const headers = [...new Set(data.flatMap(item => Object.keys(item)))];
-
-    return (
-        <div className="table-responsive data-table-container">
-            <table className="table table-striped table-hover table-bordered">
-                <thead className="table-header">
-                    <tr>
-                        {headers.map((header) => (
-                            <th key={header} scope="col">{header}</th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((row, index) => (
-                        <tr key={index}>
-                            {headers.map((header, idx) => (
-                                <td key={`${index}-${idx}`}>{row[header] || ''}</td>
-                            ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
+  if (!data || !data.length) {
+    return <p className="empty-state">No data to display.</p>;
+  }
+  
+  const headers = Object.keys(data[0]);
+  
+  return (
+    <div className="data-table-wrapper">
+      <table className="data-table">
+        <thead>
+          <tr>
+            {headers.map((header, index) => (
+              <th key={index}>{header}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {headers.map((header, cellIndex) => (
+                <td key={cellIndex}>{row[header]?.toString() || '-'}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
 export default DataTable;

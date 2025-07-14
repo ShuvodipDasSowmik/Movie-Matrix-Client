@@ -138,15 +138,17 @@
 }
 
 .data-table-section {
-    background-color: var(--color-background);
-    border-radius: 8px;
-    padding: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background: rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .dark-mode .data-table-section {
-    background-color: var(--color-background-light-dark-mode);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background: rgba(20, 20, 35, 0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  border: 1px solid rgba(128, 0, 255, 0.1);
 }
 
 .data-table-section h2 {
@@ -244,57 +246,177 @@
     margin-bottom: 10px;
 }
 
-/* Dropdown styling */
+/* Improved Dropdown Styling */
 .data-type-dropdown {
-    width: 100%;
-    padding: 10px 14px;
-    font-size: 1rem;
-    border: 1.5px solid #5271ff;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.07);
-    color: #222;
-    margin-top: 10px;
-    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-    outline: none;
-    box-shadow: 0 2px 8px rgba(82, 113, 255, 0.04);
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='16' height='10' viewBox='0 0 16 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2L8 8L14 2' stroke='%235271ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 18px 12px;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.07);
+  color: #fff;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
-.data-type-dropdown:focus {
-    border-color: #4060ff;
-    background: rgba(255,255,255,0.12);
-    box-shadow: 0 0 0 2px rgba(82, 113, 255, 0.15);
+.data-type-dropdown::-ms-expand {
+  display: none;
 }
 
-.data-type-dropdown:disabled {
-    background: #f0f0f0;
-    color: #aaa;
-    cursor: not-allowed;
+.data-type-dropdown:focus, 
+.data-type-dropdown:hover {
+  border-color: #5271ff;
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 4px 25px rgba(82, 113, 255, 0.15);
+}
+
+.data-type-dropdown option {
+  background-color: #141e30;
+  color: #fff;
+  padding: 12px;
 }
 
 .dark-mode .data-type-dropdown {
-    background: rgba(20, 20, 35, 0.5);
-    border-color: #8670ff;
-    color: #e0e0e0;
-    box-shadow: 0 2px 8px rgba(134, 112, 255, 0.04);
-    background-image: url("data:image/svg+xml,%3Csvg width='16' height='10' viewBox='0 0 16 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2L8 8L14 2' stroke='%238670ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+  background: rgba(20, 20, 35, 0.5);
+  border-color: #333333;
+  color: #e0e0e0;
 }
 
-.dark-mode .data-type-dropdown:focus {
-    border-color: #7560ee;
-    background: rgba(134, 112, 255, 0.08);
-    box-shadow: 0 0 0 2px rgba(134, 112, 255, 0.15);
+.dark-mode .data-type-dropdown:focus,
+.dark-mode .data-type-dropdown:hover {
+  border-color: #8670ff;
+  background: rgba(134, 112, 255, 0.08);
+  box-shadow: 0 4px 25px rgba(134, 112, 255, 0.15);
 }
 
-.dark-mode .data-type-dropdown:disabled {
-    background: #22223a;
-    color: #666;
+.dark-mode .data-type-dropdown option {
+  background-color: #0a0a14;
+  color: #e0e0e0;
+}
+
+/* Required Columns List Styling */
+.required-columns-list {
+  margin-top: 10px;
+  list-style-position: inside;
+  padding-left: 4px;
+}
+
+.required-columns-list li {
+  background: rgba(82, 113, 255, 0.07);
+  margin-bottom: 6px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.95rem;
+  border-left: 3px solid #5271ff;
+}
+
+.dark-mode .required-columns-list li {
+  background: rgba(134, 112, 255, 0.07);
+  border-left-color: #8670ff;
+  color: #e0e0e0;
+}
+
+/* Enhanced Table Styling */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+  table-layout: auto;
+  margin-top: 0;
+}
+
+.data-table thead {
+  background: rgba(255,255,255,0.07);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.data-table th,
+.data-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  font-size: 0.95rem;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.data-table th {
+  font-weight: 600;
+  color: #fff;
+}
+
+.data-table tbody tr:hover {
+  background: rgba(82, 113, 255, 0.07);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Dark mode specific styles for table */
+.dark-mode .data-table-wrapper {
+  background: rgba(20, 20, 35, 0.2);
+  border-color: rgba(255,255,255,0.03);
+}
+
+.dark-mode .data-table thead {
+  background: rgba(20, 20, 35, 0.6);
+}
+
+.dark-mode .data-table th {
+  color: #e0e0e0;
+}
+
+.dark-mode .data-table th,
+.dark-mode .data-table td {
+  border-bottom-color: rgba(128, 0, 255, 0.1);
+}
+
+.dark-mode .data-table tbody tr:hover {
+  background: rgba(134, 112, 255, 0.07);
+}
+
+/* Submission status styling */
+.submission-status-container {
+  margin-bottom: 1.5rem;
+}
+
+.loading-message, 
+.disabled-button-message {
+  color: rgba(255,255,255,0.7);
+  font-style: italic;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.dark-mode .loading-message,
+.dark-mode .disabled-button-message {
+  color: #a0a0a0;
+  background: rgba(255,255,255,0.02);
+}
+
+/* Fix the DataTable overflow issue */
+.data-table-wrapper {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-top: 1.5rem;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
 /* Responsive adjustments */
@@ -329,3 +451,4 @@
         padding: 1.5rem;
     }
 }
+
