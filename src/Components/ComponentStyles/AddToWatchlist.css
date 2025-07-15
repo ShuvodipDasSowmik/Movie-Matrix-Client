@@ -1,0 +1,303 @@
+/* AddToWatchlist Component Styles */
+
+
+.add-to-watchlist-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: var(--color-primary-gradient, linear-gradient(135deg, #5271ff 0%, #7592ff 100%));
+  color: var(--color-text-light, #fff);
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-to-watchlist-button:hover {
+  background: var(--color-primary-gradient-hover, linear-gradient(135deg, #4060ff 0%, #6080ff 100%));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .add-to-watchlist-button {
+  background: var(--color-primary-gradient-dark-mode, linear-gradient(135deg, #8670ff 0%, #9e77d3 100%));
+  color: var(--color-text-light-dark-mode, #fff);
+}
+
+.dark-mode .add-to-watchlist-button:hover {
+  background: var(--color-primary-gradient-dark-mode-hover, linear-gradient(135deg, #7560ee 0%, #8e67c3 100%));
+}
+
+/* Watchlist Modal */
+.watchlist-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+
+.watchlist-modal {
+  background: var(--color-background-modal, linear-gradient(135deg, #1c2331 0%, #24344d 100%));
+  width: 90%;
+  max-width: 500px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
+  animation: modalFadeIn 0.3s ease;
+}
+
+.dark-mode .watchlist-modal {
+  background: var(--color-background-dark-mode, linear-gradient(135deg, #0a0a14 0%, #161625 100%));
+  border: 1px solid var(--color-border-dark-mode, rgba(128, 0, 255, 0.15));
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.watchlist-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.watchlist-modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.close-modal-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-modal-btn:hover {
+  color: #fff;
+}
+
+.watchlist-modal-content {
+  padding: 20px;
+}
+
+.existing-watchlists,
+.create-new-watchlist {
+  margin-bottom: 20px;
+}
+
+.existing-watchlists h4,
+.create-new-watchlist h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+
+.watchlist-select {
+  position: relative;
+}
+
+.watchlist-select::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid var(--color-text-light, #fff);
+  pointer-events: none;
+  margin-top: -7px;
+}
+
+.dark-mode .watchlist-select::after {
+  border-top-color: var(--color-text-light-dark, #fff);
+}
+
+.watchlist-select select {
+  width: 100%;
+  padding: 10px 30px 10px 12px;
+  background-color: var(--color-input-bg, #2c3e50);
+  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.2));
+  border-radius: 4px;
+  color: var(--color-text-light, #fff);
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.watchlist-select select:focus {
+  outline: none;
+  border-color: var(--color-primary, #5271ff);
+  box-shadow: 0 0 0 2px var(--color-primary-transparent, rgba(82, 113, 255, 0.15));
+}
+
+/* Style for dropdown options */
+.watchlist-select select option {
+  background-color: var(--color-input-bg, #2c3e50);
+  color: var(--color-text-light, #fff);
+  padding: 12px;
+}
+
+/* Dark mode styles */
+.dark-mode .watchlist-select select {
+  background-color: var(--color-input-bg-dark, #1a1a2e);
+  border: 1px solid var(--color-border-dark, rgba(128, 0, 255, 0.15));
+  color: var(--color-text-light-dark, #fff);
+}
+
+.dark-mode .watchlist-select select:focus {
+  border-color: var(--color-primary-dark, #8670ff);
+  box-shadow: 0 0 0 2px var(--color-primary-dark-transparent, rgba(134, 112, 255, 0.15));
+}
+
+.dark-mode .watchlist-select select option {
+  background-color: var(--color-input-bg-dark, #1a1a2e);
+  color: var(--color-text-light-dark, #fff);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: var(--color-input-bg, #2c3e50);
+  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.2));
+  border-radius: 4px;
+  color: var(--color-text-light, #fff);
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--color-primary, #5271ff);
+  box-shadow: 0 0 0 2px var(--color-primary-transparent, rgba(82, 113, 255, 0.15));
+}
+
+.dark-mode .form-group input {
+  background-color: var(--color-input-bg-dark, #1a1a2e);
+  border: 1px solid var(--color-border-dark, rgba(128, 0, 255, 0.15));
+  color: var(--color-text-light-dark, #fff);
+}
+
+.dark-mode .form-group input:focus {
+  border-color: var(--color-primary-dark, #8670ff);
+  box-shadow: 0 0 0 2px var(--color-primary-dark-transparent, rgba(134, 112, 255, 0.15));
+}
+
+.add-btn,
+.create-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.add-btn {
+  background: var(--color-primary, #5271ff);
+  color: var(--color-text-light, #fff);
+}
+
+.add-btn:hover:not(:disabled) {
+  background: var(--color-primary-hover, #4060ff);
+}
+
+.create-btn {
+  background: var(--color-success, #28a745);
+  color: var(--color-text-light, #fff);
+}
+
+.create-btn:hover:not(:disabled) {
+  background: var(--color-success-hover, #218838);
+}
+
+.add-btn:disabled,
+.create-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.watchlist-loading {
+  text-align: center;
+  padding: 20px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+
+.success-message {
+  background-color: var(--color-success-bg, rgba(40, 167, 69, 0.2));
+  color: var(--color-success, #2ecc71);
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin: 10px 20px;
+  border: 1px solid var(--color-success-border, rgba(46, 204, 113, 0.3));
+}
+
+.error-message {
+  background-color: var(--color-error-bg, rgba(231, 76, 60, 0.2));
+  color: var(--color-error, #e74c3c);
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin: 10px 20px;
+  border: 1px solid var(--color-error-border, rgba(231, 76, 60, 0.3));
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .watchlist-modal {
+    width: 95%;
+  }
+
+  .watchlist-modal-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .existing-watchlists h4,
+  .create-new-watchlist h4 {
+    font-size: 0.95rem;
+  }
+
+  .watchlist-modal-content {
+    padding: 15px;
+  }
+}

@@ -26,6 +26,13 @@ body.dark-mode .movies-title {
   gap: 2rem;
 }
 
+/* Movie card wrapper for watchlist actions */
+.movies-list-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 /* Movie card styling */
 .movies-list-card {
   background: rgba(255,255,255,0.07);
@@ -33,10 +40,12 @@ body.dark-mode .movies-title {
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
+  flex-grow: 1;
   text-decoration: none;
   color: inherit;
   border: 1px solid rgba(255,255,255,0.1);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .movies-list-card:hover {
@@ -46,12 +55,6 @@ body.dark-mode .movies-title {
 
 .movies-list-card::after {
   display: none; /* Remove underline effect on cards */
-}
-
-.movies-list-card-inner {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 /* Movie image styling */
@@ -194,6 +197,24 @@ body.dark-mode .spinner {
   padding: 2rem;
   font-size: 1.2rem;
   color: rgba(255,255,255,0.7);
+}
+
+/* Movies list actions */
+.movies-list-actions {
+  background: rgba(255,255,255,0.07);
+  padding: 0.75rem;
+  display: flex;
+  justify-content: center;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-top: none;
+}
+
+.movies-watchlist-btn {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 0.85rem;
 }
 
 /* Dark mode specific styles */

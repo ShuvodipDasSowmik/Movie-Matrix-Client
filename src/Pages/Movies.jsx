@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
+import AddToWatchlist from '../Components/AddToWatchlist';
 import './PageStyles/Movies.css';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
@@ -9,6 +11,7 @@ const Movies = () => {
   const [contentType, setContentType] = useState('movies'); // Default to movies
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useContext(AuthContext) || {};
 
   useEffect(() => {
     fetchContent(contentType);
@@ -104,36 +107,47 @@ const Movies = () => {
       ) : (
         <div className="movies-grid">
           {content.map((item) => (
-            <Link 
-              to={`/${getRoutePrefix()}/${item.mediaid}`} 
-              className="movies-list-card" 
-              key={`${item.mediaid}-${item.title}`}
-            >
-              <div className="movies-list-card-inner">
-                <div className="movies-list-image-container">
-                  <img 
-                    src={item.poster || 'https://uniprints.co.uk/wp-content/uploads/woocommerce-placeholder-375x400.png'} 
-                    alt={item.title} 
-                    className="movies-list-image" 
+            <div className="movies-list-card-wrapper" key={`${item.mediaid}-${item.title}`}>
+              <Link 
+                to={`/${getRoutePrefix()}/${item.mediaid}`} 
+                className="movies-list-card"
+              >
+                <div className="movies-list-card-inner">
+                  <div className="movies-list-image-container">
+                    <img 
+                      src={item.poster || 'https://uniprints.co.uk/wp-content/uploads/woocommerce-placeholder-375x400.png'} 
+                      alt={item.title} 
+                      className="movies-list-image" 
+                    />
+                  </div>
+                  <div className="movies-list-info">
+                    <h3 className="movies-list-title">{item.title}</h3>
+                    <div className="movies-list-details">
+                      <span className="movies-list-year">{getYearDisplay(item)}</span>
+                      <span className="movies-list-rating">{item.pgrating}</span>
+                    </div>
+                    <div className="movies-list-meta">
+                      <div className="movies-list-language">{item.language}</div>
+                      <div className="movies-list-score">
+                        <span className="star-icon">★</span>
+                        <span>{item.overallrating}/10</span>
+                      </div>
+                    </div>
+                    {/* This section is removed since seasoncount and isOngoing are not available in getAllSeries */}
+                  </div>
+                </div>
+              </Link>
+              {user && AddToWatchlist && (
+                <div className="movies-list-actions">
+                  <AddToWatchlist 
+                    mediaId={item.mediaid}
+                    mediaType={contentType === 'movies' ? 'movie' : 'series'}
+                    buttonText="+ Watchlist"
+                    buttonClassName="movies-watchlist-btn"
                   />
                 </div>
-                <div className="movies-list-info">
-                  <h3 className="movies-list-title">{item.title}</h3>
-                  <div className="movies-list-details">
-                    <span className="movies-list-year">{getYearDisplay(item)}</span>
-                    <span className="movies-list-rating">{item.pgrating}</span>
-                  </div>
-                  <div className="movies-list-meta">
-                    <div className="movies-list-language">{item.language}</div>
-                    <div className="movies-list-score">
-                      <span className="star-icon">★</span>
-                      <span>{item.overallrating}/10</span>
-                    </div>
-                  </div>
-                  {/* This section is removed since seasoncount and isOngoing are not available in getAllSeries */}
-                </div>
-              </div>
-            </Link>
+              )}
+            </div>
           ))}
         </div>
       )}

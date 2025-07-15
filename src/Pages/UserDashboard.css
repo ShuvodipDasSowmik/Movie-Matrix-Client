@@ -433,7 +433,7 @@
 }
 
 .dark-mode .edit-post-btn {
-  color: var(--color-text-secondary-dark-mode);
+  color: var(--color-text-secondary-dark-mode) !important;
 }
 
 .dark-mode .delete-post-btn {
