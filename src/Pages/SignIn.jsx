@@ -52,6 +52,7 @@ const SignIn = () => {
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
             localStorage.setItem('username', data.user.username);
+            localStorage.setItem('role', data.user.role);
 
             try {
                 signin(data.accessToken, data.refreshToken, data.user);

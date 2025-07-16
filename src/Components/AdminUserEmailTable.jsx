@@ -9,6 +9,7 @@ function AdminUserEmailTable() {
     const [users, setUsers] = useState([]);
     const [selected, setSelected] = useState(new Set());
     const [message, setMessage] = useState('');
+    const [subject, setSubject] = useState(''); // Add subject state
     const [sending, setSending] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -55,17 +56,23 @@ function AdminUserEmailTable() {
         const selectedUsers = users.filter(user => selected.has(user.username));
         
         try {
-            await axios.post(`${API_URL}/api/admin/send-email`, {
+            await axios.post(`${API_URL}/admin/send-email`, {
                 users: selectedUsers,
+                subject, // Send subject to backend
                 message
             });
             alert('Emails sent successfully!');
             setSelected(new Set());
             setMessage('');
-        } catch (error) {
+            setSubject(''); // Clear subject after send
+        }
+        
+        catch (error) {
             console.error('Error sending emails:', error);
             alert('Failed to send emails. Please try again.');
-        } finally {
+        }
+        
+        finally {
             setSending(false);
         }
     };
@@ -116,6 +123,13 @@ function AdminUserEmailTable() {
             </div>
 
             <div className="email-compose-section">
+                <input
+                    type="text"
+                    placeholder="Subject"
+                    value={subject}
+                    onChange={e => setSubject(e.target.value)}
+                    className="email-subject-input"
+                />
                 <textarea
                     placeholder="Enter your message to selected users"
                     value={message}
@@ -125,7 +139,7 @@ function AdminUserEmailTable() {
                 />
                 <button
                     onClick={handleSend}
-                    disabled={sending || selected.size === 0 || !message.trim()}
+                    disabled={sending || selected.size === 0 || !message.trim() || !subject.trim()}
                     className="database-entry-button email-send-button"
                 >
                     {sending ? 'Sending...' : `Send Email to ${selected.size} User(s)`}

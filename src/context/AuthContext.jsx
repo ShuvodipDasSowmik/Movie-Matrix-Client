@@ -66,16 +66,23 @@ export const AuthProvider = ({ children }) => {
                     localStorage.setItem('username', newUser.username);
 
                     axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
-                } catch (err) {
+                }
+                
+                catch (err) {
                     console.error("Auto-refresh failed:", err);
                     localStorage.clear();
                     setToken(null);
                     setUser(null);
                 }
-            } else if (storedAccessToken && storedUser) {
+            }
+            
+            else if (storedAccessToken && storedUser) {
                 setToken(storedAccessToken);
                 setUser(JSON.parse(storedUser));
                 axios.defaults.headers.common['Authorization'] = `Bearer ${storedAccessToken}`;
+            } else {
+                setToken(null);
+                setUser(null);
             }
 
             setLoading(false);
@@ -101,9 +108,13 @@ export const AuthProvider = ({ children }) => {
             await axios.post(`${API_URL}/logout`, {
                 username: user?.username
             });
-        } catch (error) {
+        }
+        
+        catch (error) {
             console.error("Logout error:", error);
-        } finally {
+        }
+        
+        finally {
             setToken(null);
             setUser(null);
             localStorage.clear();

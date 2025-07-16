@@ -40,7 +40,7 @@ function App() {
           await axios.post(`${API_URL}/track-activity`, { visitorID });
         }
       }
-      
+
       catch (err) {
         console.error('Failed to track user activity:', err);
       }
@@ -59,9 +59,9 @@ function App() {
                 <Route path='/actor/:actorid' element={<> <Header /> <Actor /> <Footer /></>} />
                 <Route path='/series1/:mediaid' element={<> <Header /> <Series /> <Footer /></>} />
                 <Route path='/movie/:mediaid' element={<> <Header /> <Movie /> <Footer /></>} />              <Route path='/admin' element={
-                  // <ProtectedRoute requiredRole="ADMIN">
-                  <><Header /><Admin /> <Footer /></>
-                  // </ProtectedRoute>
+                  <ProtectedRoute requiredRole="ADMIN">
+                    <><Header /><Admin /> <Footer /></>
+                  </ProtectedRoute>
                 } />
                 <Route path="/signin" element={<SignIn />} />
                 <Route path="/signup" element={<SignUp />} />

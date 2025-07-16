@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './ComponentStyles/DatabaseOverview.css';
+import axios from 'axios';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 const DatabaseOverview = () => {
     const [stats, setStats] = useState({
@@ -19,20 +22,22 @@ const DatabaseOverview = () => {
         const fetchStats = async () => {
             try {
                 setLoading(true);
-                const response = await fetch('http://localhost:3000/adminStat');
+                const response = await axios.get(`${API_URL}/adminStat`);
                 
-                if (!response.ok) {
-                    throw new Error('Failed to fetch database statistics');
-                }
+                // if (!response.ok) {
+                //     throw new Error('Failed to fetch database statistics');
+                // }
                 
-                const data = await response.json();
-                setStats(data.statResult);
+                // const data = await response.json();
+                setStats(response.data.statResult);
 
-                console.log(data.statResult);
+                console.log(response.data.statResult);
                 
                 setLoading(false);
 
-            } catch (err) {
+            }
+            
+            catch (err) {
                 setError(err.message);
                 setLoading(false);
             }

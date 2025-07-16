@@ -133,6 +133,8 @@ const Watchlist = ({ username }) => {
         if (type !== mediaType) {
             setMediaType(type);
             setSelectedMediaIds([]);
+            // Immediately fetch the new media type
+            fetchAvailableMedia(type);
         }
     };
 
@@ -346,7 +348,7 @@ const Watchlist = ({ username }) => {
                 medias: mediasToUpdate
             };
             
-            const response = await axios.post(`${API_URL}/update-watched-status`, watchedData);
+            const response = await axios.post(`${API_URL}/toggle-watch-status`, watchedData);
             
             if (response.status === 200) {
                 // Show success message
@@ -377,6 +379,8 @@ const Watchlist = ({ username }) => {
         setSelectedMediaIds([]);
         setMediaType('movies');
         setShowMediaModal(true);
+        // Immediately fetch available media when modal opens
+        fetchAvailableMedia('movies');
     };
 
     // Close media selection modal
@@ -384,14 +388,16 @@ const Watchlist = ({ username }) => {
         setShowMediaModal(false);
         setSelectedMediaIds([]);
         setCurrentWatchlistId(null);
+        setAvailableMedia([]); // Reset available media to ensure fresh data on next open
     };
 
     // Close watchlist detail view
-    const closeWatchlistDetail = () => {
+    const closeWatchlistDetail = async () => {
         setShowWatchlistDetail(false);
         setWatchlistDetail(null);
         setShowEditForm(false);
         setWatchedMediaIds([]);
+        await fetchWatchlists(); // <-- Only refresh the main list when returning to it
     };
 
     const handleCancelCreate = () => {
@@ -568,24 +574,9 @@ const Watchlist = ({ username }) => {
                 ) : (
                     <div className="no-media-message">
                         <p>This watchlist is empty</p>
-                        <button 
-                            className="add-media-btn-large"
-                            onClick={() => openMediaSelectionModal(watchlistDetail.id)}
-                        >
-                            + Add Media
-                        </button>
                     </div>
                 )}
                 
-                <div className="watchlist-detail-footer">
-                    <button 
-                        className="add-media-btn-large"
-                        onClick={() => openMediaSelectionModal(watchlistDetail.id)}
-                    >
-                        + Add More Media
-                    </button>
-                </div>
-
                 {/* Confirm Delete Modal */}
                 {showConfirmDelete && (
                     <div className="confirm-modal-overlay">
@@ -796,3 +787,4 @@ const Watchlist = ({ username }) => {
 };
 
 export default Watchlist;
+
