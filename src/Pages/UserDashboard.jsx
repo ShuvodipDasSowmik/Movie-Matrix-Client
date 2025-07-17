@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import PostPopUp from '../Components/PostPopUp';
 import UserPost from '../Components/UserPost';
 import Watchlist from '../Components/Watchlist';
+import GenrePreference from '../Components/GenrePreference'; 
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -188,6 +189,8 @@ const UserDashboard = () => {
                             </div>
                         </div>
                     </div>
+
+                    {/* <GenrePreference username={user.username} /> */}
 
                     <Watchlist username={user.username} />
 

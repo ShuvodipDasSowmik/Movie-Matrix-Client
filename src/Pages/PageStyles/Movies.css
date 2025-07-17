@@ -19,6 +19,83 @@ body.dark-mode .movies-title {
   color: #8670ff;
 }
 
+/* Content controls container */
+.content-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+/* Content type selector */
+.content-type-selector {
+  display: flex;
+  gap: 1rem;
+}
+
+.content-type-btn {
+  background: rgba(255,255,255,0.07);
+  color: #fff;
+  border: 2px solid #5271ff;
+  border-radius: 30px;
+  padding: 0.6rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.content-type-btn:hover {
+  background: rgba(82, 113, 255, 0.07);
+}
+
+.content-type-btn.active {
+  background: #5271ff;
+  color: #fff;
+}
+
+/* Sort selector */
+.sort-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sort-label {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  font-weight: 500;
+}
+
+.sort-dropdown {
+  background: rgba(255,255,255,0.07);
+  color: #fff;
+  border: 2px solid #5271ff;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 180px;
+}
+
+.sort-dropdown:hover {
+  background: rgba(82, 113, 255, 0.07);
+}
+
+.sort-dropdown:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(82, 113, 255, 0.3);
+}
+
+.sort-dropdown option {
+  background: #243b55;
+  color: #fff;
+  padding: 0.5rem;
+}
+
 /* Movies grid layout */
 .movies-grid {
   display: grid;
@@ -248,37 +325,7 @@ body.dark-mode .movies-error button:hover {
   background: #7560ee;
 }
 
-/* Content type selector */
-.content-type-selector {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-  gap: 1rem;
-}
-
-.content-type-btn {
-  background: rgba(255,255,255,0.07);
-  color: #fff;
-  border: 2px solid #5271ff;
-  border-radius: 30px;
-  padding: 0.6rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 120px;
-}
-
-.content-type-btn:hover {
-  background: rgba(82, 113, 255, 0.07);
-}
-
-.content-type-btn.active {
-  background: #5271ff;
-  color: #fff;
-}
-
-/* Dark mode styles for content type selector */
+/* Dark mode styles for content type selector and sort */
 body.dark-mode .content-type-btn {
   background: rgba(20, 20, 35, 0.5);
   color: #e0e0e0;
@@ -294,6 +341,29 @@ body.dark-mode .content-type-btn.active {
   color: #fff;
 }
 
+body.dark-mode .sort-label {
+  color: #a0a0a0;
+}
+
+body.dark-mode .sort-dropdown {
+  background: rgba(20, 20, 35, 0.5);
+  color: #e0e0e0;
+  border-color: #8670ff;
+}
+
+body.dark-mode .sort-dropdown:hover {
+  background: rgba(134, 112, 255, 0.07);
+}
+
+body.dark-mode .sort-dropdown:focus {
+  box-shadow: 0 0 0 3px rgba(134, 112, 255, 0.3);
+}
+
+body.dark-mode .sort-dropdown option {
+  background: #191928;
+  color: #e0e0e0;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .movies-container {
@@ -303,6 +373,20 @@ body.dark-mode .content-type-btn.active {
   .movies-title {
     font-size: 2rem;
     margin-bottom: 1.5rem;
+  }
+  
+  .content-controls {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .content-type-selector {
+    justify-content: center;
+  }
+  
+  .sort-selector {
+    justify-content: center;
   }
   
   .movies-grid {
@@ -326,5 +410,9 @@ body.dark-mode .content-type-btn.active {
     padding: 0.5rem 1.5rem;
     font-size: 0.9rem;
     min-width: 100px;
+  }
+  
+  .sort-dropdown {
+    min-width: 160px;
   }
 }

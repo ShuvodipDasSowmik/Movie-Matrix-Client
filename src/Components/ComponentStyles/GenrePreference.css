@@ -1,0 +1,385 @@
+/* GenrePreference.css - Dark Minimalistic Theme */
+
+.genre-preference-section {
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid #333;
+}
+
+.genre-preference-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.genre-preference-header h2 {
+    margin: 0;
+    color: #e0e0e0;
+    font-size: 1.4rem;
+    font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.genre-preference-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.add-genre-btn {
+    background: #333;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    transition: all 0.2s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.add-genre-btn:hover:not(:disabled) {
+    background: #404040;
+    border-color: #555;
+}
+
+.add-genre-btn:disabled {
+    background: #2a2a2a;
+    color: #666;
+    border-color: #2a2a2a;
+    cursor: not-allowed;
+}
+
+.toggle-btn {
+    background: #2a2a2a;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s ease;
+    font-family: monospace;
+}
+
+.toggle-btn:hover {
+    background: #333;
+    border-color: #555;
+}
+
+.toggle-btn.expanded {
+    transform: rotate(0deg);
+}
+
+.genre-preference-loading {
+    text-align: center;
+    padding: 32px;
+    color: #888;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.error-message {
+    background: #2d1b1b;
+    color: #ff6b6b;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border: 1px solid #4a2626;
+    font-size: 13px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Add Genre Form */
+.add-genre-form {
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 400;
+    color: #ccc;
+    font-size: 13px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-size: 13px;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: #555;
+    background: #1f1f1f;
+}
+
+.form-group select option {
+    background: #1a1a1a;
+    color: #e0e0e0;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.save-btn {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    transition: all 0.2s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.save-btn:hover:not(:disabled) {
+    background: #333;
+    border-color: #555;
+}
+
+.save-btn:disabled {
+    background: #1a1a1a;
+    color: #666;
+    border-color: #333;
+    cursor: not-allowed;
+}
+
+.cancel-btn {
+    background: transparent;
+    color: #999;
+    border: 1px solid #444;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    transition: all 0.2s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.cancel-btn:hover {
+    background: #2a2a2a;
+    color: #ccc;
+    border-color: #555;
+}
+
+/* Content Display */
+.genre-preference-content {
+    transition: all 0.3s ease;
+}
+
+.genre-preference-content.collapsed {
+    max-height: 0;
+    overflow: hidden;
+}
+
+.genre-preference-content.expanded {
+    max-height: none;
+    overflow: visible;
+}
+
+.no-preferences {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
+
+.no-preferences p {
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Preference Stats */
+.preference-stats {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: #222;
+    border-radius: 4px;
+    border: 1px solid #333;
+}
+
+.stat-item {
+    font-size: 13px;
+    color: #999;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.stat-item strong {
+    color: #e0e0e0;
+    font-weight: 400;
+}
+
+/* Preferences Grid */
+.preferences-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.preference-card {
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 16px;
+    transition: all 0.2s ease;
+}
+
+.preference-card:hover {
+    border-color: #444;
+    background: #252525;
+}
+
+.preference-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.preference-header h3 {
+    margin: 0;
+    color: #e0e0e0;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.remove-preference-btn {
+    background: transparent;
+    color: #666;
+    border: 1px solid #444;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 1;
+    transition: all 0.2s ease;
+    font-family: monospace;
+}
+
+.remove-preference-btn:hover:not(:disabled) {
+    background: #333;
+    color: #ff6b6b;
+    border-color: #555;
+}
+
+.remove-preference-btn:disabled {
+    background: transparent;
+    color: #444;
+    border-color: #333;
+    cursor: not-allowed;
+}
+
+/* Summary for collapsed state */
+.preference-summary {
+    padding: 12px 0;
+}
+
+.summary-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.preference-tag {
+    background: #2a2a2a;
+    color: #ccc;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 400;
+    border: 1px solid #333;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.more-tag {
+    background: #333;
+    color: #999;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 400;
+    border: 1px solid #444;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .genre-preference-section {
+        padding: 16px;
+    }
+    
+    .genre-preference-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+    
+    .genre-preference-controls {
+        justify-content: center;
+    }
+    
+    .preferences-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .preference-stats {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .summary-tags {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .genre-preference-section {
+        padding: 12px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .preference-header {
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+    }
+    
+    .remove-preference-btn {
+        align-self: flex-end;
+    }
+}

@@ -11,11 +11,19 @@ const Movies = () => {
   const [contentType, setContentType] = useState('movies'); // Default to movies
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sortBy, setSortBy] = useState('title'); // Default sort by title
+  const [sortOrder, setSortOrder] = useState('asc'); // Default ascending order
   const { user } = useContext(AuthContext) || {};
 
   useEffect(() => {
     fetchContent(contentType);
   }, [contentType]);
+
+  useEffect(() => {
+    if (content.length > 0) {
+      sortContent();
+    }
+  }, [sortBy, sortOrder]);
 
   const fetchContent = async (type) => {
     try {
@@ -27,7 +35,6 @@ const Movies = () => {
       
       if (!response.ok) {
         console.log(response);
-        
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       
@@ -45,10 +52,49 @@ const Movies = () => {
     }
   };
 
+  const sortContent = () => {
+    const sortedContent = [...content].sort((a, b) => {
+      let aValue, bValue;
+      
+      switch (sortBy) {
+        case 'title':
+          aValue = a.title?.toLowerCase() || '';
+          bValue = b.title?.toLowerCase() || '';
+          break;
+        case 'releaseyear':
+          aValue = parseInt(a.releaseyear) || 0;
+          bValue = parseInt(b.releaseyear) || 0;
+          break;
+        case 'overallrating':
+          aValue = parseFloat(a.overallrating) || 0;
+          bValue = parseFloat(b.overallrating) || 0;
+          break;
+        default:
+          aValue = a.title?.toLowerCase() || '';
+          bValue = b.title?.toLowerCase() || '';
+      }
+      
+      if (sortOrder === 'asc') {
+        return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
+      } else {
+        return aValue < bValue ? 1 : aValue > bValue ? -1 : 0;
+      }
+    });
+    
+    setContent(sortedContent);
+  };
+
   const handleContentTypeChange = (type) => {
     if (type !== contentType) {
       setContentType(type);
     }
+  };
+
+  const handleSortChange = (e) => {
+    const value = e.target.value;
+    const [newSortBy, newSortOrder] = value.split('-');
+    setSortBy(newSortBy);
+    setSortOrder(newSortOrder);
   };
 
   // Function to get the appropriate year field based on content type
@@ -87,19 +133,38 @@ const Movies = () => {
         Browse {contentType === 'movies' ? 'Movies' : 'TV Series'}
       </h1>
       
-      <div className="content-type-selector">
-        <button 
-          className={`content-type-btn ${contentType === 'movies' ? 'active' : ''}`}
-          onClick={() => handleContentTypeChange('movies')}
-        >
-          Movies
-        </button>
-        <button 
-          className={`content-type-btn ${contentType === 'series' ? 'active' : ''}`}
-          onClick={() => handleContentTypeChange('series')}
-        >
-          Series
-        </button>
+      <div className="content-controls">
+        <div className="content-type-selector">
+          <button 
+            className={`content-type-btn ${contentType === 'movies' ? 'active' : ''}`}
+            onClick={() => handleContentTypeChange('movies')}
+          >
+            Movies
+          </button>
+          <button 
+            className={`content-type-btn ${contentType === 'series' ? 'active' : ''}`}
+            onClick={() => handleContentTypeChange('series')}
+          >
+            Series
+          </button>
+        </div>
+        
+        <div className="sort-selector">
+          <label htmlFor="sort-dropdown" className="sort-label">Sort by:</label>
+          <select 
+            id="sort-dropdown"
+            className="sort-dropdown"
+            value={`${sortBy}-${sortOrder}`}
+            onChange={handleSortChange}
+          >
+            <option value="title-asc">Title (A-Z)</option>
+            <option value="title-desc">Title (Z-A)</option>
+            <option value="releaseyear-desc">Release Year (Newest)</option>
+            <option value="releaseyear-asc">Release Year (Oldest)</option>
+            <option value="overallrating-desc">Rating (Highest)</option>
+            <option value="overallrating-asc">Rating (Lowest)</option>
+          </select>
+        </div>
       </div>
       
       {content.length === 0 ? (
@@ -133,7 +198,6 @@ const Movies = () => {
                         <span>{item.overallrating}/10</span>
                       </div>
                     </div>
-                    {/* This section is removed since seasoncount and isOngoing are not available in getAllSeries */}
                   </div>
                 </div>
               </Link>
