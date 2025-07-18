@@ -174,7 +174,7 @@
 
 .watchlists-section h2 {
   font-size: 1.5rem;
-  color: var(--color-text-primary);
+  /* color: var(--color-text-primary); */
   margin: 0;
 }
 
@@ -371,7 +371,7 @@
 .watchlist-header-card h3 {
   margin: 0;
   font-size: 1.2rem;
-  color: var(--color-text-primary);
+  /* color: var(--color-text-primary); */
   flex: 1;
 }
 

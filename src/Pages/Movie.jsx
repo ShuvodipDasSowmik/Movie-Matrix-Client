@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 import './PageStyles/Movie.css';
+import MediaReview from '../Components/MediaReview';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -184,6 +185,10 @@ const Movie = () => {
             <h1 className="movie-title">{movie.title}</h1>
             <p className="movie-description">{movie.description}</p>
           </div>
+
+          {user && (
+            <MediaReview mediaid={mediaid} />
+          )}
         </div>
         
         <div className="secondary-content">

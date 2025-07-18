@@ -190,7 +190,7 @@ const UserDashboard = () => {
                         </div>
                     </div>
 
-                    {/* <GenrePreference username={user.username} /> */}
+                    <GenrePreference username={user.username} />
 
                     <Watchlist username={user.username} />
 

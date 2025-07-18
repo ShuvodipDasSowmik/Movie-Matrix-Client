@@ -15,9 +15,12 @@ const GenrePreference = ({ username }) => {
     const [removing, setRemoving] = useState(false);
     const [showAddForm, setShowAddForm] = useState(false);
 
-    useEffect(async () => {
-        await fetchGenrePreferences();
-        await fetchAvailableGenres();
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetchGenrePreferences();
+            await fetchAvailableGenres();
+        };
+        fetchData();
     }, [username]);
 
     // Fetch user's genre preferences
