@@ -1,0 +1,270 @@
+/* Minimalistic, Series-consistent, theme-aware episode styling */
+
+.youtube-style .episodes-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--color-background-glass, rgba(255,255,255,0.07));
+}
+
+.youtube-style .episodes-container.expanded {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.youtube-style .episodes-loading,
+.youtube-style .no-episodes {
+  padding: 16px;
+  text-align: center;
+  color: var(--color-text-secondary, #aaa);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.youtube-style .episodes-list {
+  padding: 8px;
+}
+
+.youtube-style .episode-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-bottom: 1px solid var(--color-border, rgba(255,255,255,0.15));
+  border-radius: 6px;
+  margin-bottom: 6px;
+  background: rgba(255,255,255,0.02);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.youtube-style .episode-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.youtube-style .episode-item:hover {
+  background: rgba(82, 113, 255, 0.07);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.youtube-style .episode-number {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(255, 152, 0, 0.2);
+}
+
+.youtube-style .episode-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.youtube-style .episode-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.youtube-style .episode-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+  color: #222;
+  line-height: 1.3;
+}
+
+.youtube-style .episode-rating {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.2) 100%);
+  padding: 2px 6px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 152, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.youtube-style .episode-rating .rating-star {
+  font-size: 0.8rem;
+}
+
+.youtube-style .episode-rating .rating-value {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #f57c00;
+}
+
+.youtube-style .episode-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.youtube-style .episode-runtime {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.75rem;
+  color: rgba(34,34,34,0.7);
+  font-weight: 500;
+  background: rgba(82, 113, 255, 0.07);
+  padding: 1px 6px;
+  border-radius: 6px;
+}
+
+.youtube-style .episode-runtime .meta-icon {
+  font-size: 0.7rem;
+}
+
+/* Episode review form styling */
+.episode-review-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.episode-rating-input {
+  width: 90px;
+  padding: 4px 12px;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 4px;
+  font-size: 1rem;
+  background: var(--color-background, #fff);
+  color: #222;
+  outline: none;
+  transition: border 0.2s;
+  text-align: center;
+  appearance: textfield;
+}
+
+.episode-rating-input.wide {
+  width: 90px;
+}
+
+.episode-rating-input::-webkit-inner-spin-button,
+.episode-rating-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.episode-rating-submit {
+  background: var(--color-primary, #5271ff);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 14px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.episode-rating-submit:disabled {
+  background: #888;
+  cursor: not-allowed;
+}
+
+.episode-rating-success {
+  color: green;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.episode-rating-error {
+  color: red;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+/* Dark mode for review form */
+body.dark-mode .episode-rating-input,
+.dark-mode .episode-rating-input {
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+body.dark-mode .episode-rating-submit,
+.dark-mode .episode-rating-submit {
+  background: var(--color-primary-dark-mode, #8670ff);
+}
+
+/* Dark mode overrides */
+body.dark-mode .youtube-style .episodes-container,
+.dark-mode .youtube-style .episodes-container {
+  background: var(--color-background-light-dark-mode, #12121e);
+}
+
+body.dark-mode .youtube-style .episode-item,
+.dark-mode .youtube-style .episode-item {
+  background: rgba(20, 20, 35, 0.02);
+  border-bottom: 1px solid #333333;
+}
+
+body.dark-mode .youtube-style .episode-item:hover,
+.dark-mode .youtube-style .episode-item:hover {
+  background: rgba(134, 112, 255, 0.07);
+}
+
+body.dark-mode .youtube-style .episode-title,
+.dark-mode .youtube-style .episode-title {
+  color: #e0e0e0;
+}
+
+body.dark-mode .youtube-style .episode-runtime,
+.dark-mode .youtube-style .episode-runtime {
+  color: #a0a0a0;
+  background: rgba(134, 112, 255, 0.07);
+}
+
+body.dark-mode .youtube-style form input[type="number"],
+body.dark-mode .youtube-style form input[type="text"],
+.dark-mode .youtube-style form input[type="number"],
+.dark-mode .youtube-style form input[type="text"] {
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+body.dark-mode .youtube-style form button[type="submit"],
+.dark-mode .youtube-style form button[type="submit"] {
+  background: var(--color-primary-dark-mode, #8670ff);
+}
+
+@media (max-width: 600px) {
+  .youtube-style .episodes-container.expanded {
+    max-height: 350px;
+  }
+  .youtube-style .episode-item {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+  }
+  .youtube-style .episode-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .youtube-style .episode-title {
+    font-size: 0.85rem;
+  }
+  .youtube-style .episode-runtime {
+    font-size: 0.7rem;
+  }
+  .youtube-style .episode-number {
+    width: 26px;
+    height: 26px;
+    font-size: 0.75rem;
+  }
+}

@@ -1,6 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './PageStyles/Series.css';
+import Episode from '../Components/Episode';
+
+// DebugLog component
+const DebugLog = ({ logs }) => (
+  <div style={{
+    background: '#222', color: '#fff', fontSize: '0.85em', padding: '12px', marginTop: '32px',
+    borderRadius: '8px', maxHeight: '200px', overflowY: 'auto', fontFamily: 'monospace'
+  }}>
+    <div style={{ fontWeight: 'bold', marginBottom: 4 }}>Debug Log</div>
+    {logs.length === 0 ? <div>No debug logs.</div> : (
+      <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+        {logs.map((log, i) => <li key={i}>{log}</li>)}
+      </ul>
+    )}
+  </div>
+);
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -12,6 +28,7 @@ const Series = () => {
   const [expandedSeason, setExpandedSeason] = useState(null);
   const [episodes, setEpisodes] = useState({});
   const [loadingEpisodes, setLoadingEpisodes] = useState({});
+  const [debugLogs, setDebugLogs] = useState([]);
 
   useEffect(() => {
     const fetchSeries = async () => {
@@ -51,27 +68,31 @@ const Series = () => {
   };
 
   const fetchEpisodes = async (seasonId) => {
+    setDebugLogs(logs => [...logs, `Fetching episodes for seasonId: ${seasonId}`]);
     try {
-      console.log('Fetching episodes for seasonId:', seasonId); // Debug log
       setLoadingEpisodes(prev => ({ ...prev, [seasonId]: true }));
       
       // Replace this URL with your actual episodes endpoint
       const response = await fetch(`${API_URL}/episodes/${seasonId}`);
       
-      console.log('Episodes API response status:', response.status); // Debug log
+      setDebugLogs(logs => [...logs, `Episodes API response status: ${response.status}`]);
       
       if (!response.ok) {
+        setDebugLogs(logs => [...logs, `Failed to fetch episodes data (status: ${response.status})`]);
         throw new Error('Failed to fetch episodes data');
       }
       
       const data = await response.json();
-      console.log('Episodes API response data:', data); // Debug log
-      console.log('Episodes data length:', data.episodesData?.length); // Debug log
+      setDebugLogs(logs => [
+        ...logs,
+        `Episodes API response data: ${JSON.stringify(data)}`,
+        `Episodes data length: ${data.episodesData?.length ?? 0}`
+      ]);
       
       setEpisodes(prev => ({ ...prev, [seasonId]: data.episodesData || [] }));
       setLoadingEpisodes(prev => ({ ...prev, [seasonId]: false }));
     } catch (err) {
-      console.error('Error fetching episodes:', err);
+      setDebugLogs(logs => [...logs, `Error fetching episodes: ${err}`]);
       setEpisodes(prev => ({ ...prev, [seasonId]: [] }));
       setLoadingEpisodes(prev => ({ ...prev, [seasonId]: false }));
     }
@@ -90,6 +111,22 @@ const Series = () => {
         fetchEpisodes(seasonKey);
       }
     }
+  };
+
+  // Add review submit handler
+  const handleEpisodeReviewSubmit = async (episodeId, rating, review) => {
+    setDebugLogs(logs => [...logs, `Submitting review for episode ${episodeId}...`]);
+    const res = await fetch(`${API_URL}/episode-review`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ episodeid: episodeId, rating, review })
+    });
+    if (!res.ok) {
+      setDebugLogs(logs => [...logs, `Failed to submit review for episode ${episodeId}`]);
+      throw new Error('Failed to submit review');
+    }
+    setDebugLogs(logs => [...logs, `Review submitted for episode ${episodeId}`]);
+    return true;
   };
 
   const youtubeId = getYoutubeId(series.trailerlink);
@@ -140,45 +177,12 @@ const Series = () => {
                           <span>{season.seasontitle}</span>
                           <span className={`arrow ${isExpanded ? 'rotated' : ''}`}>▼</span>
                         </button>
-                        
-                        <div className={`episodes-container ${isExpanded ? 'expanded' : ''}`}>
-                          {isLoadingEpisodes ? (
-                            <div className="episodes-loading">Loading episodes...</div>
-                          ) : seasonEpisodes.length > 0 ? (
-                            <div className="episodes-list">
-                              {seasonEpisodes.map((episode, episodeIndex) => (
-                                <div key={episodeIndex} className="episode-item">
-                                  <div className="episode-number">
-                                    {episodeIndex + 1}
-                                  </div>
-                                  <div className="episode-details">
-                                    <div className="episode-header">
-                                      <h4 className="episode-title">
-                                        {episode.episodetitle || `Episode ${episodeIndex + 1}`}
-                                      </h4>
-                                      {episode.avgrating && (
-                                        <div className="episode-rating">
-                                          <span className="rating-star">⭐</span>
-                                          <span className="rating-value">{episode.avgrating}</span>
-                                        </div>
-                                      )}
-                                    </div>
-                                    <div className="episode-meta">
-                                      {episode.duration && (
-                                        <span className="episode-runtime">
-                                          <span className="meta-icon">🕒</span>
-                                          {episode.duration} min
-                                        </span>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          ) : isExpanded ? (
-                            <div className="no-episodes">No episodes found for this season</div>
-                          ) : null}
-                        </div>
+                        <Episode
+                          isExpanded={isExpanded}
+                          isLoadingEpisodes={isLoadingEpisodes}
+                          seasonEpisodes={seasonEpisodes}
+                          onReviewSubmit={handleEpisodeReviewSubmit}
+                        />
                       </div>
                     );
                   })}
@@ -320,6 +324,14 @@ const Series = () => {
             </div>
           )}
         </div>
+      </div>
+
+      <div className='DebugLog'>
+        {episodes.length > 0 ? (<>
+          FUCK YOU
+        </>) : (
+          <p>No episodes available for debugging.</p>
+        )}
       </div>
     </div>
   );
