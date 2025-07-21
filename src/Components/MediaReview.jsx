@@ -15,13 +15,18 @@ const MediaReview = ({ mediaid, onReviewSubmitted }) => {
   const [reviews, setReviews] = useState([]);
   const [loadingReviews, setLoadingReviews] = useState(true);
 
+  // For editing reviews
+  const [editingReviewId, setEditingReviewId] = useState(null);
+  const [editRating, setEditRating] = useState('');
+  const [editComment, setEditComment] = useState('');
+  const [editSubmitting, setEditSubmitting] = useState(false);
+
   // Fetch reviews
   const fetchReviews = async () => {
     setLoadingReviews(true);
     try {
       const res = await axios.get(`${API_URL}/reviews/${mediaid}`);
       setReviews(res.data.reviews);
-      
     } catch (err) {
       setReviews([]);
     } finally {
@@ -96,6 +101,55 @@ const MediaReview = ({ mediaid, onReviewSubmitted }) => {
     }
   };
 
+  // Delete review
+  const handleDeleteReview = async (reviewId) => {
+    if (!window.confirm('Are you sure you want to delete this review?')) return;
+    try {
+      await axios.delete(`${API_URL}/delete-review/${reviewId}`, {
+        data: { username: user.username , mediaid: mediaid }
+      });
+      fetchReviews();
+    } catch (err) {
+      alert('Failed to delete review.');
+    }
+  };
+
+  // Start editing
+  const handleEditReview = (review) => {
+    setEditingReviewId(review._id || review.id);
+    setEditRating(review.userrating.toString());
+    setEditComment(review.comment);
+  };
+
+  // Cancel editing
+  const handleCancelEdit = () => {
+    setEditingReviewId(null);
+    setEditRating('');
+    setEditComment('');
+  };
+
+  // Submit edit
+  const handleEditSubmit = async (reviewId) => {
+    setEditSubmitting(true);
+    try {
+      await axios.put(`${API_URL}/update-review/${reviewId}`, {
+        username: user.username,
+        userrating: parseFloat(editRating),
+        comment: editComment.trim(),
+        mediaid: mediaid,
+        reviewdate: new Date().toISOString().split('T')[0]
+      });
+      setEditingReviewId(null);
+      setEditRating('');
+      setEditComment('');
+      fetchReviews();
+    } catch (err) {
+      alert('Failed to update review.');
+    } finally {
+      setEditSubmitting(false);
+    }
+  };
+
   return (
     <div className="media-review-container">
       <h3>Write a Review</h3>
@@ -143,18 +197,82 @@ const MediaReview = ({ mediaid, onReviewSubmitted }) => {
           <div className="no-reviews">No reviews yet.</div>
         ) : (
           <ul className="reviews-list">
-            {reviews.map((r) => (
-              <li className="review-item">
-                <div className="review-header">
-                  <span className="review-username">{r.username}</span>
-                  <span className="review-rating">{r.userrating}/10</span>
-                  <span className="review-date">
-                    {r.reviewdate ? r.reviewdate.slice(0, 10) : ''}
-                  </span>
-                </div>
-                <div className="review-comment">{r.comment}</div>
-              </li>
-            ))}
+            {reviews.map((r) => {
+              const isCurrentUser = user && r.username === user.username;
+              const reviewId = r._id || r.id;
+              return (
+                <li className="review-item" key={reviewId}>
+                  <div className="review-header">
+                    <span className="review-username">{r.username}</span>
+                    <span className="review-rating">{r.userrating}/10</span>
+                    <span className="review-date">
+                      {r.reviewdate ? r.reviewdate.slice(0, 10) : ''}
+                    </span>
+                    {isCurrentUser && editingReviewId !== reviewId && (
+                      <span className="review-actions">
+                        <button
+                          className="review-edit-btn"
+                          onClick={() => handleEditReview(r)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="review-delete-btn"
+                          onClick={() => handleDeleteReview(reviewId)}
+                        >
+                          Delete
+                        </button>
+                      </span>
+                    )}
+                  </div>
+                  {isCurrentUser && editingReviewId === reviewId ? (
+                    <form
+                      className="edit-review-form"
+                      onSubmit={e => {
+                        e.preventDefault();
+                        handleEditSubmit(reviewId);
+                      }}
+                    >
+                      <input
+                        type="number"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                        value={editRating}
+                        onChange={e => {
+                          let value = e.target.value;
+                          if (value === '') {
+                            setEditRating('');
+                            return;
+                          }
+                          if (!/^\d{0,2}(\.\d?)?$/.test(value)) return;
+                          let num = parseFloat(value);
+                          if (num > 10) num = 10;
+                          setEditRating(num.toString());
+                        }}
+                        disabled={editSubmitting}
+                        required
+                      />
+                      <textarea
+                        rows="2"
+                        value={editComment}
+                        onChange={e => setEditComment(e.target.value)}
+                        disabled={editSubmitting}
+                        required
+                      />
+                      <button type="submit" disabled={editSubmitting}>
+                        {editSubmitting ? 'Saving...' : 'Save'}
+                      </button>
+                      <button type="button" onClick={handleCancelEdit} disabled={editSubmitting}>
+                        Cancel
+                      </button>
+                    </form>
+                  ) : (
+                    <div className="review-comment">{r.comment}</div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>

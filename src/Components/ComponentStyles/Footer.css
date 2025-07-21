@@ -133,6 +133,10 @@ body.dark-mode .footer-bottom {
   color: #a0a0a0;
 }
 
+body.dark-mode .contributor-card:hover {
+  box-shadow: 0 8px 32px rgba(119, 0, 255, 0.3);
+}
+
 @media (max-width: 768px) {
   .footer-container {
     flex-direction: column;

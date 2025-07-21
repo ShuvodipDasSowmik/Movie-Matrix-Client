@@ -1,27 +1,30 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MovieMatrix</title>
-    <script>
-      // Apply theme immediately before any rendering
-      (function() {
-        const savedTheme = localStorage.getItem('darkMode');
-        const isDarkMode = savedTheme === 'true' || 
-          (savedTheme === null && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        
-        // Apply theme classes right away
-        if (isDarkMode) {
-          document.documentElement.classList.add('dark-theme');
-          document.documentElement.style.backgroundColor = '#050517';
-        }
-      })();
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/moviematrix.png"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MovieMatrix</title>
+  <script>
+    // Apply theme immediately before any rendering
+    (function () {
+      const savedTheme = localStorage.getItem('darkMode');
+      const isDarkMode = savedTheme === 'true' ||
+        (savedTheme === null && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+      // Apply theme classes right away
+      if (isDarkMode) {
+        document.documentElement.classList.add('dark-theme');
+        document.documentElement.style.backgroundColor = '#050517';
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

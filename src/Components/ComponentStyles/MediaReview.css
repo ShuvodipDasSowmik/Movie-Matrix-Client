@@ -49,7 +49,7 @@
 
 .dark-mode .media-review-form input[type="number"],
 .dark-mode .media-review-form textarea {
-  background: #23233a;
+  background: #23233a !important;
   color: #e0e0e0;
   border: 1px solid #444;
 }
@@ -225,4 +225,128 @@
 
 .dark-mode .review-comment {
   color: #e0e0e0;
+}
+
+.review-actions {
+  margin-left: 1em;
+  display: flex;
+  gap: 0.5em;
+}
+
+.review-edit-btn,
+.review-delete-btn {
+  background: #f5f5f5;
+  color: #1976d2;
+  border: 1px solid #b3c6ff;
+  border-radius: 4px;
+  padding: 0.2em 0.8em;
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.review-edit-btn:hover {
+  background: #e3eaff;
+  color: #1253a4;
+  border-color: #5271ff;
+}
+
+.review-delete-btn {
+  color: #c00;
+  border-color: #ffc6c6;
+}
+
+.review-delete-btn:hover {
+  background: #ffeaea;
+  color: #a00;
+  border-color: #e74c3c;
+}
+
+.dark-mode .review-edit-btn,
+.dark-mode .review-delete-btn {
+  background: #23233a;
+  color: #8670ff;
+  border: 1px solid #8670ff44;
+}
+
+.dark-mode .review-edit-btn:hover {
+  background: #2d2d4d;
+  color: #fff;
+  border-color: #8670ff;
+}
+
+.dark-mode .review-delete-btn {
+  color: #ff6b6b;
+  border-color: #ff6b6b44;
+}
+
+.dark-mode .review-delete-btn:hover {
+  background: #3a2323;
+  color: #fff;
+  border-color: #ff6b6b;
+}
+
+.edit-review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.edit-review-form input[type="number"],
+.edit-review-form textarea {
+  width: 100%;
+  padding: 0.4em;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  font-size: 1em;
+}
+
+.edit-review-form button {
+  width: fit-content;
+  margin-right: 0.5em;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 0.4em 1em;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.97em;
+  transition: background 0.3s;
+}
+
+.edit-review-form button[type="button"] {
+  background: #aaa;
+  color: #fff;
+}
+
+.edit-review-form button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.edit-review-form button:not(:disabled):hover {
+  background: #1253a4;
+}
+
+.dark-mode .edit-review-form input[type="number"],
+.dark-mode .edit-review-form textarea {
+  background: #23233a !important;
+  color: #e0e0e0;
+  border: 1px solid #444;
+}
+
+.dark-mode .edit-review-form button {
+  background: linear-gradient(135deg, #8670ff 0%, #9e77d3 100%);
+  color: #fff;
+}
+
+.dark-mode .edit-review-form button[type="button"] {
+  background: #444;
+  color: #fff;
+}
+
+.dark-mode .edit-review-form button:not(:disabled):hover {
+  background: linear-gradient(135deg, #7560ee 0%, #8e67c3 100%);
 }

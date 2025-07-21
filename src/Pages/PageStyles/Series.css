@@ -211,11 +211,7 @@
   margin-bottom: 0;
 }
 
-.youtube-style .episode-item:hover {
-  background: rgba(82, 113, 255, 0.07);
-  transform: translateX(2px);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-}
+
 
 .dark-mode .episode-item {
   border-bottom-color: #333333;

@@ -1,5 +1,24 @@
 /* Minimalistic, Series-consistent, theme-aware episode styling */
 
+/* Light mode (default) */
+:root {
+  --color-background-glass: rgba(255,255,255,0.07);
+  --color-border: #e0e0e0;
+  --color-primary: #5271ff;
+  --color-primary-dark: #3451b2;
+  --color-text-secondary: #888;
+}
+
+/* Dark mode */
+body.dark-mode,
+.dark-mode {
+  --color-background-glass: rgba(30,32,48,0.25);
+  --color-border: #444;
+  --color-primary: #8670ff;
+  --color-primary-dark: #6a54c7;
+  --color-text-secondary: #bbb;
+}
+
 .youtube-style .episodes-container {
   max-height: 0;
   overflow: hidden;
@@ -79,7 +98,6 @@
   font-size: 0.95rem;
   font-weight: 600;
   margin: 0;
-  color: #222;
   line-height: 1.3;
 }
 
@@ -115,7 +133,6 @@
   align-items: center;
   gap: 3px;
   font-size: 0.75rem;
-  color: rgba(34,34,34,0.7);
   font-weight: 500;
   background: rgba(82, 113, 255, 0.07);
   padding: 1px 6px;
@@ -141,8 +158,6 @@
   border: 1px solid var(--color-border, #ccc);
   border-radius: 4px;
   font-size: 1rem;
-  background: var(--color-background, #fff);
-  color: #222;
   outline: none;
   transition: border 0.2s;
   text-align: center;
@@ -187,11 +202,64 @@
   margin-left: 8px;
 }
 
+.episode-add-review-btn {
+  background: var(--color-primary, #5271ff);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 14px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  transition: background 0.2s;
+}
+
+.episode-add-review-btn:hover,
+.episode-add-review-btn:focus {
+  background: #3451b2;
+}
+
+.episode-rating-cancel {
+  background: #eee;
+  color: #333;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.episode-rating-cancel:hover,
+.episode-rating-cancel:focus {
+  background: #f5c6cb;
+  color: #a00;
+  border-color: #e74c3c;
+}
+
+.episode-review-comment {
+  width: 350px;
+  min-width: 250px;
+  max-width: 500px;
+  min-height: 24px;
+  font-size: 0.95em;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border, #ccc);
+  resize: vertical;
+  transition: border 0.2s, background 0.2s, color 0.2s;
+}
+
+.episode-review-comment:focus {
+  outline: none;
+  border-color: #5271ff;
+}
+
 /* Dark mode for review form */
 body.dark-mode .episode-rating-input,
 .dark-mode .episode-rating-input {
-  background: #222;
-  color: #fff;
   border: 1px solid #444;
 }
 
@@ -200,52 +268,125 @@ body.dark-mode .episode-rating-submit,
   background: var(--color-primary-dark-mode, #8670ff);
 }
 
-/* Dark mode overrides */
-body.dark-mode .youtube-style .episodes-container,
-.dark-mode .youtube-style .episodes-container {
-  background: var(--color-background-light-dark-mode, #12121e);
+body.dark-mode .episode-add-review-btn,
+.dark-mode .episode-add-review-btn {
+  background: var(--color-primary-dark-mode, #8670ff);
+  color: #fff;
 }
 
-body.dark-mode .youtube-style .episode-item,
-.dark-mode .youtube-style .episode-item {
-  background: rgba(20, 20, 35, 0.02);
-  border-bottom: 1px solid #333333;
+body.dark-mode .episode-add-review-btn:hover,
+.dark-mode .episode-add-review-btn:hover {
+  background: #6a54c7;
 }
 
-body.dark-mode .youtube-style .episode-item:hover,
-.dark-mode .youtube-style .episode-item:hover {
-  background: rgba(134, 112, 255, 0.07);
-}
-
-body.dark-mode .youtube-style .episode-title,
-.dark-mode .youtube-style .episode-title {
-  color: #e0e0e0;
-}
-
-body.dark-mode .youtube-style .episode-runtime,
-.dark-mode .youtube-style .episode-runtime {
-  color: #a0a0a0;
-  background: rgba(134, 112, 255, 0.07);
-}
-
-body.dark-mode .youtube-style form input[type="number"],
-body.dark-mode .youtube-style form input[type="text"],
-.dark-mode .youtube-style form input[type="number"],
-.dark-mode .youtube-style form input[type="text"] {
-  background: #222;
+body.dark-mode .episode-rating-cancel,
+.dark-mode .episode-rating-cancel {
+  background: #23233a;
   color: #fff;
   border: 1px solid #444;
 }
 
-body.dark-mode .youtube-style form button[type="submit"],
-.dark-mode .youtube-style form button[type="submit"] {
-  background: var(--color-primary-dark-mode, #8670ff);
+body.dark-mode .episode-rating-cancel:hover,
+.dark-mode .episode-rating-cancel:hover {
+  background: #3a2323;
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+body.dark-mode .episode-review-comment,
+.dark-mode .episode-review-comment {
+  border: 1px solid #444;
+}
+
+body.dark-mode .episode-review-comment:focus,
+.dark-mode .episode-review-comment:focus {
+  border-color: #8670ff;
+}
+
+/* Episode Reviews Styling */
+.episode-reviews {
+  margin-top: 10px;
+  padding: 10px 0 0 0;
+  border-top: 1px solid var(--color-border, rgba(255,255,255,0.12));
+}
+
+.episode-reviews h5 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary, #5271ff);
+  letter-spacing: 0.5px;
+}
+
+.episode-review-item {
+  background: rgba(82, 113, 255, 0.04);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border: 1px solid var(--color-border, rgba(82,113,255,0.10));
+  box-shadow: 0 1px 2px rgba(82,113,255,0.03);
+  font-size: 0.97em;
+}
+
+.episode-review-item:last-child {
+  margin-bottom: 0;
+}
+
+.episode-review-item > div {
+  margin-bottom: 4px;
+}
+
+.episode-review-item strong {
+  color: var(--color-primary, #5271ff);
+  font-weight: 600;
+}
+
+.episode-review-item span {
+  font-size: 0.96em;
+}
+
+.episode-review-item .episode-review-actions {
+  margin-top: 4px;
+  display: flex;
+  gap: 8px;
+}
+
+.episode-review-item button {
+  background: var(--color-primary, #5271ff);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 10px;
+  font-size: 0.93em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.episode-review-item button:hover,
+.episode-review-item button:focus {
+  background: #3451b2;
+}
+
+.episode-review-item input[type="text"] {
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border, #ccc);
+  font-size: 0.95em;
+  margin-right: 6px;
+}
+
+.episode-review-item input[type="text"]:focus {
+  outline: none;
+  border-color: #5271ff;
+}
+
+.episode-review-item .episode-review-date {
+  color: #888;
+  font-size: 0.88em;
+  margin-left: 8px;
 }
 
 @media (max-width: 600px) {
-  .youtube-style .episodes-container.expanded {
-    max-height: 350px;
-  }
   .youtube-style .episode-item {
     flex-direction: column;
     gap: 8px;
@@ -256,15 +397,64 @@ body.dark-mode .youtube-style form button[type="submit"],
     align-items: flex-start;
     gap: 6px;
   }
+  .youtube-style .episode-rating {
+    align-self: flex-start;
+  }
+  .youtube-style .episode-number {
+    align-self: flex-start;
+    width: 26px;
+    height: 26px;
+    font-size: 0.75rem;
+  }
+  .youtube-style .episodes-container.expanded {
+    max-height: 350px;
+  }
   .youtube-style .episode-title {
     font-size: 0.85rem;
   }
   .youtube-style .episode-runtime {
     font-size: 0.7rem;
   }
-  .youtube-style .episode-number {
-    width: 26px;
-    height: 26px;
-    font-size: 0.75rem;
+
+  /* Responsive review form: stack vertically, but not for tabs */
+  .episode-review-form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .episode-review-comment {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .episode-rating-input.wide {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .episode-rating-submit,
+  .episode-rating-cancel,
+  .episode-add-review-btn {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+  }
+
+  .episode-reviews {
+    padding: 6px 0 0 0;
+  }
+  .episode-review-item {
+    padding: 7px 7px;
+    font-size: 0.93em;
+  }
+  .episode-review-item .episode-review-actions {
+    flex-direction: column;
+    gap: 4px;
   }
 }

@@ -111,7 +111,7 @@ const SignIn = () => {
                             style={{
                                 position: "absolute",
                                 right: 4,
-                                top: "50%",
+                                top: "34%",
                                 transform: "translateY(-50%)",
                                 background: "none",
                                 border: "none",

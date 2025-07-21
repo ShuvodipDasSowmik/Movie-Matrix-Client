@@ -54,7 +54,7 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: textShine 4s linear infinite;
+  /* animation: textShine 4s linear infinite; */
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
@@ -411,6 +411,11 @@
   border-radius: 8px;
   font-weight: 600;
   transition: all 0.2s;
+}
+
+.dark-mode .drawer-login-button{
+  color: #fff;
+  background: linear-gradient(135deg, #6f5bff 0%, #8f7fff 100%);
 }
 
 .drawer-login-button:hover {

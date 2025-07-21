@@ -6,13 +6,13 @@ const Footer = () => {
   const contributors = [
     {
       name: "Shuvodip Das Sowmik",
-      facebook: "*",
-      github: "*"
+      facebook: "https://www.facebook.com/d.sowmik/",
+      github: "https://github.com/ShuvodipDasSowmik"
     },
     {
       name: "Mahinur Rahman",
-      facebook: "*",
-      github: "*"
+      facebook: "https://www.facebook.com/mahinur.mahin.404",
+      github: "https://github.com/mahinurrahman404"
     }
   ];
 

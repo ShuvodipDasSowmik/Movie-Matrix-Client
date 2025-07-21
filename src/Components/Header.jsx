@@ -101,9 +101,9 @@ const Header = () => {
       [index]: !expandedItems[index]
     });
   };
-  const handleLogout = () => {
+  const handleLogout = async () => {
     // Use AuthContext's logout function
-    logout();
+    await logout();
 
     // Navigate to home page (client-side navigation without full page reload)
     window.location.href = '/';
@@ -222,6 +222,18 @@ const Header = () => {
                       </a>
                     </li>
                   ))}
+                  {isLoggedIn && (
+                    <li className="drawer-nav-item">
+                      <a
+                        href={`/profile/${user?.username}`}
+                        className="drawer-nav-link"
+                        onClick={() => setDrawerOpen(false)}
+                      >
+                        <FaUserCircle size={18} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+                        My Profile
+                      </a>
+                    </li>
+                  )}
                 </ul>
                 <div className="drawer-user-section">
                   {isLoggedIn ? (
@@ -246,7 +258,6 @@ const Header = () => {
                 </div>
               </div>
             </div>
-
             {/* Backdrop */}
             <div 
               className={`mobile-drawer-backdrop ${drawerOpen ? 'show' : ''}`} 

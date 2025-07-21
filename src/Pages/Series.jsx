@@ -2,26 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './PageStyles/Series.css';
 import Episode from '../Components/Episode';
-
-// DebugLog component
-const DebugLog = ({ logs }) => (
-  <div style={{
-    background: '#222', color: '#fff', fontSize: '0.85em', padding: '12px', marginTop: '32px',
-    borderRadius: '8px', maxHeight: '200px', overflowY: 'auto', fontFamily: 'monospace'
-  }}>
-    <div style={{ fontWeight: 'bold', marginBottom: 4 }}>Debug Log</div>
-    {logs.length === 0 ? <div>No debug logs.</div> : (
-      <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
-        {logs.map((log, i) => <li key={i}>{log}</li>)}
-      </ul>
-    )}
-  </div>
-);
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 const Series = () => {
   const { mediaid } = useParams();
+  const { user: currentUser } = useAuth();
   const [series, setSeries] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -34,13 +22,8 @@ const Series = () => {
     const fetchSeries = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${API_URL}/series1/${mediaid}`);
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch TV series data');
-        }
-
-        const data = await response.json();
+        const response = await axios.get(`${API_URL}/series1/${mediaid}`);
+        const data = response.data;
         console.log('Fetched series data:', data.seriesData);
         console.log('Seasons data:', data.seriesData?.seasons);
         setSeries(data.seriesData);
@@ -71,24 +54,14 @@ const Series = () => {
     setDebugLogs(logs => [...logs, `Fetching episodes for seasonId: ${seasonId}`]);
     try {
       setLoadingEpisodes(prev => ({ ...prev, [seasonId]: true }));
-      
-      // Replace this URL with your actual episodes endpoint
-      const response = await fetch(`${API_URL}/episodes/${seasonId}`);
-      
+      const response = await axios.get(`${API_URL}/episodes/${seasonId}`);
       setDebugLogs(logs => [...logs, `Episodes API response status: ${response.status}`]);
-      
-      if (!response.ok) {
-        setDebugLogs(logs => [...logs, `Failed to fetch episodes data (status: ${response.status})`]);
-        throw new Error('Failed to fetch episodes data');
-      }
-      
-      const data = await response.json();
+      const data = response.data;
       setDebugLogs(logs => [
         ...logs,
         `Episodes API response data: ${JSON.stringify(data)}`,
         `Episodes data length: ${data.episodesData?.length ?? 0}`
       ]);
-      
       setEpisodes(prev => ({ ...prev, [seasonId]: data.episodesData || [] }));
       setLoadingEpisodes(prev => ({ ...prev, [seasonId]: false }));
     } catch (err) {
@@ -114,19 +87,23 @@ const Series = () => {
   };
 
   // Add review submit handler
-  const handleEpisodeReviewSubmit = async (episodeId, rating, review) => {
+  const handleEpisodeReviewSubmit = async (episodeId, rating, review, seasonid) => {
     setDebugLogs(logs => [...logs, `Submitting review for episode ${episodeId}...`]);
-    const res = await fetch(`${API_URL}/episode-review`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ episodeid: episodeId, rating, review })
-    });
-    if (!res.ok) {
+    try {
+      await axios.post(`${API_URL}/create-episode-review`, {
+        episodeid: episodeId,
+        userrating: rating,
+        comment: review,
+        seasonid: seasonid,
+        username: currentUser?.username || "",
+        reviewdate: new Date().toISOString()
+      });
+      setDebugLogs(logs => [...logs, `Review submitted for episode ${episodeId}`]);
+      return true;
+    } catch (err) {
       setDebugLogs(logs => [...logs, `Failed to submit review for episode ${episodeId}`]);
       throw new Error('Failed to submit review');
     }
-    setDebugLogs(logs => [...logs, `Review submitted for episode ${episodeId}`]);
-    return true;
   };
 
   const youtubeId = getYoutubeId(series.trailerlink);
@@ -162,17 +139,17 @@ const Series = () => {
               <div className="seasons-section">
                 <h3 className="seasons-title">Seasons</h3>
                 <div className="seasons-list">
-                  {series.seasons.map((season, index) => {
-                    const seasonKey = season.seasonid || index;
+                  {series.seasons.map((season) => {
+                    const seasonKey = season.seasonid; // Use only season.seasonid, no fallback
                     const isExpanded = expandedSeason === seasonKey;
                     const seasonEpisodes = episodes[seasonKey] || [];
                     const isLoadingEpisodes = loadingEpisodes[seasonKey];
-                    
+
                     return (
-                      <div key={index} className="season-container">
+                      <div key={season.seasonid} className="season-container">
                         <button 
                           className={`season-button ${isExpanded ? 'expanded' : ''}`}
-                          onClick={() => handleSeasonClick(season, index)}
+                          onClick={() => handleSeasonClick(season, seasonKey)}
                         >
                           <span>{season.seasontitle}</span>
                           <span className={`arrow ${isExpanded ? 'rotated' : ''}`}>▼</span>
@@ -181,7 +158,11 @@ const Series = () => {
                           isExpanded={isExpanded}
                           isLoadingEpisodes={isLoadingEpisodes}
                           seasonEpisodes={seasonEpisodes}
-                          onReviewSubmit={handleEpisodeReviewSubmit}
+                          onReviewSubmit={(episodeId, rating, review) =>
+                            handleEpisodeReviewSubmit(episodeId, rating, review, season.seasonid)
+                          }
+                          currentUser={currentUser}
+                          seasonid={season.seasonid}
                         />
                       </div>
                     );
@@ -324,14 +305,6 @@ const Series = () => {
             </div>
           )}
         </div>
-      </div>
-
-      <div className='DebugLog'>
-        {episodes.length > 0 ? (<>
-          FUCK YOU
-        </>) : (
-          <p>No episodes available for debugging.</p>
-        )}
       </div>
     </div>
   );
