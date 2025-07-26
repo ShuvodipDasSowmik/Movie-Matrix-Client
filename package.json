@@ -15,6 +15,7 @@
     "@mui/material": "^7.1.0",
     "axios": "^1.9.0",
     "bootstrap": "^5.3.6",
+    "lucide-react": "^0.525.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.0.0",

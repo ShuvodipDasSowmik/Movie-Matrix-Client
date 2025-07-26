@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { IoClose } from 'react-icons/io5';
-import { FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
+import { FaUserCircle, FaSignOutAlt, FaHeart } from 'react-icons/fa';
 import SearchBar from './SearchBar';
 import './ComponentStyles/Header.css';
 import { useAuth } from '../context/AuthContext';
@@ -11,6 +11,12 @@ const navigationItems = [
   {
     label: 'Home',
     navigationLink: '/'
+  },
+  {
+    label: 'For You',
+    navigationLink: '/for-you',
+    requiresAuth: true,
+    icon: <FaHeart size={16} style={{ marginRight: 6, verticalAlign: 'middle' }} />
   },
   {
     label: 'Movies | Series',
@@ -101,6 +107,7 @@ const Header = () => {
       [index]: !expandedItems[index]
     });
   };
+
   const handleLogout = async () => {
     // Use AuthContext's logout function
     await logout();
@@ -115,6 +122,16 @@ const Header = () => {
     setDrawerOpen(false);
   };
 
+  // Filter navigation items based on authentication
+  const getVisibleNavigationItems = () => {
+    return navigationItems.filter(item => {
+      if (item.requiresAuth) {
+        return isLoggedIn;
+      }
+      return true;
+    });
+  };
+
   return (
     <header className="header">
       <div className="header-container">
@@ -125,8 +142,8 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className={`desktop-nav ${isMobile ? 'hidden' : ''}`}>
           <ul className="nav-menu">
-            {navigationItems.map((item, index) => (
-              <li key={index} className="nav-item">
+            {getVisibleNavigationItems().map((item, index) => (
+              <li key={index} className={`nav-item ${item.requiresAuth ? 'auth-required' : ''}`}>
                 {item.subItems ? (
                   <button
                     className="nav-link dropdown-toggle"
@@ -135,10 +152,12 @@ const Header = () => {
                       handleDropdownToggle(index);
                     }}
                   >
+                    {item.icon && item.icon}
                     {item.label} <IoMdArrowDropdown />
                   </button>
                 ) : (
                   <a href={item.navigationLink} className="nav-link">
+                    {item.icon && item.icon}
                     {item.label}
                   </a>
                 )}
@@ -211,13 +230,14 @@ const Header = () => {
               </div>
               <div className="drawer-content">
                 <ul className="drawer-nav-list">
-                  {navigationItems.map((item, index) => (
-                    <li key={index} className="drawer-nav-item">
+                  {getVisibleNavigationItems().map((item, index) => (
+                    <li key={index} className={`drawer-nav-item ${item.requiresAuth ? 'auth-required' : ''}`}>
                       <a 
                         href={item.navigationLink} 
                         className="drawer-nav-link"
                         onClick={() => setDrawerOpen(false)}
                       >
+                        {item.icon && item.icon}
                         {item.label}
                       </a>
                     </li>

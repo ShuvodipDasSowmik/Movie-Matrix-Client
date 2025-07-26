@@ -18,6 +18,7 @@ import Actors from './Pages/Actors';
 import Movies from './Pages/Movies';
 import Movie from './Pages/Movie';
 import Series from './Pages/Series';
+import ForYou from './Pages/ForYou';
 import UnauthorizeAccess from "./Pages/UnauthorizeAccess";
 import NotificationContainer from './Components/Notification';
 import Blogs from './Pages/Blogs';
@@ -72,6 +73,11 @@ function App() {
                 <Route path="/profile/:username" element={
                   <ProtectedRoute>
                     <><Header /><UserDashboard /> <Footer /></>
+                  </ProtectedRoute>
+                } />
+                <Route path='/for-you' element={
+                  <ProtectedRoute>
+                    <><Header /><ForYou /> <Footer /></>
                   </ProtectedRoute>
                 } />
 
