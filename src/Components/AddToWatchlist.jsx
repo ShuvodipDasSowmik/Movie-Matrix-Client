@@ -30,13 +30,19 @@ const AddToWatchlist = ({ mediaId, mediaType, buttonText = '+ Add to Watchlist',
       
       if (response.data.success) {
         setWatchlists(response.data.watchlist || []);
-      } else {
+      }
+      
+      else {
         setError('Failed to fetch watchlists');
       }
-    } catch (err) {
+    }
+    
+    catch (err) {
       console.error('Error fetching watchlists:', err);
       setError('Failed to load watchlists');
-    } finally {
+    }
+    
+    finally {
       setLoading(false);
     }
   };
@@ -64,13 +70,19 @@ const AddToWatchlist = ({ mediaId, mediaType, buttonText = '+ Add to Watchlist',
           setShowModal(false);
           setSuccess('');
         }, 1500);
-      } else {
+      }
+      
+      else {
         setError('Failed to add to watchlist');
       }
-    } catch (err) {
+    }
+    
+    catch (err) {
       console.error('Error adding to watchlist:', err);
-      setError('Failed to add to watchlist');
-    } finally {
+      setError(err.response.data.message);
+    }
+    
+    finally {
       setAddingToWatchlist(false);
     }
   };

@@ -2,11 +2,13 @@ import React, { useState, useContext, useEffect } from 'react';
 import AuthContext from '../context/AuthContext';
 import axios from 'axios';
 import './ComponentStyles/MediaReview.css';
+import { useNotification } from '../context/NotificationContext';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 const MediaReview = ({ mediaid, onReviewSubmitted }) => {
   const { user } = useContext(AuthContext);
+  const { addNotification } = useNotification();
   const [userrating, setUserrating] = useState('');
   const [comment, setComment] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -91,6 +93,11 @@ const MediaReview = ({ mediaid, onReviewSubmitted }) => {
         setComment('');
         setUserrating('');
         handleReviewSubmitted();
+        addNotification({
+          type: 'success',
+          title: 'Review Submitted',
+          message: 'Your review has been submitted successfully!'
+        });
       } else {
         setError('Failed to submit review.');
       }
@@ -109,8 +116,17 @@ const MediaReview = ({ mediaid, onReviewSubmitted }) => {
         data: { username: user.username , mediaid: mediaid }
       });
       fetchReviews();
+      addNotification({
+        type: 'success',
+        title: 'Review Deleted',
+        message: 'Your review has been deleted successfully!'
+      });
     } catch (err) {
-      alert('Failed to delete review.');
+      addNotification({
+        type: 'error',
+        title: 'Error',
+        message: 'Failed to delete review.'
+      });
     }
   };
 
@@ -143,8 +159,17 @@ const MediaReview = ({ mediaid, onReviewSubmitted }) => {
       setEditRating('');
       setEditComment('');
       fetchReviews();
+      addNotification({
+        type: 'success',
+        title: 'Review Updated',
+        message: 'Your review has been updated successfully!'
+      });
     } catch (err) {
-      alert('Failed to update review.');
+      addNotification({
+        type: 'error',
+        title: 'Error',
+        message: 'Failed to update review.'
+      });
     } finally {
       setEditSubmitting(false);
     }

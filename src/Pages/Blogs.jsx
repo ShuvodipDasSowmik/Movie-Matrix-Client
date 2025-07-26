@@ -23,6 +23,8 @@ const Blogs = () => {
     const [originalContent, setOriginalContent] = useState('');
     const [editingComment, setEditingComment] = useState(null);
     const [editCommentContent, setEditCommentContent] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const postsPerPage = 10;
 
     useEffect(() => {
         const fetchAllPosts = async () => {
@@ -100,6 +102,11 @@ const Blogs = () => {
             });
         }
     }, [authUser, posts]); // Run when authUser or posts change
+
+    // Scroll to top on page change
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [currentPage]);
 
     const formatDate = (dateString) => {
         if (!dateString) return '';
@@ -337,7 +344,7 @@ const Blogs = () => {
 
             try {
                 // Fix the delete endpoint path
-                const response = await axios.delete(`${API_URL}/delete/${postId}`);
+                const response = await axios.delete(`${API_URL}/delete-post/${postId}`);
 
                 if (response.status === 200) {
                     // Remove loading notification
@@ -482,6 +489,13 @@ const Blogs = () => {
         setEditCommentContent('');
     };
 
+    // Calculate paginated posts
+    const totalPages = Math.ceil(posts.length / postsPerPage);
+    const paginatedPosts = posts.slice(
+        (currentPage - 1) * postsPerPage,
+        currentPage * postsPerPage
+    );
+
     if (loading) {
         return (
             <div className="blogs-container">
@@ -510,287 +524,314 @@ const Blogs = () => {
                     <p>Be the first to share your thoughts about movies!</p>
                 </div>
             ) : (
-                <div className="blogs-posts-container">
-                    {posts.map((post) => (
-                        <div key={post.blogid} className="blog-post-card">
-                            <div className="post-header">
-                                <div className="post-user">
-                                    <div className="post-avatar">
-                                        {(post.username || 'Anonymous')[0].toUpperCase()}
-                                    </div>
-                                    <div className="post-user-info">
-                                        <span className="post-username">@{post.username || 'Anonymous'}</span>
-                                        <span className="post-date">{formatDate(post.updatedate)}</span>
-                                    </div>
-                                </div>
-                                {authUser && authUser.username === post.username && (
-                                    <div className="post-actions-menu">
-                                        <button 
-                                            className="edit-post-btn"
-                                            onClick={() => handleEditPost(post)}
-                                            title="Edit post"
-                                        >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-                                            </svg>
-                                        </button>
-                                        <button 
-                                            className="delete-post-btn"
-                                            onClick={() => handleDeletePost(post.blogid)}
-                                            title="Delete post"
-                                        >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                                <path fillRule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                            
-                            <div className="post-content">
-                                {editingPost === post.blogid ? (
-                                    <div className="edit-post-form">
-                                        <textarea
-                                            value={editContent}
-                                            onChange={(e) => setEditContent(e.target.value)}
-                                            className="edit-textarea"
-                                            rows="4"
-                                        />
-                                        
-                                        {post.image && (
-                                            <div className="edit-image-container">
-                                                <div className="edit-image-preview">
-                                                    <img 
-                                                        src={post.image} 
-                                                        alt="Post image" 
-                                                        className={deleteImage ? "image-to-delete" : ""}
-                                                    />
-                                                    <label className="delete-image-checkbox">
-                                                        <input 
-                                                            type="checkbox" 
-                                                            checked={deleteImage} 
-                                                            onChange={(e) => setDeleteImage(e.target.checked)}
-                                                        />
-                                                        Delete image
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        )}
-                                        
-                                        <div className="edit-buttons">
-                                            <button 
-                                                className="save-edit-btn"
-                                                onClick={() => handleUpdatePost(post.blogid)}
-                                            >
-                                                Save
-                                            </button>
-                                            <button 
-                                                className="cancel-edit-btn"
-                                                onClick={cancelEdit}
-                                            >
-                                                Cancel
-                                            </button>
+                <>
+                    <div className="blogs-posts-container">
+                        {paginatedPosts.map((post) => (
+                            <div key={post.blogid} className="blog-post-card">
+                                <div className="post-header">
+                                    <div className="post-user">
+                                        <div className="post-avatar">
+                                            {(post.username || 'Anonymous')[0].toUpperCase()}
+                                        </div>
+                                        <div className="post-user-info">
+                                            <span className="post-username">@{post.username || 'Anonymous'}</span>
+                                            <span className="post-date">{formatDate(post.updatedate)}</span>
                                         </div>
                                     </div>
-                                ) : (
-                                    <p>{post.content}</p>
-                                )}
+                                    {authUser && authUser.username === post.username && (
+                                        <div className="post-actions-menu">
+                                            <button 
+                                                className="edit-post-btn"
+                                                onClick={() => handleEditPost(post)}
+                                                title="Edit post"
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                                </svg>
+                                            </button>
+                                            <button 
+                                                className="delete-post-btn"
+                                                onClick={() => handleDeletePost(post.blogid)}
+                                                title="Delete post"
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                    <path fillRule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                                 
-                                {post.image && !editingPost && (
-                                    <div className="post-image">
-                                        <img 
-                                            src={post.image} 
-                                            alt="Post content" 
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                            }}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-
-                            <div className="post-actions">
-                                <div className="post-stats">
-                                    {getTotalReactions(post.blogid) > 0 && (
-                                        <span className="reaction-count">
-                                            {getReactionCount(post.blogid, 'Like') > 0 && '👍'}
-                                            {getReactionCount(post.blogid, 'Love') > 0 && '❤️'}
-                                            {getReactionCount(post.blogid, 'Wow') > 0 && '😮'}
-                                            {getTotalReactions(post.blogid)}
-                                        </span>
-                                    )}
-                                    {postComments[post.blogid]?.length > 0 && (
-                                        <span className="comment-count">
-                                            {postComments[post.blogid].length} comments
-                                        </span>
-                                    )}
-                                </div>
-
-                                <div className="action-buttons">
-                                    <div className="reaction-container">
-                                        <button 
-                                            className={`action-btn reaction-btn ${postReactions[post.blogid]?.userReaction ? 'reacted' : ''}`}
-                                            onClick={() => {
-                                                console.log('Current user reaction:', postReactions[post.blogid]?.userReaction);
-                                                console.log('Post reactions:', postReactions[post.blogid]);
-                                                return authUser ? setShowReactions(prev => ({ 
-                                                    ...prev, 
-                                                    [post.blogid]: !prev[post.blogid] 
-                                                })) : alert('Please log in to react');
-                                            }}
-                                            disabled={!authUser}
-                                        >
-                                            {postReactions[post.blogid]?.userReaction ? 
-                                                `${getReactionEmoji(postReactions[post.blogid].userReaction)} ${postReactions[post.blogid].userReaction}` : 
-                                                '👍 Like'
-                                            }
-                                        </button>
-                                        
-                                        {showReactions[post.blogid] && authUser && (
-                                            <>
-                                                <div 
-                                                    className="reaction-overlay"
-                                                    onClick={() => setShowReactions(prev => ({ 
-                                                        ...prev, 
-                                                        [post.blogid]: false 
-                                                    }))}
-                                                />
-                                                <div className="reaction-popup">
-                                                    <button 
-                                                        className="reaction-option"
-                                                        onClick={() => handleReaction(post.blogid, 'Like')}
-                                                    >
-                                                        👍
-                                                    </button>
-                                                    <button 
-                                                        className="reaction-option"
-                                                        onClick={() => handleReaction(post.blogid, 'Love')}
-                                                    >
-                                                        ❤️
-                                                    </button>
-                                                    <button 
-                                                        className="reaction-option"
-                                                        onClick={() => handleReaction(post.blogid, 'Wow')}
-                                                    >
-                                                        😮
-                                                    </button>
+                                <div className="post-content">
+                                    {editingPost === post.blogid ? (
+                                        <div className="edit-post-form">
+                                            <textarea
+                                                value={editContent}
+                                                onChange={(e) => setEditContent(e.target.value)}
+                                                className="edit-textarea"
+                                                rows="4"
+                                            />
+                                            
+                                            {post.image && (
+                                                <div className="edit-image-container">
+                                                    <div className="edit-image-preview">
+                                                        <img 
+                                                            src={post.image} 
+                                                            alt="Post image" 
+                                                            className={deleteImage ? "image-to-delete" : ""}
+                                                        />
+                                                        <label className="delete-image-checkbox">
+                                                            <input 
+                                                                type="checkbox" 
+                                                                checked={deleteImage} 
+                                                                onChange={(e) => setDeleteImage(e.target.checked)}
+                                                            />
+                                                            Delete image
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </>
-                                        )}
-                                    </div>
-
-                                    <button 
-                                        className="action-btn comment-btn"
-                                        onClick={() => toggleComments(post.blogid)}
-                                    >
-                                        💬 Comment
-                                    </button>
-                                </div>
-                            </div>
-
-                            {expandedComments[post.blogid] && (
-                                <div className="comments-section">
-                                        {authUser && (
-                                            <div className="add-comment">
-                                                <input
-                                                    type="text"
-                                                    placeholder="Write a comment..."
-                                                    value={newComment[post.blogid] || ''}
-                                                    onChange={(e) => setNewComment(prev => ({
-                                                        ...prev,
-                                                        [post.blogid]: e.target.value
-                                                    }))}
-                                                    onKeyPress={(e) => {
-                                                        if (e.key === 'Enter') {
-                                                            handleAddComment(post.blogid);
-                                                        }
-                                                    }}
-                                                />
+                                            )}
+                                            
+                                            <div className="edit-buttons">
                                                 <button 
-                                                    className="comment-submit-btn"
-                                                    onClick={() => handleAddComment(post.blogid)}
+                                                    className="save-edit-btn"
+                                                    onClick={() => handleUpdatePost(post.blogid)}
                                                 >
-                                                    Post
+                                                    Save
+                                                </button>
+                                                <button 
+                                                    className="cancel-edit-btn"
+                                                    onClick={cancelEdit}
+                                                >
+                                                    Cancel
                                                 </button>
                                             </div>
-                                        )}
+                                        </div>
+                                    ) : (
+                                        <p>{post.content}</p>
+                                    )}
+                                    
+                                    {post.image && !editingPost && (
+                                        <div className="post-image">
+                                            <img 
+                                                src={post.image} 
+                                                alt="Post content" 
+                                                onError={(e) => {
+                                                    e.target.style.display = 'none';
+                                                }}
+                                            />
+                                        </div>
+                                    )}
+                                </div>
 
-                                        <div className="comments-list">
-                                            {postComments[post.blogid]?.map((comment, index) => (
-                                                <div key={index} className="comment-item">
-                                                    <div className="comment-avatar">
-                                                        {comment.username?.[0]?.toUpperCase() || 'U'}
+                                <div className="post-actions">
+                                    <div className="post-stats">
+                                        {getTotalReactions(post.blogid) > 0 && (
+                                            <span className="reaction-count">
+                                                {getReactionCount(post.blogid, 'Like') > 0 && '👍'}
+                                                {getReactionCount(post.blogid, 'Love') > 0 && '❤️'}
+                                                {getReactionCount(post.blogid, 'Wow') > 0 && '😮'}
+                                                {getTotalReactions(post.blogid)}
+                                            </span>
+                                        )}
+                                        {postComments[post.blogid]?.length > 0 && (
+                                            <span className="comment-count">
+                                                {postComments[post.blogid].length} comments
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    <div className="action-buttons">
+                                        <div className="reaction-container">
+                                            <button 
+                                                className={`action-btn reaction-btn ${postReactions[post.blogid]?.userReaction ? 'reacted' : ''}`}
+                                                onClick={() => {
+                                                    console.log('Current user reaction:', postReactions[post.blogid]?.userReaction);
+                                                    console.log('Post reactions:', postReactions[post.blogid]);
+                                                    return authUser ? setShowReactions(prev => ({ 
+                                                        ...prev, 
+                                                        [post.blogid]: !prev[post.blogid] 
+                                                    })) : alert('Please log in to react');
+                                                }}
+                                                disabled={!authUser}
+                                            >
+                                                {postReactions[post.blogid]?.userReaction ? 
+                                                    `${getReactionEmoji(postReactions[post.blogid].userReaction)} ${postReactions[post.blogid].userReaction}` : 
+                                                    '👍 Like'
+                                                }
+                                            </button>
+                                            
+                                            {showReactions[post.blogid] && authUser && (
+                                                <>
+                                                    <div 
+                                                        className="reaction-overlay"
+                                                        onClick={() => setShowReactions(prev => ({ 
+                                                            ...prev, 
+                                                            [post.blogid]: false 
+                                                        }))}
+                                                    />
+                                                    <div className="reaction-popup">
+                                                        <button 
+                                                            className="reaction-option"
+                                                            onClick={() => handleReaction(post.blogid, 'Like')}
+                                                        >
+                                                            👍
+                                                        </button>
+                                                        <button 
+                                                            className="reaction-option"
+                                                            onClick={() => handleReaction(post.blogid, 'Love')}
+                                                        >
+                                                            ❤️
+                                                        </button>
+                                                        <button 
+                                                            className="reaction-option"
+                                                            onClick={() => handleReaction(post.blogid, 'Wow')}
+                                                        >
+                                                            😮
+                                                        </button>
                                                     </div>
-                                                    <div className="comment-content">
-                                                        <div className="comment-header">
-                                                            <div className="comment-user-info">
-                                                                <span className="comment-username">
-                                                                    @{comment.username || 'Anonymous'}
-                                                                </span>
-                                                                <span className="comment-date">
-                                                                    {formatDate(comment.createdAt)}
-                                                                </span>
-                                                            </div>
-                                                            {authUser && authUser.username === comment.username && (
-                                                                <div className="comment-actions">
-                                                                    <button 
-                                                                        className="comment-edit-btn"
-                                                                        onClick={() => handleEditComment(comment)}
-                                                                        title="Edit comment"
-                                                                    >
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-                                                                        </svg>
-                                                                    </button>
-                                                                    <button 
-                                                                        className="comment-delete-btn"
-                                                                        onClick={() => handleDeleteComment(comment.blogcommentid)}
-                                                                        title="Delete comment"
-                                                                    >
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                                                            <path fillRule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                                                        </svg>
-                                                                    </button>
+                                                </>
+                                            )}
+                                        </div>
+
+                                        <button 
+                                            className="action-btn comment-btn"
+                                            onClick={() => toggleComments(post.blogid)}
+                                        >
+                                            💬 Comment
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {expandedComments[post.blogid] && (
+                                    <div className="comments-section">
+                                            {authUser && (
+                                                <div className="add-comment">
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Write a comment..."
+                                                        value={newComment[post.blogid] || ''}
+                                                        onChange={(e) => setNewComment(prev => ({
+                                                            ...prev,
+                                                            [post.blogid]: e.target.value
+                                                        }))}
+                                                        onKeyPress={(e) => {
+                                                            if (e.key === 'Enter') {
+                                                                handleAddComment(post.blogid);
+                                                            }
+                                                        }}
+                                                    />
+                                                    <button 
+                                                        className="comment-submit-btn"
+                                                        onClick={() => handleAddComment(post.blogid)}
+                                                    >
+                                                        Post
+                                                    </button>
+                                                </div>
+                                            )}
+
+                                            <div className="comments-list">
+                                                {postComments[post.blogid]?.map((comment, index) => (
+                                                    <div key={index} className="comment-item">
+                                                        <div className="comment-avatar">
+                                                            {comment.username?.[0]?.toUpperCase() || 'U'}
+                                                        </div>
+                                                        <div className="comment-content">
+                                                            <div className="comment-header">
+                                                                <div className="comment-user-info">
+                                                                    <span className="comment-username">
+                                                                        @{comment.username || 'Anonymous'}
+                                                                    </span>
+                                                                    <span className="comment-date">
+                                                                        {formatDate(comment.createdAt)}
+                                                                    </span>
                                                                 </div>
+                                                                {authUser && authUser.username === comment.username && (
+                                                                    <div className="comment-actions">
+                                                                        <button 
+                                                                            className="comment-edit-btn"
+                                                                            onClick={() => handleEditComment(comment)}
+                                                                            title="Edit comment"
+                                                                        >
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                                                            </svg>
+                                                                        </button>
+                                                                        <button 
+                                                                            className="comment-delete-btn"
+                                                                            onClick={() => handleDeleteComment(comment.blogcommentid)}
+                                                                            title="Delete comment"
+                                                                        >
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                                                <path fillRule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                                            </svg>
+                                                                        </button>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                            {editingComment === comment.blogcommentid ? (
+                                                                <div className="edit-comment-form">
+                                                                    <textarea
+                                                                        value={editCommentContent}
+                                                                        onChange={(e) => setEditCommentContent(e.target.value)}
+                                                                        className="edit-comment-textarea"
+                                                                        rows="2"
+                                                                    />
+                                                                    <div className="edit-comment-buttons">
+                                                                        <button 
+                                                                            className="save-comment-btn"
+                                                                            onClick={() => handleUpdateComment(comment.blogcommentid)}
+                                                                        >
+                                                                            Save
+                                                                        </button>
+                                                                        <button 
+                                                                            className="cancel-comment-btn"
+                                                                            onClick={cancelCommentEdit}
+                                                                        >
+                                                                            Cancel
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            ) : (
+                                                                <p className="comment-text">{comment.content}</p>
                                                             )}
                                                         </div>
-                                                        {editingComment === comment.blogcommentid ? (
-                                                            <div className="edit-comment-form">
-                                                                <textarea
-                                                                    value={editCommentContent}
-                                                                    onChange={(e) => setEditCommentContent(e.target.value)}
-                                                                    className="edit-comment-textarea"
-                                                                    rows="2"
-                                                                />
-                                                                <div className="edit-comment-buttons">
-                                                                    <button 
-                                                                        className="save-comment-btn"
-                                                                        onClick={() => handleUpdateComment(comment.blogcommentid)}
-                                                                    >
-                                                                        Save
-                                                                    </button>
-                                                                    <button 
-                                                                        className="cancel-comment-btn"
-                                                                        onClick={cancelCommentEdit}
-                                                                    >
-                                                                        Cancel
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        ) : (
-                                                            <p className="comment-text">{comment.content}</p>
-                                                        )}
                                                     </div>
-                                                </div>
-                                            ))}
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
+                                    )}
+                            </div>
+                        ))}
+                    </div>
+                    {totalPages > 1 && (
+                        <div className="blogs-pagination">
+                            <button
+                                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </button>
+                            {[...Array(totalPages)].map((_, idx) => (
+                                <button
+                                    key={idx + 1}
+                                    className={currentPage === idx + 1 ? 'active' : ''}
+                                    onClick={() => setCurrentPage(idx + 1)}
+                                >
+                                    {idx + 1}
+                                </button>
+                            ))}
+                            <button
+                                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </button>
                         </div>
-                    ))}
-                </div>
+                    )}
+                </>
             )}
         </div>
     );

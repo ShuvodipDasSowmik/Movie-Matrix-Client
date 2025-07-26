@@ -1,0 +1,130 @@
+.user-info-section {
+  background: rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+  color: #222;
+}
+
+.dark-mode .user-info-section {
+  background: rgba(20, 20, 35, 0.5);
+  color: #e0e0e0;
+}
+
+.user-info-section h2 {
+  font-size: 1.7rem;
+  margin-bottom: 1.5rem;
+  color: #5271ff;
+  font-weight: 700;
+}
+
+.dark-mode .user-info-section h2 {
+  color: #8670ff;
+}
+
+.user-info-summary {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.user-info-summary-item {
+  font-size: 1.2rem;
+  background: rgba(82, 113, 255, 0.07);
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  color: #5271ff;
+  font-weight: 600;
+}
+
+.dark-mode .user-info-summary-item {
+  background: rgba(134, 112, 255, 0.07);
+  color: #8670ff;
+}
+
+.user-info-summary-label {
+  margin-right: 0.7rem;
+  font-weight: 500;
+}
+
+.user-info-summary-value {
+  font-weight: bold;
+}
+
+.user-info-charts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.user-info-chart {
+  flex: 1 1 45%;
+  min-width: 320px;
+  max-width: 48%;
+  background: rgba(255,255,255,0.10);
+  border-radius: 10px;
+  padding: 1.2rem 1.2rem 0.7rem 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(82, 113, 255, 0.04);
+}
+
+.dark-mode .user-info-chart {
+  background: rgba(20, 20, 35, 0.15);
+  box-shadow: 0 2px 8px rgba(134, 112, 255, 0.04);
+}
+
+.user-info-chart h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.7rem;
+  color: #5271ff;
+  font-weight: 600;
+}
+
+.dark-mode .user-info-chart h3 {
+  color: #8670ff;
+}
+
+/* Chart axis color variable for recharts */
+:root {
+  --user-info-axis-color: #222;
+}
+.dark-mode {
+  --user-info-axis-color: #e0e0e0;
+}
+
+.user-info-loading,
+.user-info-error {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #e74c3c;
+}
+
+.user-info-loading {
+  color: #5271ff;
+}
+
+.dark-mode .user-info-loading {
+  color: #8670ff;
+}
+
+.dark-mode .user-info-error {
+  color: #ff6b6b;
+}
+
+/* Responsive: stack charts on small screens */
+@media (max-width: 900px) {
+  .user-info-charts {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .user-info-chart {
+    max-width: 100%;
+    min-width: 0;
+  }
+}

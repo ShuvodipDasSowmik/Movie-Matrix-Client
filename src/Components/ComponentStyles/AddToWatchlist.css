@@ -135,7 +135,7 @@
   height: 0;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-top: 8px solid var(--color-text-light, #fff);
+  border-top: 8px solid var(--color-text-light, #222);
   pointer-events: none;
   margin-top: -7px;
 }
@@ -147,13 +147,13 @@
 .watchlist-select select {
   width: 100%;
   padding: 10px 30px 10px 12px;
-  background-color: var(--color-input-bg, #2c3e50);
-  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.2));
+  background-color: var(--color-input-bg, #f5f7fa);
+  border: 1px solid var(--color-border, #d1d5db);
   border-radius: 4px;
-  color: var(--color-text-light, #fff);
+  color: var(--color-text-dark, #222);
   font-size: 0.95rem;
   margin-bottom: 15px;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -168,8 +168,8 @@
 
 /* Style for dropdown options */
 .watchlist-select select option {
-  background-color: var(--color-input-bg, #2c3e50);
-  color: var(--color-text-light, #fff);
+  background-color: var(--color-input-bg, #f5f7fa);
+  color: var(--color-text-dark, #222);
   padding: 12px;
 }
 

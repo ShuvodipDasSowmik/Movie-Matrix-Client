@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ComponentStyles/Watchlist.css';
+import { useNotification } from '../context/NotificationContext';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -32,6 +33,7 @@ const Watchlist = ({ username }) => {
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [watchedMediaIds, setWatchedMediaIds] = useState([]);
     const [updatingWatched, setUpdatingWatched] = useState(false);
+    const { addNotification, removeNotification } = useNotification();
 
     useEffect(() => {
         fetchWatchlists();
@@ -54,10 +56,20 @@ const Watchlist = ({ username }) => {
                 setWatchlists(response.data.watchlist);
             } else {
                 setError('Failed to fetch watchlists');
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: 'Failed to fetch watchlists'
+                });
             }
         } catch (err) {
             console.error('Error fetching watchlists:', err);
-            setError('Failed to load watchlists');
+            setError(err.response?.data?.message || 'Failed to load watchlists');
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: err.response?.data?.message || 'Failed to load watchlists'
+            });
         } finally {
             setLoading(false);
         }
@@ -97,10 +109,20 @@ const Watchlist = ({ username }) => {
                 setShowWatchlistDetail(true);
             } else {
                 setError('Failed to fetch watchlist details');
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: 'Failed to fetch watchlist details'
+                });
             }
         } catch (err) {
             console.error('Error fetching watchlist details:', err);
             setError('Failed to load watchlist details');
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'Failed to load watchlist details'
+            });
         } finally {
             setDetailLoading(false);
         }
@@ -123,6 +145,11 @@ const Watchlist = ({ username }) => {
         } catch (err) {
             console.error(`Error fetching ${type}:`, err);
             setError(`Failed to fetch ${type}. Please try again later.`);
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: `Failed to fetch ${type}. Please try again later.`
+            });
         } finally {
             setMediaLoading(false);
         }
@@ -153,6 +180,11 @@ const Watchlist = ({ username }) => {
     const handleCreateWatchlist = async () => {
         if (!newWatchlistTitle.trim()) {
             setError('Watchlist title is required');
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'Watchlist title is required'
+            });
             return;
         }
 
@@ -173,12 +205,27 @@ const Watchlist = ({ username }) => {
                 setSelectedMediaIds([]);
                 setShowCreateForm(false);
                 await fetchWatchlists(); // Refresh the watchlists
+                addNotification({
+                    type: 'success',
+                    title: 'Watchlist Created',
+                    message: 'Your watchlist has been created successfully!'
+                });
             } else {
                 setError('Failed to create watchlist');
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: 'Failed to create watchlist'
+                });
             }
         } catch (err) {
             console.error('Error creating watchlist:', err);
             setError('Failed to create watchlist');
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'Failed to create watchlist'
+            });
         } finally {
             setCreating(false);
         }
@@ -188,6 +235,11 @@ const Watchlist = ({ username }) => {
     const handleUpdateWatchlist = async () => {
         if (!editWatchlistTitle.trim()) {
             setError('Watchlist title is required');
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'Watchlist title is required'
+            });
             return;
         }
 
@@ -206,12 +258,27 @@ const Watchlist = ({ username }) => {
             if (response.status === 200) {
                 setShowEditForm(false);
                 await fetchWatchlists(); // Refresh the watchlists
+                addNotification({
+                    type: 'success',
+                    title: 'Watchlist Updated',
+                    message: 'Your watchlist has been updated successfully!'
+                });
             } else {
                 setError('Failed to update watchlist');
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: 'Failed to update watchlist'
+                });
             }
         } catch (err) {
             console.error('Error updating watchlist:', err);
             setError('Failed to update watchlist');
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'Failed to update watchlist'
+            });
         } finally {
             setUpdating(false);
         }
@@ -230,12 +297,27 @@ const Watchlist = ({ username }) => {
                 setShowWatchlistDetail(false);
                 setWatchlistDetail(null);
                 await fetchWatchlists(); // Refresh the watchlists
+                addNotification({
+                    type: 'success',
+                    title: 'Watchlist Deleted',
+                    message: 'Your watchlist has been deleted successfully!'
+                });
             } else {
                 setError('Failed to delete watchlist');
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: 'Failed to delete watchlist'
+                });
             }
         } catch (err) {
             console.error('Error deleting watchlist:', err);
             setError('Failed to delete watchlist');
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'Failed to delete watchlist'
+            });
         } finally {
             setDeleting(false);
         }
@@ -245,6 +327,11 @@ const Watchlist = ({ username }) => {
     const handleAddMediaToWatchlist = async () => {
         if (selectedMediaIds.length === 0) {
             setError('No media selected');
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'No media selected'
+            });
             return;
         }
 
@@ -269,12 +356,27 @@ const Watchlist = ({ username }) => {
                 }
                 
                 await fetchWatchlists(); // Refresh the watchlists
+                addNotification({
+                    type: 'success',
+                    title: 'Media Added',
+                    message: 'Media added to watchlist successfully!'
+                });
             } else {
                 setError('Failed to add media to watchlist');
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: 'Failed to add media to watchlist'
+                });
             }
         } catch (err) {
             console.error('Error adding media to watchlist:', err);
             setError('Failed to add media to watchlist');
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'Failed to add media to watchlist'
+            });
         } finally {
             setAddingMedia(false);
         }
@@ -291,12 +393,27 @@ const Watchlist = ({ username }) => {
             if (response.status === 200) {
                 // Refresh the watchlist details
                 await fetchWatchlistDetail(watchlistDetail.id);
+                addNotification({
+                    type: 'success',
+                    title: 'Media Removed',
+                    message: 'Media removed from watchlist successfully!'
+                });
             } else {
                 setError('Failed to remove media from watchlist');
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: 'Failed to remove media from watchlist'
+                });
             }
         } catch (err) {
             console.error('Error removing media from watchlist:', err);
             setError('Failed to remove media from watchlist');
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'Failed to remove media from watchlist'
+            });
         } finally {
             setRemovingMedia(false);
         }
@@ -323,6 +440,11 @@ const Watchlist = ({ username }) => {
     const handleUpdateWatchedStatus = async () => {
         if (watchedMediaIds.length === 0) {
             setError('No media items selected');
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'No media items selected'
+            });
             return;
         }
         
@@ -353,6 +475,11 @@ const Watchlist = ({ username }) => {
             if (response.status === 200) {
                 // Show success message
                 setSuccessMessage(`Successfully marked ${mediasToUpdate.length} item(s) as watched!`);
+                addNotification({
+                    type: 'success',
+                    title: 'Watched Updated',
+                    message: `Successfully marked ${mediasToUpdate.length} item(s) as watched!`
+                });
                 
                 // Reset selection and refresh data
                 setWatchedMediaIds([]);
@@ -364,10 +491,20 @@ const Watchlist = ({ username }) => {
                 }, 5000);
             } else {
                 setError('Failed to update watched status');
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: 'Failed to update watched status'
+                });
             }
         } catch (err) {
             console.error('Error updating watched status:', err);
             setError('Failed to update watched status');
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'Failed to update watched status'
+            });
         } finally {
             setUpdatingWatched(false);
         }

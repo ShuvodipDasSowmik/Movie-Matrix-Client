@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../Pages/PageStyles/Admin.css';
 import '../Components/ComponentStyles/AdminUserEmailTable.css';
+import { useNotification } from '../context/NotificationContext';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -12,6 +13,7 @@ function AdminUserEmailTable() {
     const [subject, setSubject] = useState(''); // Add subject state
     const [sending, setSending] = useState(false);
     const [loading, setLoading] = useState(true);
+    const { addNotification } = useNotification();
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -61,7 +63,11 @@ function AdminUserEmailTable() {
                 subject, // Send subject to backend
                 message
             });
-            alert('Emails sent successfully!');
+            addNotification({
+                type: 'success',
+                title: 'Emails Sent',
+                message: 'Emails sent successfully!'
+            });
             setSelected(new Set());
             setMessage('');
             setSubject(''); // Clear subject after send
@@ -69,7 +75,11 @@ function AdminUserEmailTable() {
         
         catch (error) {
             console.error('Error sending emails:', error);
-            alert('Failed to send emails. Please try again.');
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: 'Failed to send emails. Please try again.'
+            });
         }
         
         finally {

@@ -4,6 +4,7 @@ import useFileUpload from "../Hooks/useFileUpload";
 import "./PageStyles/Admin.css";
 import AdminUserEmailTable from "../Components/AdminUserEmailTable";
 import DatabaseOverview from "../Components/DatabaseOverview";
+import UserInfo from "../Components/UserInfo";
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -158,6 +159,9 @@ const Admin = () => {
                 <h1>Admin Dashboard</h1>
                 <p>Upload and manage your movie data</p>
             </div>
+
+            {/* User Location & Device Analytics */}
+            <UserInfo />
 
             {/* DatabaseOverview component is not defined - commenting out for now */}
             <DatabaseOverview />
