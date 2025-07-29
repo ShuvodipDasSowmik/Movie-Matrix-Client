@@ -191,41 +191,46 @@ const MediaReview = ({ mediaid, onReviewSubmitted }) => {
 
   return (
     <div className="media-review-container">
-      <h3>Write a Review</h3>
-      {error && <div className="review-error">{error}</div>}
-      {success && <div className="review-success">{success}</div>}
-      <form onSubmit={handleSubmit} className="media-review-form">
-        <div className="form-group">
-          <label htmlFor="userrating">Rating (out of 10):</label>
-          <input
-            type="number"
-            id="userrating"
-            name="userrating"
-            min="0"
-            max="10"
-            step="0.1"
-            value={userrating}
-            onChange={handleRatingChange}
-            disabled={submitting}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="comment">Review:</label>
-          <textarea
-            id="comment"
-            name="comment"
-            rows="3"
-            value={comment}
-            onChange={e => setComment(e.target.value)}
-            disabled={submitting}
-            required
-          />
-        </div>
-        <button type="submit" disabled={submitting}>
-          {submitting ? 'Submitting...' : 'Submit Review'}
-        </button>
-      </form>
+      {/* Only show review form and submit button if user is logged in */}
+      {user && (
+        <>
+          <h3>Write a Review</h3>
+          {error && <div className="review-error">{error}</div>}
+          {success && <div className="review-success">{success}</div>}
+          <form onSubmit={handleSubmit} className="media-review-form">
+            <div className="form-group">
+              <label htmlFor="userrating">Rating (out of 10):</label>
+              <input
+                type="number"
+                id="userrating"
+                name="userrating"
+                min="0"
+                max="10"
+                step="0.1"
+                value={userrating}
+                onChange={handleRatingChange}
+                disabled={submitting}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="comment">Review:</label>
+              <textarea
+                id="comment"
+                name="comment"
+                rows="3"
+                value={comment}
+                onChange={e => setComment(e.target.value)}
+                disabled={submitting}
+                required
+              />
+            </div>
+            <button type="submit" disabled={submitting}>
+              {submitting ? 'Submitting...' : 'Submit Review'}
+            </button>
+          </form>
+        </>
+      )}
 
       {/* Confirmation Popup */}
       {confirmDelete.show && (
@@ -267,7 +272,8 @@ const MediaReview = ({ mediaid, onReviewSubmitted }) => {
                     <span className="review-date">
                       {r.reviewdate ? r.reviewdate.slice(0, 10) : ''}
                     </span>
-                    {isCurrentUser && editingReviewId !== reviewId && (
+                    {/* Only show edit/delete if user is logged in and owns the review */}
+                    {user && isCurrentUser && editingReviewId !== reviewId && (
                       <span className="review-actions">
                         <button
                           className="review-edit-btn"
@@ -284,7 +290,8 @@ const MediaReview = ({ mediaid, onReviewSubmitted }) => {
                       </span>
                     )}
                   </div>
-                  {isCurrentUser && editingReviewId === reviewId ? (
+                  {/* Only show edit form if user is logged in and owns the review */}
+                  {user && isCurrentUser && editingReviewId === reviewId ? (
                     <form
                       className="edit-review-form"
                       onSubmit={e => {

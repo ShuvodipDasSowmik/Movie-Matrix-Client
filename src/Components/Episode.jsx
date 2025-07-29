@@ -134,19 +134,22 @@ const Episode = ({ isExpanded, isLoadingEpisodes, seasonEpisodes, onReviewSubmit
                     </span>
                   )}
                 </div>
-                {!showReviewForm[episode.episodeid] ? (
-                  <button
-                    className="episode-add-review-btn"
-                    onClick={() => handleShowForm(episode.episodeid)}
-                  >
-                    Add Review
-                  </button>
-                ) : (
-                  <EpisodeReviewForm
-                    episodeId={episode.episodeid}
-                    onSubmit={handleReviewSubmit}
-                    onCancel={() => handleHideForm(episode.episodeid)}
-                  />
+                {/* Only show Add Review button and form if user is logged in */}
+                {currentUser && (
+                  !showReviewForm[episode.episodeid] ? (
+                    <button
+                      className="episode-add-review-btn"
+                      onClick={() => handleShowForm(episode.episodeid)}
+                    >
+                      Add Review
+                    </button>
+                  ) : (
+                    <EpisodeReviewForm
+                      episodeId={episode.episodeid}
+                      onSubmit={handleReviewSubmit}
+                      onCancel={() => handleHideForm(episode.episodeid)}
+                    />
+                  )
                 )}
                 <EpisodeReviews
                   episodeId={episode.episodeid}

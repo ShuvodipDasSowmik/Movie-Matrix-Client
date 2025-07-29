@@ -118,56 +118,61 @@ const EpisodeReviews = ({ episodeId, seasonid, refreshKey = 0, onReviewChange })
           review =>
             String(review.episodeid) === String(episodeId)
         )
-        .map((review, idx) => (
-          <div key={review.reviewid || idx} className="episode-review-item">
-            <div>
-              <strong>{review.username}</strong> &nbsp;
-              <span>
-                Rating: {review.userrating}
-                {renderStars(review.userrating)}
-              </span>
-              {review.reviewdate && (
-                <span style={{ marginLeft: 8, color: '#888', fontSize: '0.9em' }}>
-                  {new Date(review.reviewdate).toLocaleDateString()}
+        .map((review, idx) => {
+          const isCurrentUser = currentUser && review.username === currentUser.username;
+          return (
+            <div key={review.reviewid || idx} className="episode-review-item">
+              <div>
+                <strong>{review.username}</strong> &nbsp;
+                <span>
+                  Rating: {review.userrating}
+                  {renderStars(review.userrating)}
                 </span>
+                {review.reviewdate && (
+                  <span style={{ marginLeft: 8, color: '#888', fontSize: '0.9em' }}>
+                    {new Date(review.reviewdate).toLocaleDateString()}
+                  </span>
+                )}
+              </div>
+              {/* Only show edit form if user is logged in and owns the review */}
+              {isCurrentUser && editReviewId === review.reviewid ? (
+                <div className="episode-review-actions">
+                  <input
+                    type="text"
+                    value={editRating}
+                    onChange={e => setEditRating(e.target.value)}
+                    style={{ width: 40 }}
+                  />
+                  <input
+                    type="text"
+                    value={editComment}
+                    onChange={e => setEditComment(e.target.value)}
+                    style={{ width: 200 }}
+                  />
+                  <button onClick={() => handleUpdate(review.reviewid)} title="Save">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M5 10.5l4 4 6-7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
+                  <button onClick={() => setEditReviewId(null)} title="Cancel">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M6 6l8 8M6 14L14 6" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
+                  </button>
+                </div>
+              ) : (
+                <div>{review.comment}</div>
+              )}
+              {/* Only show edit/delete if user is logged in and owns the review */}
+              {isCurrentUser && editReviewId !== review.reviewid && (
+                <div className="episode-review-actions">
+                  <button onClick={() => handleEdit(review)} title="Edit">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M4 13.5V16h2.5l7.06-7.06-2.5-2.5L4 13.5z" stroke="#fff" strokeWidth="1.5" /><path d="M13.5 6.5l2 2" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  </button>
+                  <button onClick={() => handleDelete(review.reviewid)} title="Delete">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M6 7v7a2 2 0 002 2h4a2 2 0 002-2V7M9 10v4m2-4v4M4 7h12M8 7V5a2 2 0 012-2h0a2 2 0 012 2v2" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  </button>
+                </div>
               )}
             </div>
-            {editReviewId === review.reviewid ? (
-              <div className="episode-review-actions">
-                <input
-                  type="text"
-                  value={editRating}
-                  onChange={e => setEditRating(e.target.value)}
-                  style={{ width: 40 }}
-                />
-                <input
-                  type="text"
-                  value={editComment}
-                  onChange={e => setEditComment(e.target.value)}
-                  style={{ width: 200 }}
-                />
-                <button onClick={() => handleUpdate(review.reviewid)} title="Save">
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M5 10.5l4 4 6-7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </button>
-                <button onClick={() => setEditReviewId(null)} title="Cancel">
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M6 6l8 8M6 14L14 6" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
-                </button>
-              </div>
-            ) : (
-              <div>{review.comment}</div>
-            )}
-            {currentUser && review.username === currentUser.username && editReviewId !== review.reviewid && (
-              <div className="episode-review-actions">
-                <button onClick={() => handleEdit(review)} title="Edit">
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M4 13.5V16h2.5l7.06-7.06-2.5-2.5L4 13.5z" stroke="#fff" strokeWidth="1.5" /><path d="M13.5 6.5l2 2" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                </button>
-                <button onClick={() => handleDelete(review.reviewid)} title="Delete">
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M6 7v7a2 2 0 002 2h4a2 2 0 002-2V7M9 10v4m2-4v4M4 7h12M8 7V5a2 2 0 012-2h0a2 2 0 012 2v2" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                </button>
-              </div>
-            )}
-          </div>
-        ))}
+          );
+        })}
     </div>
   );
 };
