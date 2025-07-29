@@ -88,6 +88,7 @@
 .sub-stat {
     color: rgba(255, 255, 255, 0.7);
     font-size: 0.95rem;
+    padding: 0 0.5rem;
 }
 
 .dark-mode .sub-stat {

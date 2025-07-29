@@ -24,6 +24,7 @@ const EpisodeReviews = ({ episodeId, seasonid, refreshKey = 0, onReviewChange })
   const [editRating, setEditRating] = useState('');
   const [editComment, setEditComment] = useState('');
   const [error, setError] = useState('');
+  const [confirmDelete, setConfirmDelete] = useState({ show: false, reviewId: null });
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -41,8 +42,12 @@ const EpisodeReviews = ({ episodeId, seasonid, refreshKey = 0, onReviewChange })
     if (episodeId) fetchReviews();
   }, [episodeId, refreshKey]);
 
-  const handleDelete = async (reviewid) => {
-    if (!window.confirm('Delete this review?')) return;
+  const handleDelete = (reviewid) => {
+    setConfirmDelete({ show: true, reviewId: reviewid });
+  };
+
+  const confirmDeleteReview = async () => {
+    setConfirmDelete({ show: false, reviewId: null });
     try {
       await axios.delete(`${API_URL}/delete-episode-review`, {
         data: {
@@ -54,6 +59,10 @@ const EpisodeReviews = ({ episodeId, seasonid, refreshKey = 0, onReviewChange })
     } catch {
       setError('Failed to delete review');
     }
+  };
+
+  const cancelDeleteReview = () => {
+    setConfirmDelete({ show: false, reviewId: null });
   };
 
   const handleEdit = (review) => {
@@ -84,6 +93,25 @@ const EpisodeReviews = ({ episodeId, seasonid, refreshKey = 0, onReviewChange })
 
   return (
     <div className="episode-reviews">
+      {/* Confirmation Popup */}
+      {confirmDelete.show && (
+        <div className="review-confirm-popup-overlay">
+          <div className="review-confirm-popup">
+            <div className="review-confirm-title">Delete Review?</div>
+            <div className="review-confirm-message">
+              Are you sure you want to delete this review? This action cannot be undone.
+            </div>
+            <div className="review-confirm-actions">
+              <button className="review-confirm-btn" onClick={confirmDeleteReview}>
+                Yes, Delete
+              </button>
+              <button className="review-cancel-btn" onClick={cancelDeleteReview}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <h5>Reviews</h5>
       {reviews
         .filter(

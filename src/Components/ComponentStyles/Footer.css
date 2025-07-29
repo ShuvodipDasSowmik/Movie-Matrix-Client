@@ -14,6 +14,13 @@
   justify-content: space-between;
 }
 
+.footer-logo {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .footer-logo h3 {
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
@@ -23,6 +30,26 @@
 .footer-logo p {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
+}
+
+.footer-about-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.35rem 1rem;
+  background: rgba(82, 113, 255, 0.07);
+  color: #5271ff;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  border: 1px solid rgba(82, 113, 255, 0.15);
+}
+
+.footer-about-link:hover {
+  background: #5271ff;
+  color: #fff;
+  text-decoration: none;
 }
 
 .contributors-section {
@@ -112,6 +139,17 @@ body.dark-mode .footer {
 
 body.dark-mode .footer-logo h3 {
   color: #8670ff;
+}
+
+body.dark-mode .footer-about-link {
+  background: rgba(134, 112, 255, 0.07);
+  color: #8670ff;
+  border: 1px solid rgba(134, 112, 255, 0.15);
+}
+
+body.dark-mode .footer-about-link:hover {
+  background: #8670ff;
+  color: #fff;
 }
 
 body.dark-mode .contributor-card {

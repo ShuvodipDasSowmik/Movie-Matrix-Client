@@ -11,6 +11,7 @@ const UserPost = ({ username }) => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [showErrorPopup, setShowErrorPopup] = useState(false);
     const [showReactions, setShowReactions] = useState({});
     const [expandedComments, setExpandedComments] = useState({});
     const [newComment, setNewComment] = useState({});
@@ -22,6 +23,7 @@ const UserPost = ({ username }) => {
     const [deleteImage, setDeleteImage] = useState(false);
     const [editingComment, setEditingComment] = useState(null);
     const [editCommentContent, setEditCommentContent] = useState('');
+    const [confirmDelete, setConfirmDelete] = useState({ show: false, type: '', id: null });
 
     useEffect(() => {
         const fetchUserPosts = async () => {
@@ -118,7 +120,8 @@ const UserPost = ({ username }) => {
 
     const handleReaction = async (postId, reactionType) => {
         if (!authUser) {
-            alert('Please log in to react to posts');
+            setError('Please log in to react to posts');
+            setShowErrorPopup(true);
             return;
         }
         
@@ -180,7 +183,8 @@ const UserPost = ({ username }) => {
 
     const handleAddComment = async (postId) => {
         if (!authUser) {
-            alert('Please log in to comment');
+            setError('Please log in to comment');
+            setShowErrorPopup(true);
             return;
         }
         
@@ -330,9 +334,21 @@ const UserPost = ({ username }) => {
         }
     };
 
-    const handleDeletePost = async (postId) => {
-        if (window.confirm('Are you sure you want to delete this post?')) {
-            // Show deleting notification
+    // Show confirmation popup for post deletion
+    const handleDeletePost = (postId) => {
+        setConfirmDelete({ show: true, type: 'post', id: postId });
+    };
+
+    // Show confirmation popup for comment deletion
+    const handleDeleteComment = (commentId) => {
+        setConfirmDelete({ show: true, type: 'comment', id: commentId });
+    };
+
+    // Confirm delete action
+    const confirmDeleteAction = async () => {
+        if (confirmDelete.type === 'post') {
+            
+            const postId = confirmDelete.id;
             const deletingNotificationId = addNotification({
                 type: 'loading',
                 title: 'Deleting Post',
@@ -340,17 +356,10 @@ const UserPost = ({ username }) => {
             });
 
             try {
-                // Send delete request to server first
-                const response = await axios.delete(`${API_URL}/delete/${postId}`);
-
+                const response = await axios.delete(`${API_URL}/delete-post/${postId}`);
                 if (response.status === 200) {
-                    // Remove loading notification
                     removeNotification(deletingNotificationId);
-                    
-                    // Only update UI after successful server response
                     setPosts(prev => prev.filter(post => post.blogid !== postId));
-                    
-                    // Show success notification
                     addNotification({
                         type: 'success',
                         title: 'Post Deleted',
@@ -359,93 +368,24 @@ const UserPost = ({ username }) => {
                 }
             } catch (error) {
                 console.error('Error deleting post:', error);
-                // Remove loading notification
                 removeNotification(deletingNotificationId);
-                
                 addNotification({
                     type: 'error',
                     title: 'Error',
                     message: 'Failed to delete post. Please try again.'
                 });
             }
-        }
-    };
-
-    const handleEditComment = (comment) => {
-        setEditingComment(comment.blogcommentid);
-        setEditCommentContent(comment.content);
-    };
-
-    const handleUpdateComment = async (commentId) => {
-        // Show uploading notification
-        const uploadingNotificationId = addNotification({
-            type: 'loading',
-            title: 'Updating Comment',
-            message: 'Please wait...'
-        });
-
-        try {
-            const response = await axios.put(`${API_URL}/update-comment/${commentId}`, {
-                blogcommentid: commentId,
-                commenttext: editCommentContent
-            });
-
-            if (response.status === 200) {
-                // Remove loading notification
-                removeNotification(uploadingNotificationId);
-                
-                // Only update UI after successful server response
-                setPostComments(prev => {
-                    const updated = { ...prev };
-                    Object.keys(updated).forEach(postId => {
-                        updated[postId] = updated[postId].map(comment =>
-                            comment.blogcommentid === commentId
-                                ? { ...comment, content: editCommentContent }
-                                : comment
-                        );
-                    });
-                    return updated;
-                });
-                setEditingComment(null);
-                setEditCommentContent('');
-
-                // Show success notification
-                addNotification({
-                    type: 'success',
-                    title: 'Comment Updated',
-                    message: 'Your comment has been updated successfully!'
-                });
-            }
-        } catch (error) {
-            console.error('Error updating comment:', error);
-            // Remove loading notification
-            removeNotification(uploadingNotificationId);
-            
-            addNotification({
-                type: 'error',
-                title: 'Error',
-                message: 'Failed to update comment. Please try again.'
-            });
-        }
-    };
-
-    const handleDeleteComment = async (commentId) => {
-        if (window.confirm('Are you sure you want to delete this comment?')) {
-            // Show deleting notification
+        } else if (confirmDelete.type === 'comment') {
+            const commentId = confirmDelete.id;
             const deletingNotificationId = addNotification({
                 type: 'loading',
                 title: 'Deleting Comment',
                 message: 'Please wait...'
             });
-
             try {
                 const response = await axios.delete(`${API_URL}/delete-comment/${commentId}`);
-
                 if (response.status === 200) {
-                    // Remove loading notification
                     removeNotification(deletingNotificationId);
-                    
-                    // Only update UI after successful server response
                     setPostComments(prev => {
                         const updated = { ...prev };
                         Object.keys(updated).forEach(postId => {
@@ -455,8 +395,6 @@ const UserPost = ({ username }) => {
                         });
                         return updated;
                     });
-
-                    // Show success notification
                     addNotification({
                         type: 'success',
                         title: 'Comment Deleted',
@@ -465,9 +403,7 @@ const UserPost = ({ username }) => {
                 }
             } catch (error) {
                 console.error('Error deleting comment:', error);
-                // Remove loading notification
                 removeNotification(deletingNotificationId);
-                
                 addNotification({
                     type: 'error',
                     title: 'Error',
@@ -475,6 +411,12 @@ const UserPost = ({ username }) => {
                 });
             }
         }
+        setConfirmDelete({ show: false, type: '', id: null });
+    };
+
+    // Cancel delete action
+    const cancelDeleteAction = () => {
+        setConfirmDelete({ show: false, type: '', id: null });
     };
 
     const cancelEdit = () => {
@@ -792,6 +734,38 @@ const UserPost = ({ username }) => {
                                 )}
                         </div>
                     ))}
+                </div>
+            )}
+
+            {/* Error Popup */}
+            {showErrorPopup && error && (
+                <div className="popup-overlay" onClick={() => setShowErrorPopup(false)}>
+                    <div className="popup-message" onClick={e => e.stopPropagation()}>
+                        <span>{error}</span>
+                        <button className="popup-close-btn" onClick={() => setShowErrorPopup(false)}>×</button>
+                    </div>
+                </div>
+            )}
+
+            {/* Confirmation Popup */}
+            {confirmDelete.show && (
+                <div className="review-confirm-popup-overlay">
+                    <div className="review-confirm-popup">
+                        <div className="review-confirm-title">
+                            {confirmDelete.type === 'post' ? 'Delete Post?' : 'Delete Comment?'}
+                        </div>
+                        <div className="review-confirm-message">
+                            Are you sure you want to delete this {confirmDelete.type}? This action cannot be undone.
+                        </div>
+                        <div className="review-confirm-actions">
+                            <button className="review-confirm-btn" onClick={confirmDeleteAction}>
+                                Yes, Delete
+                            </button>
+                            <button className="review-cancel-btn" onClick={cancelDeleteAction}>
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

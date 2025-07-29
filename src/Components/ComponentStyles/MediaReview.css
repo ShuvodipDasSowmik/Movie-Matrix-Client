@@ -350,3 +350,107 @@
 .dark-mode .edit-review-form button:not(:disabled):hover {
   background: linear-gradient(135deg, #7560ee 0%, #8e67c3 100%);
 }
+
+.review-confirm-popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(30, 30, 50, 0.35);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-confirm-popup {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 2em 2.2em;
+  min-width: 320px;
+  max-width: 90vw;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+.dark-mode .review-confirm-popup {
+  background: #23233a;
+  color: #e0e0e0;
+  border: 1px solid #8670ff44;
+}
+
+.review-confirm-title {
+  font-size: 1.15em;
+  font-weight: 600;
+  margin-bottom: 0.7em;
+  color: #c00;
+}
+
+.dark-mode .review-confirm-title {
+  color: #ff6b6b;
+}
+
+.review-confirm-message {
+  font-size: 1em;
+  margin-bottom: 1.2em;
+  color: #333;
+}
+
+.dark-mode .review-confirm-message {
+  color: #bdbdbd;
+}
+
+.review-confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.review-confirm-btn {
+  background: #c00;
+  color: #fff;
+  border: none;
+  padding: 0.5em 1.3em;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.review-confirm-btn:hover {
+  background: #a00;
+}
+
+.review-cancel-btn {
+  background: #aaa;
+  color: #fff;
+  border: none;
+  padding: 0.5em 1.3em;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.review-cancel-btn:hover {
+  background: #888;
+}
+
+.dark-mode .review-confirm-btn {
+  background: #ff6b6b;
+  color: #fff;
+}
+
+.dark-mode .review-confirm-btn:hover {
+  background: #d94f4f;
+}
+
+.dark-mode .review-cancel-btn {
+  background: #444;
+  color: #fff;
+}
+
+.dark-mode .review-cancel-btn:hover {
+  background: #222;
+}

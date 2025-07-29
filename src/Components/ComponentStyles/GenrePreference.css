@@ -170,18 +170,62 @@
     background: #fff;
     color: #222;
     font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    appearance: none;
+    box-shadow: 0 2px 8px rgba(82, 113, 255, 0.04);
+    cursor: pointer;
 }
 
 .form-group select:focus {
     outline: none;
     border-color: var(--color-primary, #5271ff);
     background: #f7faff;
+    box-shadow: 0 0 0 2px rgba(82, 113, 255, 0.15);
+}
+
+.form-group select:hover {
+    border-color: var(--color-primary, #5271ff);
+    background: #f7faff;
+}
+
+.form-group select:disabled {
+    background: #e0e0e0;
+    color: #aaa;
+    cursor: not-allowed;
 }
 
 .dark-mode .form-group select {
     background: var(--color-background-light-dark-mode, #18192b);
     color: var(--color-text-light-dark-mode, #e0e0e0);
     border: 1px solid var(--color-primary-dark-mode, #8670ff);
+    box-shadow: 0 2px 8px rgba(134, 112, 255, 0.04);
+}
+
+.dark-mode .form-group select:focus {
+    border-color: var(--color-primary-dark-mode, #8670ff);
+    background: #23234a;
+    box-shadow: 0 0 0 2px rgba(134, 112, 255, 0.15);
+}
+
+.dark-mode .form-group select:hover {
+    border-color: var(--color-primary-dark-mode, #8670ff);
+    background: #23234a;
+}
+
+.dark-mode .form-group select:disabled {
+    background: #333;
+    color: #444;
+    cursor: not-allowed;
+}
+
+/* Optional: Custom dropdown arrow for better appearance */
+.form-group select {
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px 16px;
+}
+
+.dark-mode .form-group select {
 }
 
 .form-actions {

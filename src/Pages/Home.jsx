@@ -75,31 +75,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </section>
-
-        {/* Newsletter Section */}
-        <section className="home-section">
-          <div className="home-section-inner">
-            <div className="newsletter-container">
-              <div className="home-section-header">
-                <h2 className="home-section-title">Stay Updated</h2>
-                <p className="home-section-subtitle">
-                  Subscribe to our newsletter for the latest movie releases, reviews, and MovieMatrix updates.
-                </p>
-              </div>
-              
-              <form className="newsletter-form">
-                <input 
-                  type="email" 
-                  placeholder="Enter your email" 
-                  className="newsletter-input" 
-                  required 
-                />
-                <button type="submit" className="newsletter-button">Subscribe</button>
-              </form>
-            </div>
-          </div>
-        </section>
+        </section>      
       </div>
     </div>
   );

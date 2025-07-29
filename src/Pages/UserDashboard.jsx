@@ -20,6 +20,7 @@ const UserDashboard = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedFullName, setEditedFullName] = useState('');
     const [error, setError] = useState('');
+    const [showErrorPopup, setShowErrorPopup] = useState(false);
     const [showPostPopup, setShowPostPopup] = useState(false);
 
     useEffect(() => {
@@ -36,6 +37,7 @@ const UserDashboard = () => {
 
             setIsLoading(true);
             setError('');
+            setShowErrorPopup(false);
 
             try {
                 if (username !== authUser.username) {
@@ -59,13 +61,8 @@ const UserDashboard = () => {
                     return;
                 }
 
-                // Fallback: minimal user profile from auth context
-                setUser({
-                    username: authUser.username,
-                    fullname: authUser.fullname ?? authUser.username,
-                    email: authUser.email ?? '',
-                    dateofbirth: '',
-                });
+                setError('Failed to fetch user data');
+                setShowErrorPopup(true);
             } finally {
                 setIsLoading(false);
             }
@@ -103,10 +100,14 @@ const UserDashboard = () => {
                 const data = response.data;
                 setUser((prev) => ({ ...prev, fullname: data.user.fullname }));
                 setIsEditing(false);
+            } else {
+                setError('Failed to update full name');
+                setShowErrorPopup(true);
             }
         } catch (error) {
             console.error('Error updating full name:', error);
             setError('Failed to update full name');
+            setShowErrorPopup(true);
         }
     };
 
@@ -203,6 +204,16 @@ const UserDashboard = () => {
                     onClose={() => setShowPostPopup(false)}
                     userInfo={user}
                 />
+            )}
+
+            {/* Error Popup */}
+            {showErrorPopup && error && (
+                <div className="popup-overlay" onClick={() => setShowErrorPopup(false)}>
+                    <div className="popup-message" onClick={e => e.stopPropagation()}>
+                        <span>{error}</span>
+                        <button className="popup-close-btn" onClick={() => setShowErrorPopup(false)}>×</button>
+                    </div>
+                </div>
             )}
         </div>
     );

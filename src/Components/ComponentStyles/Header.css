@@ -132,6 +132,7 @@
   transform: translateX(0);
 }
 
+
 .dropdown-toggle {
   display: flex;
   align-items: center;
@@ -163,12 +164,69 @@
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
+/* Ensure dropdown-toggle (Browse) matches nav-link style exactly */
+.dropdown-toggle {
+  /* Remove previous overrides */
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Underline effect for dropdown-toggle, same as nav-link */
+.dropdown-toggle::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #5271ff, transparent);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+}
+
+.dropdown-toggle:hover,
+.dropdown-toggle:focus {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  background: none;
+  outline: none;
+}
+
+.dropdown-toggle:hover::before,
+.dropdown-toggle:focus::before {
+  transform: translateX(0);
+}
+
+/* Dark mode for dropdown-toggle */
+.dark-mode .dropdown-toggle {
+  color: #e0e0e0;
+  background: none;
+}
+
+.dark-mode .dropdown-toggle:hover,
+.dark-mode .dropdown-toggle:focus {
+  color: #fff;
+  background: none;
+  text-shadow: 0 0 8px #8670ff;
+}
+
 /* Fix dropdown positioning and display */
 .dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: rgba(20, 30, 48, 0.95);
+  background-color: #fff;
+  color: #222;
   border-radius: 8px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   min-width: 180px;
@@ -195,18 +253,81 @@
   }
 }
 
-.dropdown-menu li a {
-  color: var(--color-text-secondary);
+.dropdown-menu li a,
+.dropdown-link {
+  color: #222;
   padding: 8px 16px;
   text-decoration: none;
   display: block;
   font-size: 14px;
   transition: background-color 0.3s, color 0.3s;
+  border-radius: 4px;
 }
 
-.dropdown-menu li a:hover {
-  background-color: var(--color-input-bg);
-  color: var(--color-primary);
+.dropdown-menu li a:hover,
+.dropdown-link:hover {
+  background-color: #f0f4ff;
+  color: #5271ff;
+}
+
+/* Dark mode dropdown */
+.dark-mode .dropdown-menu {
+  background-color: #23233a;
+  color: #e0e0e0;
+  border: 1px solid #8670ff44;
+}
+
+.dark-mode .dropdown-menu li a,
+.dark-mode .dropdown-link {
+  color: #e0e0e0;
+}
+
+.dark-mode .dropdown-menu li a:hover,
+.dark-mode .dropdown-link:hover {
+  background-color: #2d2d4d;
+  color: #8670ff;
+}
+
+/* Mobile drawer dropdown menu */
+.drawer-dropdown-menu {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  margin: 0.5em 1em;
+  padding: 0.5em 0;
+  list-style: none;
+  border: 1px solid #e0e0e0;
+}
+
+.drawer-dropdown-menu li a {
+  color: #222;
+  padding: 10px 18px;
+  display: block;
+  text-decoration: none;
+  font-size: 15px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.drawer-dropdown-menu li a:hover {
+  background: #f0f4ff;
+  color: #5271ff;
+}
+
+/* Dark mode mobile drawer dropdown */
+.dark-mode .drawer-dropdown-menu {
+  background: #23233a;
+  color: #e0e0e0;
+  border: 1px solid #8670ff44;
+}
+
+.dark-mode .drawer-dropdown-menu li a {
+  color: #e0e0e0;
+}
+
+.dark-mode .drawer-dropdown-menu li a:hover {
+  background: #2d2d4d;
+  color: #8670ff;
 }
 
 /* Login button styling */
@@ -587,4 +708,110 @@
 
 .dark-mode .drawer-user-section {
   border-top: 1px solid rgba(128, 0, 255, 0.2);
+}
+
+.drawer-nav-link,
+.drawer-dropdown-toggle {
+  display: block;
+  padding: 16px 20px;
+  color: rgba(34, 34, 34, 0.95);
+  text-decoration: none;
+  font-weight: 500;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  border-radius: 0;
+}
+
+.drawer-nav-link:hover,
+.drawer-dropdown-toggle:hover {
+  background-color: #f0f4ff;
+  color: #5271ff;
+}
+
+.dark-mode .drawer-nav-link,
+.dark-mode .drawer-dropdown-toggle {
+  color: #e0e0e0;
+  background: none;
+}
+
+.dark-mode .drawer-nav-link:hover,
+.dark-mode .drawer-dropdown-toggle:hover {
+  background-color: #2d2d4d;
+  color: #8670ff;
+}
+
+.dark-mode .nav-link{
+  color:#8670ff;
+}
+
+.dark-mode .nav-link:hover {
+  color: #ff6b6b;
+}
+
+.dark-mode .nav-link:active{
+  color: #ff6b6b;
+}
+
+.drawer-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 16px 20px;
+  color: rgba(34, 34, 34, 0.95);
+  transition: background 0.2s, color 0.2s;
+}
+
+.drawer-dropdown-toggle svg {
+  margin-left: 8px;
+  font-size: 18px;
+}
+
+.drawer-dropdown-menu {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  margin: 0.5em 1em;
+  padding: 0.5em 0;
+  list-style: none;
+  border: 1px solid #e0e0e0;
+}
+
+.drawer-dropdown-menu li a {
+  color: #222;
+  padding: 10px 18px;
+  display: block;
+  text-decoration: none;
+  font-size: 15px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.drawer-dropdown-menu li a:hover {
+  background: #f0f4ff;
+  color: #5271ff;
+}
+
+.dark-mode .drawer-dropdown-menu {
+  background: #23233a;
+  color: #e0e0e0;
+  border: 1px solid #8670ff44;
+}
+
+.dark-mode .drawer-dropdown-menu li a {
+  color: #e0e0e0;
+}
+
+.dark-mode .drawer-dropdown-menu li a:hover {
+  background: #2d2d4d;
+  color: #8670ff;
 }

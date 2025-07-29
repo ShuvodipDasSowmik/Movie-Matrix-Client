@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import AddToWatchlist from '../Components/AddToWatchlist';
 import './PageStyles/ForYou.css';
+import { useAuth } from '../context/AuthContext';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -13,6 +14,7 @@ const ForYou = () => {
   const [sortBy, setSortBy] = useState('overallrating');
   const [sortOrder, setSortOrder] = useState('desc');
   const [username, setUsername] = useState(null);
+  const {user} = useAuth();
   
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -126,11 +128,6 @@ const ForYou = () => {
     setCurrentPage(1); // Reset to first page when changing items per page
   };
 
-  const handleRetry = () => {
-    if (username) {
-      fetchPersonalizedContent();
-    }
-  };
 
   // Pagination functions
   const getCurrentPageContent = () => {
@@ -238,9 +235,6 @@ const ForYou = () => {
       {error && (
         <div className="error-message">
           {error}
-          <button onClick={handleRetry} className="retry-btn">
-            Try Again
-          </button>
         </div>
       )}
       
@@ -312,12 +306,10 @@ const ForYou = () => {
               <h3>No recommendations found</h3>
               <p>It looks like we couldn't find any content matching your genre preferences.</p>
               <div className="no-content-actions">
-                <Link to="/profile" className="preferences-link">
+                <Link to={`/profile/${user.username}`} className="preferences-link">
                   Update Genre Preferences
                 </Link>
-                <button onClick={handleRetry} className="retry-btn">
-                  Refresh Recommendations
-                </button>
+                
               </div>
             </div>
           ) : (

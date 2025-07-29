@@ -9,31 +9,30 @@ import { useAuth } from '../context/AuthContext';
 
 const navigationItems = [
   {
-    label: 'Home',
-    navigationLink: '/'
-  },
-  {
     label: 'For You',
     navigationLink: '/for-you',
     requiresAuth: true,
     icon: <FaHeart size={16} style={{ marginRight: 6, verticalAlign: 'middle' }} />
   },
   {
-    label: 'Movies | Series',
-    navigationLink: '/tv-shows'
-  },
-  {
-    label: 'Actors',
-    navigationLink: '/actors',
+    label: 'Browse',
+    subItems: [
+      { label: 'Home', navigationLink: '/' },
+      { label: 'Genre', navigationLink: '/genre' },
+      { label: 'Actors', navigationLink: '/actors' },
+      { label: 'Movies | Series', navigationLink: '/tv-shows' }
+    ]
   },
   {
     label: 'Posts',
     navigationLink: '/posts'
-  }
+  },
 ];
+
 
 const Header = () => {
   const { user, isLoggedIn, logout } = useAuth();
+
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -71,7 +70,7 @@ const Header = () => {
       document.body.style.top = '';
       window.scrollTo(0, parseInt(scrollY || '0') * -1);
     }
-    
+
     // Cleanup function
     return () => {
       document.body.classList.remove('drawer-open');
@@ -124,7 +123,18 @@ const Header = () => {
 
   // Filter navigation items based on authentication
   const getVisibleNavigationItems = () => {
-    return navigationItems.filter(item => {
+    let items = [...navigationItems];
+
+    const role = localStorage.getItem('role');
+    if (role === 'ADMIN') {
+      items.push({
+        label: 'Admin',
+        navigationLink: '/admin',
+        requiresAuth: true
+      });
+    }
+
+    return items.filter(item => {
       if (item.requiresAuth) {
         return isLoggedIn;
       }
@@ -148,7 +158,7 @@ const Header = () => {
                   <button
                     className="nav-link dropdown-toggle"
                     onClick={(e) => {
-                      e.stopPropagation(); // Prevent event bubbling
+                      e.stopPropagation();
                       handleDropdownToggle(index);
                     }}
                   >
@@ -168,6 +178,7 @@ const Header = () => {
                         <a
                           href={subItem.navigationLink}
                           onClick={() => handleMenuItemClick(subItem.navigationLink)}
+                          className="dropdown-link"
                         >
                           {subItem.label}
                         </a>
@@ -231,16 +242,44 @@ const Header = () => {
               <div className="drawer-content">
                 <ul className="drawer-nav-list">
                   {getVisibleNavigationItems().map((item, index) => (
-                    <li key={index} className={`drawer-nav-item ${item.requiresAuth ? 'auth-required' : ''}`}>
-                      <a 
-                        href={item.navigationLink} 
-                        className="drawer-nav-link"
-                        onClick={() => setDrawerOpen(false)}
-                      >
-                        {item.icon && item.icon}
-                        {item.label}
-                      </a>
-                    </li>
+                    <React.Fragment key={index}>
+                      {item.subItems ? (
+                        <li className="drawer-nav-item">
+                          <button
+                            className="drawer-nav-link drawer-dropdown-toggle"
+                            onClick={() => handleMobileExpand(index)}
+                          >
+                            {item.label} <IoMdArrowDropdown />
+                          </button>
+                          {expandedItems[index] && (
+                            <ul className="drawer-dropdown-menu">
+                              {item.subItems.map((subItem, subIndex) => (
+                                <li key={subIndex}>
+                                  <a
+                                    href={subItem.navigationLink}
+                                    className="drawer-nav-link"
+                                    onClick={() => setDrawerOpen(false)}
+                                  >
+                                    {subItem.label}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </li>
+                      ) : (
+                        <li className={`drawer-nav-item ${item.requiresAuth ? 'auth-required' : ''}`}>
+                          <a
+                            href={item.navigationLink}
+                            className="drawer-nav-link"
+                            onClick={() => setDrawerOpen(false)}
+                          >
+                            {item.icon && item.icon}
+                            {item.label}
+                          </a>
+                        </li>
+                      )}
+                    </React.Fragment>
                   ))}
                   {isLoggedIn && (
                     <li className="drawer-nav-item">
@@ -257,7 +296,7 @@ const Header = () => {
                 </ul>
                 <div className="drawer-user-section">
                   {isLoggedIn ? (
-                    <>                    
+                    <>
                       <div className="drawer-user-info">
                         <FaUserCircle size={20} />
                         <span>Welcome, {user?.username}</span>
@@ -267,8 +306,8 @@ const Header = () => {
                       </button>
                     </>
                   ) : (
-                    <a 
-                      href="/signin" 
+                    <a
+                      href="/signin"
                       className="drawer-login-button"
                       onClick={() => setDrawerOpen(false)}
                     >
@@ -279,8 +318,8 @@ const Header = () => {
               </div>
             </div>
             {/* Backdrop */}
-            <div 
-              className={`mobile-drawer-backdrop ${drawerOpen ? 'show' : ''}`} 
+            <div
+              className={`mobile-drawer-backdrop ${drawerOpen ? 'show' : ''}`}
               onClick={toggleDrawer}
             />
           </>

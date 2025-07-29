@@ -565,9 +565,11 @@ body.dark-mode .spinner {
   line-height: 1.6;
 }
 
+
 .preferences-link {
+  content: none;
   background: linear-gradient(45deg, #5271ff, #ff6b6b);
-  color: #fff;
+  color: #fff !important;
   text-decoration: none;
   padding: 1rem 2rem;
   border-radius: 30px;
@@ -580,7 +582,13 @@ body.dark-mode .spinner {
 .preferences-link:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(82, 113, 255, 0.3);
+  content: none;
 }
+
+a::after{
+  content: none;
+}
+
 
 /* Dark mode styles */
 body.dark-mode .for-you-container {

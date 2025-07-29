@@ -22,6 +22,7 @@ const Footer = () => {
         <div className="footer-logo">
           <h3>MovieMatrix</h3>
           <p>Your ultimate movie companion</p>
+          <a href="/about" className="footer-about-link">About Us</a>
         </div>
         
         <div className="contributors-section">

@@ -23,6 +23,9 @@ const MediaReview = ({ mediaid, onReviewSubmitted }) => {
   const [editComment, setEditComment] = useState('');
   const [editSubmitting, setEditSubmitting] = useState(false);
 
+  // Confirmation popup state
+  const [confirmDelete, setConfirmDelete] = useState({ show: false, reviewId: null });
+
   // Fetch reviews
   const fetchReviews = async () => {
     setLoadingReviews(true);
@@ -108,9 +111,15 @@ const MediaReview = ({ mediaid, onReviewSubmitted }) => {
     }
   };
 
-  // Delete review
-  const handleDeleteReview = async (reviewId) => {
-    if (!window.confirm('Are you sure you want to delete this review?')) return;
+  // Delete review (show confirmation popup)
+  const handleDeleteReview = (reviewId) => {
+    setConfirmDelete({ show: true, reviewId });
+  };
+
+  // Confirm delete action
+  const confirmDeleteReview = async () => {
+    const reviewId = confirmDelete.reviewId;
+    setConfirmDelete({ show: false, reviewId: null });
     try {
       await axios.delete(`${API_URL}/delete-review/${reviewId}`, {
         data: { username: user.username , mediaid: mediaid }
@@ -128,6 +137,11 @@ const MediaReview = ({ mediaid, onReviewSubmitted }) => {
         message: 'Failed to delete review.'
       });
     }
+  };
+
+  // Cancel delete action
+  const cancelDeleteReview = () => {
+    setConfirmDelete({ show: false, reviewId: null });
   };
 
   // Start editing
@@ -212,6 +226,26 @@ const MediaReview = ({ mediaid, onReviewSubmitted }) => {
           {submitting ? 'Submitting...' : 'Submit Review'}
         </button>
       </form>
+
+      {/* Confirmation Popup */}
+      {confirmDelete.show && (
+        <div className="review-confirm-popup-overlay">
+          <div className="review-confirm-popup">
+            <div className="review-confirm-title">Delete Review?</div>
+            <div className="review-confirm-message">
+              Are you sure you want to delete this review? This action cannot be undone.
+            </div>
+            <div className="review-confirm-actions">
+              <button className="review-confirm-btn" onClick={confirmDeleteReview}>
+                Yes, Delete
+              </button>
+              <button className="review-cancel-btn" onClick={cancelDeleteReview}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Reviews Section */}
       <div className="all-reviews-section">
