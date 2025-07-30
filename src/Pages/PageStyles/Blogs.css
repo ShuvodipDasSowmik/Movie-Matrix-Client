@@ -845,3 +845,74 @@
     align-self: flex-start;
   }
 }
+
+/* Confirmation Popup Styles */
+.confirmation-popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirmation-popup {
+  background: #fff;
+  color: #222;
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  min-width: 300px;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.dark-mode .confirmation-popup {
+  background: #23243a;
+  color: #e0e0e0;
+}
+
+.confirmation-popup-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.confirm-btn, .cancel-btn {
+  padding: 0.7rem 2rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.confirm-btn {
+  background: #ff4d4d;
+  color: #fff;
+}
+
+.confirm-btn:hover {
+  background: #e03c3c;
+}
+
+.cancel-btn {
+  background: #e0e0e0;
+  color: #222;
+}
+
+.cancel-btn:hover {
+  background: #b0b0b0;
+}
+
+.dark-mode .cancel-btn {
+  background: #18192b;
+  color: #e0e0e0;
+}
+
+.dark-mode .cancel-btn:hover {
+  background: #23243a;
+}

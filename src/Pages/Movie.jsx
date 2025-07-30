@@ -186,9 +186,8 @@ const Movie = () => {
             <p className="movie-description">{movie.description}</p>
           </div>
 
-          {user && (
-            <MediaReview mediaid={mediaid} />
-          )}
+          {/* Show reviews to all users, but only logged-in users can add reviews */}
+          <MediaReview mediaid={mediaid} />
         </div>
         
         <div className="secondary-content">

@@ -1,16 +1,19 @@
 /* GenrePreference.css - Unified with Dashboard Theme & Color Palette */
 
 .genre-preference-section {
-    border-radius: 8px;
-    padding: 24px;
+    border-radius: 12px; /* More squared but still rounded */
+    padding: 20px;
     margin-bottom: 24px;
-    border: 1px solid rgba(82, 113, 255, 0.28);
+    border: 1.5px solid #5271ff;
+    background: transparent; /* transparent background */
+    box-shadow: none;
     color: #222;
 }
 
 .dark-mode .genre-preference-section {
-    border: 1px solid rgba(134, 112, 255, 0.30);
-    color: var(--color-text-light-dark-mode, #e0e0e0);
+    border: 1.5px solid #8670ff;
+    background: transparent; /* transparent background */
+    color: #e0e0e0;
 }
 
 .genre-preference-section::hover{
@@ -365,68 +368,47 @@
 }
 
 .preference-card {
-    /* background: #f7faff; */
-    border: 1px solid rgba(82, 113, 255, 0.10);
-    border-radius: 4px;
-    padding: 16px;
-    transition: all 0.2s;
+    border-radius: 12px;
+    padding: 14px;
+    background: transparent; /* transparent background */
+    box-shadow: none;
+    transition: border-color 0.2s, background 0.2s;
 }
 
 .preference-card:hover {
-    border-color: var(--color-primary, #5271ff);
-    background: #eaf0ff;
+    background: rgba(255,77,77,0.04); /* subtle red tint on hover */
 }
 
 .dark-mode .preference-card {
-    background: rgba(20, 20, 35, 0.5);
-    border: 1px solid var(--color-primary-dark-mode, #8670ff);
+    background: transparent;
 }
 
 .dark-mode .preference-card:hover {
-    border-color: var(--color-primary-dark-dark-mode, #7560ee);
-    background: rgba(134, 112, 255, 0.07);
+    background: rgba(255,107,107,0.07); /* subtle red tint on hover */
 }
 
-.preference-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0;
-}
-
-.preference-header h3 {
-    margin: 0;
-    color: var(--color-primary, #5271ff);
-    font-size: 14px;
-    font-weight: 500;
-    font-family: inherit;
-}
-
-.dark-mode .preference-header h3 {
-    color: var(--color-primary-dark-mode, #8670ff);
-}
-
+/* Square, bright, minimalistic delete button */
 .remove-preference-btn {
     background: transparent;
-    color: var(--color-error, #ff4d4d);
-    border: 1px solid var(--color-error, #ff4d4d);
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
+    color: #ff4d4d;
+    border: 1.5px solid #ff4d4d;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
-    line-height: 1;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    font-size: 18px;
     font-family: monospace;
+    box-shadow: none;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
 .remove-preference-btn:hover:not(:disabled) {
-    background: var(--color-error, #ff4d4d);
+    background: #ff4d4d;
     color: #fff;
-    border-color: var(--color-error, #ff4d4d);
+    border-color: #ff1a1a;
 }
 
 .remove-preference-btn:disabled {
@@ -437,20 +419,22 @@
 }
 
 .dark-mode .remove-preference-btn {
-    color: var(--color-error-dark-mode, #ff6b6b);
-    border-color: var(--color-error-dark-mode, #ff6b6b);
+    background: transparent;
+    color: #ff6b6b;
+    border: 1.5px solid #ff6b6b;
 }
 
 .dark-mode .remove-preference-btn:hover:not(:disabled) {
-    background: var(--color-error-dark-mode, #ff6b6b);
+    background: #ff6b6b;
     color: #fff;
-    border-color: var(--color-error-dark-mode, #ff6b6b);
+    border-color: #ff1a1a;
 }
 
 .dark-mode .remove-preference-btn:disabled {
     background: #333;
     color: #444;
     border-color: #333;
+    cursor: not-allowed;
 }
 
 /* Summary for collapsed state */
@@ -536,4 +520,25 @@
     .remove-preference-btn {
         align-self: flex-end;
     }
+}
+
+.preference-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    gap: 8px;
+}
+
+.preference-header h3 {
+    margin: 0;
+    color: var(--color-primary, #5271ff);
+    font-size: 13px; /* Reduced font size to match rest of UI */
+    font-weight: 500;
+    font-family: inherit;
+    line-height: 1.2;
+}
+
+.dark-mode .preference-header h3 {
+    color: var(--color-primary-dark-mode, #8670ff);
 }

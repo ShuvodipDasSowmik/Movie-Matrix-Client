@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./PageStyles/About.css";
 import sdp from "../assets/sdp.jpg";
+import mhn from "../assets/Mahin.jpg";
 
 const developers = [
   {
@@ -15,7 +16,7 @@ const developers = [
     role: "Student ID - 2205148",
     email: "mahinurrahman404@gmail.com",
     github: "https://github.com/mahinurrahman404",
-    image: "https://via.placeholder.com/120x120.png?text=Dev+2",
+    image: mhn,
   },
 ];
 
