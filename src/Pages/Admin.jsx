@@ -5,6 +5,7 @@ import "./PageStyles/Admin.css";
 import AdminUserEmailTable from "../Components/AdminUserEmailTable";
 import DatabaseOverview from "../Components/DatabaseOverview";
 import UserInfo from "../Components/UserInfo";
+import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -86,32 +87,26 @@ const Admin = () => {
         });
         
         try {
-            const response = await fetch(`${API_URL}/admin`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ 
-                    data: data,
-                    dataType: dataType 
-                }),
+            const response = await axios.post(`${API_URL}/admin`, {
+                data: data,
+                dataType: dataType
             });
 
             console.log(response);
             
             if(response.status === 207) {
-                const errorData = await response.json();
+                const errorData = response.data;
                 const success = errorData.success;
                 const failure = errorData.failure;
                 throw new Error(errorData.message || 'Failed to submit data');
             }
             else if( response.status === 500) {
-                const message = await response.json().message;
+                const message = response.data.message;
 
                 throw new Error('Internal server error. Please try again later.');
             }
             else if (response.status === 200) {
-                const result = await response.json();
+                const result = response.data;
                 const message = result.message || 'Data submitted successfully';
             }
             

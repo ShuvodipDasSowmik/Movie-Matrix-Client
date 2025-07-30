@@ -151,7 +151,13 @@ const Actor = () => {
                                         key={media.mediaid}
                                         className="movie-card"
                                         onClick={() => {
-                                            navigate(`/${media.mediatype}/${media.mediaid}`)
+                                            if(media.mediatype === 'movie') {
+                                                navigate(`/movie/${media.mediaid}`);
+                                            }
+                                            else if(media.mediatype === 'series') {
+                                                navigate(`/series1/${media.mediaid}`);
+                                            }
+                                            // navigate(`/${media.mediatype}/${media.mediaid}`)
                                         }}
                                     >   
                                         {media.poster ? (
